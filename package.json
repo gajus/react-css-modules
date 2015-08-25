@@ -21,5 +21,8 @@
   "peerDependencies": {
     "react": "^0.14.0-beta3",
     "react-dom": "^0.14.0-beta3"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1"
   }
 }

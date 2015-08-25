@@ -22,12 +22,82 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _lodashLangIsArray = require('lodash/lang/isArray');
+
+var _lodashLangIsArray2 = _interopRequireDefault(_lodashLangIsArray);
+
+var unfreeze = undefined;
+
+/**
+ * Naive implementation of a method to unfreeze an object.
+ *
+ * @param {Object} source Frozen object.
+ * @return {Object}
+ */
+unfreeze = function (source) {
+    var property = undefined,
+        target = undefined;
+
+    target = {};
+
+    for (property in source) {
+        target[property] = source[property];
+    }
+
+    return target;
+};
+
 /**
  * @param {ReactClass} Target
  * @return {ReactClass}
  */
 
-exports['default'] = function (Target) {
+exports['default'] = function (Target, styles) {
+    var linkClass = undefined;
+
+    /**
+     * @param {ReactElement} element
+     * @return {ReactElement}
+     */
+    linkClass = function (element) {
+        var isFrozen = undefined;
+
+        if (Object.isFrozen && Object.isFrozen(element)) {
+            isFrozen = true;
+
+            // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
+            element = unfreeze(element);
+            element.props = unfreeze(element.props);
+        }
+
+        if (element.props.className) {
+            element.props.className = element.props.className.split(' ').map(function (className) {
+                if (styles[className]) {
+                    return className + ' ' + styles[className];
+                } else {
+                    return className;
+                }
+            }).join(' ');
+        }
+
+        if ((0, _lodashLangIsArray2['default'])(element.props.children)) {
+            element.props.children = element.props.children.map(function (node) {
+                if (node instanceof element.constructor) {
+                    return changeClass(node);
+                } else {
+                    return node;
+                }
+            });
+        }
+
+        if (isFrozen) {
+            Object.freeze(element);
+            Object.freeze(element.props);
+        }
+
+        return element;
+    };
+
     return (function (_React$Component) {
         _inherits(CSSModules, _React$Component);
 
@@ -38,17 +108,18 @@ exports['default'] = function (Target) {
         }
 
         _createClass(CSSModules, [{
+            key: 'componentDidMount',
+            value: function componentDidMount() {
+                console.log('OK');
+            }
+        }, {
             key: 'render',
             value: function render() {
+                // <Target />
                 return _react2['default'].createElement(
                     'div',
-                    null,
-                    _react2['default'].createElement(
-                        'p',
-                        null,
-                        'test'
-                    ),
-                    _react2['default'].createElement(Target, this.props)
+                    { ref: 'test' },
+                    'test'
                 );
             }
         }]);
