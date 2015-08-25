@@ -76,6 +76,17 @@ export default (Target, styles) => {
 
     return class CSSModules extends React.Component {
         render () {
+            let test;
+
+            test = <div>
+                <div className='foo'>Foo</div>
+                <div className='bar'>Bar</div>
+            </div>;
+
+            // This works!
+            return test;
+
+            // Not sure how to make this work...
             // At this point I would need to use linkClass, but I cannot find a way to access
             // children of Target.
             return <Target ref='test' />;

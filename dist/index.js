@@ -111,6 +111,27 @@ exports['default'] = function (Target, styles) {
         _createClass(CSSModules, [{
             key: 'render',
             value: function render() {
+                var test = undefined;
+
+                test = _react2['default'].createElement(
+                    'div',
+                    null,
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'foo' },
+                        'Foo'
+                    ),
+                    _react2['default'].createElement(
+                        'div',
+                        { className: 'bar' },
+                        'Bar'
+                    )
+                );
+
+                // This works!
+                return test;
+
+                // Not sure how to make this work...
                 // At this point I would need to use linkClass, but I cannot find a way to access
                 // children of Target.
                 return _react2['default'].createElement(Target, { ref: 'test' });
