@@ -1,0 +1,21 @@
+{
+  "name": "react-css-modules",
+  "description": "",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gajus/react-css-modules"
+  },
+  "keywords": [
+    "react",
+    "css",
+    "modules"
+  ],
+  "version": "0.0.0",
+  "author": {
+    "name": "Gajus Kuizinas",
+    "email": "gk@anuary.com",
+    "url": "http://gajus.com"
+  },
+  "license": "BSD-3-Clause"
+}
