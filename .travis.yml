@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+    - 'iojs-v3.0.0'
+    - 'iojs-v2.5.0'
+install:
+    - npm install
+notifications:
+    email: false
