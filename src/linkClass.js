@@ -1,27 +1,8 @@
 import React from 'react';
 import isArray from 'lodash/lang/isArray';
+import _ from 'lodash';
 
-let linkClass,
-    unfreeze;
-
-/**
- * Make a shallow copy of the object.
- *
- * @param {Object} source Frozen object.
- * @return {Object}
- */
-unfreeze = (source) => {
-    let property,
-        target;
-
-    target = {};
-
-    for (property in source) {
-        target[property] = source[property];
-    }
-
-    return target;
-};
+let linkClass;
 
 /**
  * @param {ReactElement} element
@@ -29,18 +10,11 @@ unfreeze = (source) => {
  * @return {ReactElement}
  */
 linkClass = (element, styles) => {
-    let isFrozen;
-
-    if (Object.isFrozen && Object.isFrozen(element)) {
-        isFrozen = true;
-
-        // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
-        element = unfreeze(element);
-        element.props = unfreeze(element.props);
-    }
+    let newClassName,
+        newChildren;
 
     if (element.props.className) {
-        element.props.className = element.props.className.split(' ').map((className) => {
+        newClassName = element.props.className.split(' ').map((className) => {
             if (styles[className]) {
                 return `${className} ${styles[className]}`;
             } else {
@@ -50,21 +24,20 @@ linkClass = (element, styles) => {
     }
 
     if (isArray(element.props.children)) {
-        element.props.children = element.props.children.map((node) => {
+        newChildren = React.Children.map(element.props.children, (node) => {
             if (React.isValidElement(node)) {
                 return linkClass(node, styles);
             } else {
                 return node;
             }
         });
+    } else {
+        newChildren = element.props.children;
     }
 
-    if (isFrozen) {
-        Object.freeze(element);
-        Object.freeze(element.props);
-    }
-
-    return element;
+    return React.cloneElement(element, {
+        className: newClassName
+    }, newChildren);
 };
 
 export default linkClass;
