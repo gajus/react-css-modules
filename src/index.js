@@ -59,7 +59,7 @@ export default (Target, styles) => {
             element.props.children = element.props.children.map((node) => {
                 // React.isValidElement
                 if (node instanceof element.constructor) {
-                    return changeClass(node);
+                    return linkClass(node);
                 } else {
                     return node;
                 }
@@ -84,7 +84,7 @@ export default (Target, styles) => {
             </div>;
 
             // This works!
-            return test;
+            return linkClass(test);
 
             // Not sure how to make this work...
             // At this point I would need to use linkClass, but I cannot find a way to access
