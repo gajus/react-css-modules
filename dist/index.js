@@ -82,6 +82,7 @@ exports['default'] = function (Target, styles) {
 
         if ((0, _lodashLangIsArray2['default'])(element.props.children)) {
             element.props.children = element.props.children.map(function (node) {
+                // React.isValidElement
                 if (node instanceof element.constructor) {
                     return changeClass(node);
                 } else {
@@ -108,19 +109,11 @@ exports['default'] = function (Target, styles) {
         }
 
         _createClass(CSSModules, [{
-            key: 'componentDidMount',
-            value: function componentDidMount() {
-                console.log('OK');
-            }
-        }, {
             key: 'render',
             value: function render() {
-                // <Target />
-                return _react2['default'].createElement(
-                    'div',
-                    { ref: 'test' },
-                    'test'
-                );
+                // At this point I would need to use linkClass, but I cannot find a way to access
+                // children of Target.
+                return _react2['default'].createElement(Target, { ref: 'test' });
             }
         }]);
 

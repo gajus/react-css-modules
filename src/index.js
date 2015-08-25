@@ -57,6 +57,7 @@ export default (Target, styles) => {
 
         if (isArray(element.props.children)) {
             element.props.children = element.props.children.map((node) => {
+                // React.isValidElement
                 if (node instanceof element.constructor) {
                     return changeClass(node);
                 } else {
@@ -74,12 +75,10 @@ export default (Target, styles) => {
     };
 
     return class CSSModules extends React.Component {
-        componentDidMount () {
-            console.log('OK');
-        }
         render () {
-            // <Target />
-            return <div ref='test'>test</div>;
+            // At this point I would need to use linkClass, but I cannot find a way to access
+            // children of Target.
+            return <Target ref='test' />;
         }
     }
 };
