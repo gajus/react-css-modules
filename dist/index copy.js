@@ -14,17 +14,96 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _linkClass = require('./linkClass');
+var _react = require('react');
 
-var _linkClass2 = _interopRequireDefault(_linkClass);
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _lodashLangIsArray = require('lodash/lang/isArray');
+
+var _lodashLangIsArray2 = _interopRequireDefault(_lodashLangIsArray);
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var unfreeze = undefined;
+
+/**
+ * Make a shallow copy of the object.
+ *
+ * @param {Object} source Frozen object.
+ * @return {Object}
+ */
+unfreeze = function (source) {
+    var property = undefined,
+        target = undefined;
+
+    target = {};
+
+    for (property in source) {
+        target[property] = source[property];
+    }
+
+    return target;
+};
 
 /**
  * @param {ReactClass} Target
- * @param {Object} styles
  * @return {ReactClass}
  */
 
 exports['default'] = function (Target, styles) {
+    var linkClass = undefined;
+
+    console.log('styles', styles);
+
+    /**
+     * @param {ReactElement} element
+     * @return {ReactElement}
+     */
+    linkClass = function (element) {
+        var isFrozen = undefined;
+
+        if (Object.isFrozen && Object.isFrozen(element)) {
+            isFrozen = true;
+
+            // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
+            element = unfreeze(element);
+            element.props = unfreeze(element.props);
+        }
+
+        if (element.props.className) {
+            element.props.className = element.props.className.split(' ').map(function (className) {
+                if (styles[className]) {
+                    return className + ' ' + styles[className];
+                } else {
+                    return className;
+                }
+            }).join(' ');
+        }
+
+        if ((0, _lodashLangIsArray2['default'])(element.props.children)) {
+            element.props.children = element.props.children.map(function (node) {
+                if (_react2['default'].isValidElement(node)) {
+                    return linkClass(node);
+                } else {
+                    return node;
+                }
+            });
+        }
+
+        if (isFrozen) {
+            Object.freeze(element);
+            Object.freeze(element.props);
+        }
+
+        return element;
+    };
+
     return (function (_Target) {
         _inherits(_class, _Target);
 
@@ -37,7 +116,7 @@ exports['default'] = function (Target, styles) {
         _createClass(_class, [{
             key: 'render',
             value: function render() {
-                return (0, _linkClass2['default'])(_get(Object.getPrototypeOf(_class.prototype), 'render', this).call(this), styles);
+                return linkClass(_get(Object.getPrototypeOf(_class.prototype), 'render', this).call(this));
             }
         }]);
 
