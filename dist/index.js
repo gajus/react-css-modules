@@ -82,8 +82,7 @@ exports['default'] = function (Target, styles) {
 
         if ((0, _lodashLangIsArray2['default'])(element.props.children)) {
             element.props.children = element.props.children.map(function (node) {
-                // React.isValidElement
-                if (node instanceof element.constructor) {
+                if (_react2['default'].isValidElement(node)) {
                     return linkClass(node);
                 } else {
                     return node;
@@ -100,22 +99,22 @@ exports['default'] = function (Target, styles) {
     };
 
     return (function (_Target) {
-        _inherits(CSSModules, _Target);
+        _inherits(_class, _Target);
 
-        function CSSModules() {
-            _classCallCheck(this, CSSModules);
+        function _class() {
+            _classCallCheck(this, _class);
 
-            _get(Object.getPrototypeOf(CSSModules.prototype), 'constructor', this).apply(this, arguments);
+            _get(Object.getPrototypeOf(_class.prototype), 'constructor', this).apply(this, arguments);
         }
 
-        _createClass(CSSModules, [{
+        _createClass(_class, [{
             key: 'render',
             value: function render() {
-                return linkClass(_get(Object.getPrototypeOf(CSSModules.prototype), 'render', this).call(this));
+                return linkClass(_get(Object.getPrototypeOf(_class.prototype), 'render', this).call(this));
             }
         }]);
 
-        return CSSModules;
+        return _class;
     })(Target);
 };
 

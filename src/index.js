@@ -57,8 +57,7 @@ export default (Target, styles) => {
 
         if (isArray(element.props.children)) {
             element.props.children = element.props.children.map((node) => {
-                // React.isValidElement
-                if (node instanceof element.constructor) {
+                if (React.isValidElement(node)) {
                     return linkClass(node);
                 } else {
                     return node;
