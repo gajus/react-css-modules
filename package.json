@@ -1,6 +1,6 @@
 {
   "name": "react-css-modules",
-  "description": "",
+  "description": "Seamless CSS modules for React.",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
@@ -23,5 +23,17 @@
   },
   "dependencies": {
     "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "jsdom": "^6.2.0",
+    "mocha": "^2.2.5",
+    "react": "^0.14.0-beta3",
+    "react-addons-test-utils": "^0.14.0-beta3"
+  },
+  "scripts": {
+    "test": "mocha",
+    "build": "babel ./src/ --out-dir ./dist/",
+    "watch": "babel --watch ./src/ --out-dir ./dist/"
   }
 }

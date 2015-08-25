@@ -14,46 +14,27 @@ var _lodashLangIsArray = require('lodash/lang/isArray');
 
 var _lodashLangIsArray2 = _interopRequireDefault(_lodashLangIsArray);
 
-var linkClass = undefined,
-    unfreeze = undefined;
+var _lodashLangToarray = require('lodash/lang/toarray');
 
-/**
- * Make a shallow copy of the object.
- *
- * @param {Object} source Frozen object.
- * @return {Object}
- */
-unfreeze = function (source) {
-    var property = undefined,
-        target = undefined;
+var _lodashLangToarray2 = _interopRequireDefault(_lodashLangToarray);
 
-    target = {};
-
-    for (property in source) {
-        target[property] = source[property];
-    }
-
-    return target;
-};
+var linkClass = undefined;
 
 /**
  * @param {ReactElement} element
  * @param {Object} styles
  * @return {ReactElement}
  */
-linkClass = function (element, styles) {
-    var isFrozen = undefined;
+linkClass = function (element) {
+    var styles = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-    if (Object.isFrozen && Object.isFrozen(element)) {
-        isFrozen = true;
-
-        // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
-        element = unfreeze(element);
-        element.props = unfreeze(element.props);
-    }
+    var newProps = undefined,
+        newClassName = undefined,
+        newChildren = undefined,
+        childrenCount = undefined;
 
     if (element.props.className) {
-        element.props.className = element.props.className.split(' ').map(function (className) {
+        newClassName = element.props.className.split(' ').map(function (className) {
             if (styles[className]) {
                 return className + ' ' + styles[className];
             } else {
@@ -62,19 +43,36 @@ linkClass = function (element, styles) {
         }).join(' ');
     }
 
-    if ((0, _lodashLangIsArray2['default'])(element.props.children)) {
-        element.props.children = element.props.children.map(function (node) {
+    childrenCount = _react2['default'].Children.count(element.props.children);
+
+    if (childrenCount > 1) {
+        newChildren = [];
+
+        _react2['default'].Children.forEach(element.props.children, function (node) {
             if (_react2['default'].isValidElement(node)) {
-                return linkClass(node, styles);
+                newChildren.push(linkClass(node, styles));
             } else {
-                return node;
+                newChildren.push(node);
             }
         });
+
+        // Do not use React.Children.map.
+        // For whatever reason React render multiple children as an array, while
+        // React.Children.map generates an object.
+    } else if (childrenCount === 1) {
+            newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles);
+        } else {}
+
+    if (newClassName) {
+        newProps = {
+            className: newClassName
+        };
     }
 
-    if (isFrozen) {
-        Object.freeze(element);
-        Object.freeze(element.props);
+    if (newChildren) {
+        element = _react2['default'].cloneElement(element, newProps, newChildren);
+    } else {
+        element = _react2['default'].cloneElement(element, newProps);
     }
 
     return element;

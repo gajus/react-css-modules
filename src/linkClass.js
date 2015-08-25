@@ -1,6 +1,6 @@
 import React from 'react';
 import isArray from 'lodash/lang/isArray';
-import _ from 'lodash';
+import toArray from 'lodash/lang/toarray';
 
 let linkClass;
 
@@ -9,9 +9,11 @@ let linkClass;
  * @param {Object} styles
  * @return {ReactElement}
  */
-linkClass = (element, styles) => {
-    let newClassName,
-        newChildren;
+linkClass = (element, styles = {}) => {
+    let newProps,
+        newClassName,
+        newChildren,
+        childrenCount;
 
     if (element.props.className) {
         newClassName = element.props.className.split(' ').map((className) => {
@@ -23,21 +25,42 @@ linkClass = (element, styles) => {
         }).join(' ');
     }
 
-    if (isArray(element.props.children)) {
-        newChildren = React.Children.map(element.props.children, (node) => {
+    childrenCount = React.Children.count(element.props.children);
+
+    if (childrenCount > 1) {
+        newChildren = [];
+
+        React.Children.forEach(element.props.children, (node) => {
             if (React.isValidElement(node)) {
-                return linkClass(node, styles);
+                newChildren.push(linkClass(node, styles));
             } else {
-                return node;
+                newChildren.push(node);
             }
         });
+
+        // Do not use React.Children.map.
+        // For whatever reason React render multiple children as an array, while
+        // React.Children.map generates an object.
+
+    } else if (childrenCount === 1) {
+        newChildren = linkClass(React.Children.only(element.props.children), styles);
     } else {
-        newChildren = element.props.children;
+
     }
 
-    return React.cloneElement(element, {
-        className: newClassName
-    }, newChildren);
+    if (newClassName) {
+        newProps = {
+            className: newClassName
+        };
+    }
+
+    if (newChildren) {
+        element = React.cloneElement(element, newProps, newChildren);
+    } else {
+        element = React.cloneElement(element, newProps);
+    }
+
+    return element;
 };
 
 export default linkClass;
