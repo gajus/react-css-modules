@@ -28,4 +28,48 @@ export default CSSModules(Car, styles);
 
 Thats it!
 
-CSSModules extends `Car` `render` method. It will look for CSS classes in `./car.css` that match `ReactElement` `className` and will append the matching unique class names to `className` declaration.
+`CSSModules` extends `Car` `render` method. It will look for CSS classes in `./car.css` that match `ReactElement` `className` and will append the matching unique class names to `className` declaration.
+
+Refer to the [react-css-modules-examples](https://github.com/gajus/react-css-modules-examples) repository for a complete usage example.
+
+## Multiple CSS Classes
+
+CSS modules promote composition pattern, i.e. every CSS class should define all properties required to describe the element, e.g.
+
+```css
+.button {
+
+}
+
+.active {
+    composes: common;
+
+    /* anything that only applies to active state of the button */
+}
+
+.disabled {
+    composes: common;
+
+    /* anything that only applies to disabled state of the button */
+}
+```
+
+To learn more about composing CSS rules, I suggest reading Glen Maddern article about [CSS Modules](http://glenmaddern.com/articles/css-modules) and the official [CSS modules spec](https://github.com/css-modules/css-modules).
+
+However, using React CSS Modules, you can map as many CSS classes to the element as you want. `CSSModules` will append the unique class name for every class name it matches in the `className` declaration, e.g.
+
+```css
+.button {
+
+}
+
+.active {
+
+}
+```
+
+```js
+<div className='button active'></div>
+```
+
+This will work as you'd expect.
