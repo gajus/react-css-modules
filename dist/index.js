@@ -48,6 +48,10 @@ exports['default'] = function (Component, styles) {
                     options.includeOriginal = true;
                 }
 
+                if (options.errorNotFound !== true) {
+                    options.errorNotFound = false;
+                }
+
                 return (0, _linkClass2['default'])(_get(Object.getPrototypeOf(_class.prototype), 'render', this).call(this), styles, options);
             }
         }]);

@@ -17,6 +17,10 @@ export default (Component, styles, options = {}) => {
                 options.includeOriginal = true;
             }
 
+            if (options.errorNotFound !== true) {
+                options.errorNotFound = false;
+            }
+
             return linkClass(super.render(), styles, options);
         }
     }

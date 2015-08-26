@@ -135,4 +135,22 @@ describe('linkClass', () => {
             });
         });
     });
+
+    describe('when options.includeOriginal is false', () => {
+        it('does not include the original class name', () => {
+            let subject;
+
+            subject = linkClass(<div className='foo bar'></div>, {foo: 'foo-1'}, {includeOriginal: false});
+
+            expect(subject.props.className).to.equal('foo-1');
+        });
+    });
+
+    describe('when options.errorNotFound is true', () => {
+        it('throws an error when className defines a CSS class that does not exist in CSS modules styles', () => {
+            expect(() => {
+                linkClass(<div className='foo'></div>, {}, {errorNotFound: true})
+            }).to.throw(Error, '"foo" CSS class name is not found in CSS modules styles.');
+        });
+    });
 });

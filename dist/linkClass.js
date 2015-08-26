@@ -35,12 +35,30 @@ linkClass = function (element) {
         }
 
         newClassName = newClassName.map(function (className) {
-            if (styles[className]) {
-                return className + ' ' + styles[className];
-            } else {
-                return className;
+            if (!styles[className] && options.errorNotFound === true) {
+                throw new Error('"' + className + '" CSS class name is not found in CSS modules styles.');
             }
-        }).join(' ');
+
+            if (options.includeOriginal === false) {
+                if (styles[className]) {
+                    return styles[className];
+                } else {
+                    return '';
+                }
+            } else {
+                if (styles[className]) {
+                    return className + ' ' + styles[className];
+                } else {
+                    return className;
+                }
+            }
+        });
+
+        newClassName = newClassName.filter(function (className) {
+            return className.length;
+        });
+
+        newClassName = newClassName.join(' ');
     }
 
     // A child can be either an array, a sole object or a string.
