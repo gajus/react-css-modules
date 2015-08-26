@@ -76,7 +76,7 @@ This will work as you'd expect.
 
 ## Options
 
-|Name|Description|Default|
+|Name|Type|Description|Default|
 |---|---|---|
-|`limit` `Number|Boolean`|Limits how many class names can a `className` have. Throws an error if more than `limit` number of class names are declared.|`false`|
-|`includeOriginal` `Boolean`|Determines wether the original `className` value should be kept in addition to the appended generated value.|`true`|
+|`allowMultiple`|`Boolean`|Determines weather `className` can have multiple class names.|`true`|
+|`includeOriginal`|`Boolean`|Determines weather the original `className` value should be kept in addition to the appended generated value.|`true`|
