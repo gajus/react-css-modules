@@ -125,4 +125,14 @@ describe('linkClass', () => {
             expect(nodeList.firstChild.className).to.equal('foo');
         });
     });
+
+    describe('when options.allowMultiple is false', () => {
+        describe('when it finds multiple CSS class names in a className', () => {
+            it('throws an error', () => {
+                expect(() => {
+                    linkClass(<div className='foo bar'></div>, {}, {allowMultiple: false});
+                }).to.throw(Error);
+            });
+        });
+    });
 });

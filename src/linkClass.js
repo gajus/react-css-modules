@@ -4,10 +4,11 @@ let linkClass;
 
 /**
  * @param {ReactElement} element
- * @param {Object} styles
+ * @param {Object} styles CSS modules class map.
+ * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
  * @return {ReactElement}
  */
-linkClass = (element, styles = {}) => {
+linkClass = (element, styles = {}, options = {}) => {
     let newProps,
         newClassName,
         newChildren,
