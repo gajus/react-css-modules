@@ -73,3 +73,10 @@ However, using React CSS Modules, you can map as many CSS classes to the element
 ```
 
 This will work as you'd expect.
+
+## Options
+
+|Name|Description|Default|
+|---|---|---|
+|`limit` `Number|Boolean`|Limits how many class names can a `className` have. Throws an error if more than `limit` number of class names are declared.|`false`|
+|`includeOriginal` `Boolean`|Determines wether the original `className` value should be kept in addition to the appended generated value.|`true`|
