@@ -14,11 +14,13 @@ var linkClass = undefined;
 
 /**
  * @param {ReactElement} element
- * @param {Object} styles
+ * @param {Object} styles CSS modules class map.
+ * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
  * @return {ReactElement}
  */
 linkClass = function (element) {
     var styles = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
     var newProps = undefined,
         newClassName = undefined,
@@ -26,7 +28,13 @@ linkClass = function (element) {
         childrenCount = undefined;
 
     if (element.props.className) {
-        newClassName = element.props.className.split(' ').map(function (className) {
+        newClassName = element.props.className.split(' ');
+
+        if (options.allowMultiple === false && newClassName.length > 1) {
+            throw new Error('ReactElement defines multiple class names ("' + element.props.className + '") in className declaration.');
+        }
+
+        newClassName = newClassName.map(function (className) {
             if (styles[className]) {
                 return className + ' ' + styles[className];
             } else {

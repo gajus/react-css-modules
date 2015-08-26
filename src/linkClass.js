@@ -15,7 +15,13 @@ linkClass = (element, styles = {}, options = {}) => {
         childrenCount;
 
     if (element.props.className) {
-        newClassName = element.props.className.split(' ').map((className) => {
+        newClassName = element.props.className.split(' ');
+
+        if (options.allowMultiple === false && newClassName.length > 1) {
+            throw new Error(`ReactElement defines multiple class names ("${element.props.className}") in className declaration.`);
+        }
+
+        newClassName = newClassName.map((className) => {
             if (styles[className]) {
                 return `${className} ${styles[className]}`;
             } else {

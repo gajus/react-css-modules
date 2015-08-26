@@ -5,6 +5,15 @@
 
 ## Usage
 
+```js
+/**
+ * @param {ReactClass} Component
+ * @param {Object} styles CSS modules class map.
+ * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
+ * @return {ReactClass}
+ */
+```
+
 First you need to setup [webpack](http://webpack.github.io/docs/) to load your css files using "css" loader and enable CSS modules. You will also need to use `extract-text-webpack-plugin` to aggregate the CSS into a single file. Refer to [webpack-demo](https://github.com/css-modules/webpack-demo).
 
 Then you need use the higher order component declaration pattern to "decorate" your component, e.g.

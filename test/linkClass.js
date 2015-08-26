@@ -131,7 +131,7 @@ describe('linkClass', () => {
             it('throws an error', () => {
                 expect(() => {
                     linkClass(<div className='foo bar'></div>, {}, {allowMultiple: false});
-                }).to.throw(Error);
+                }).to.throw(Error, 'ReactElement defines multiple class names ("foo bar") in className declaration.');
             });
         });
     });
