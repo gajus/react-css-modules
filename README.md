@@ -75,7 +75,7 @@ export default CSSModules(Car, styles);
 
 Refer to the [react-css-modules-examples](https://github.com/gajus/react-css-modules-examples) repository for a complete usage example.
 
-Awesome!
+[Awesome!](https://twitter.com/intent/retweet?tweet_id=636497036603428864)
 
 ## Usage
 
