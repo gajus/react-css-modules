@@ -98,6 +98,17 @@ export default CSSModules(Car, styles);
 
 Thats it!
 
+## SASS, SCSS, LASS and other CSS Preprocessors
+
+[ICSS](https://github.com/css-modules/icss) works with CSS Preprocessors. All you need is to add the preprocessor the chain of loaders, e.g. in the case of webpack it is as simple as install `sass-loader` and adding `!sass` to the end of the `style-loader` loader chain declaration (loaders are processed from right to left):
+
+```js
+{
+    test: /\.scss$/,
+    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
+}
+```
+
 ## Multiple CSS Classes
 
 CSS modules promote composition pattern, i.e. every CSS class thats is used in a component should define all properties required to describe the element, e.g.
@@ -140,4 +151,4 @@ Using React CSS Modules, you can map as many CSS classes to the element as you w
 
 This will map both [ICSS](https://github.com/css-modules/icss) classes to the target element.
 
-However, I encourage you to use composing whenever possible. You can enforce one CSS class name per `className` using [`allowMultiple` option](#usage).
+However, I encourage you to use composition whenever possible. Composition promotes better separation of markup from style sheets using semantics that would be hard to achieve without CSS modules. You can enforce one CSS class name per `className` using [`allowMultiple` option](#usage).
