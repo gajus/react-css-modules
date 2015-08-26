@@ -54,7 +54,7 @@ Awesome!
 
 However, this approach has several disadvantages:
 
-* You have to use `camelCasel` CSS class names.
+* You have to use `camelCase` CSS class names.
 * You have to use `styles` object whenever constructing a `className`.
 
 React CSS Modules enables seamless CSS modules for React, e.g.
@@ -205,7 +205,7 @@ When `true`, the following `ReactElement`:
 <div className='foo bar' />
 ```
 
-will be rendered with a `className` property "foo component__foo___2w27N bar component__bar__1oVw5".
+will be rendered with a `className` property `foo component__foo___2w27N bar component__bar__1oVw5`.
 
 #### `errorNotFound`
 
