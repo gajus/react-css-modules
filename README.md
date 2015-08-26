@@ -5,6 +5,15 @@
 
 Seamless mapping of class names to CSS modules inside of React components.
 
+- [What's the Problem?](#whats-the-problem)
+- [Usage](#usage)
+    - [Options](#options)
+        - [`allowMultiple`](#allowmultiple)
+        - [`keepOriginal`](#keeporiginal)
+        - [`errorNotFound`](#errornotfound)
+- [SASS, SCSS, LESS and other CSS Preprocessors](#sass-scss-less-and-other-css-preprocessors)
+- [Multiple CSS Classes](#multiple-css-classes)
+
 ## What's the Problem?
 
 [CSS modules](https://github.com/css-modules/css-modules) are awesome. If you are not familiar with CSS modules, it is a concept of using a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. CSS modules loader will generate a unique name for a each CSS class at the time of loading the CSS. Refer to [webpack-demo](https://css-modules.github.io/webpack-demo/) for a full example.
@@ -110,6 +119,38 @@ export default CSSModules(Car, styles);
 Thats it!
 
 ### Options
+
+Options are supplied as the third parameter to the `CSSModules` function.
+
+```js
+CSSModules(Component, styles, options);
+```
+
+#### `allowMultiple`
+
+Allows multiple CSS class names. Default: `true`.
+
+When `false`, the following will cause an error:
+
+```js
+<div className='foo bar' />
+```
+
+#### `keepOriginal`
+
+Keeps original CSS class name in addition to names of the CSS Modules. Default: `true`.
+
+When `true`, the following `ReactElement`:
+
+```js
+<div className='foo bar' />
+```
+
+will be rendered with a `className` property "foo foo-unique-css-module reference bar bar-unique-css-module-reference".
+
+#### `errorNotFound`
+
+Throws an error when class name cannot be mapped to a CSS Module. Default: `false`.
 
 ## SASS, SCSS, LESS and other CSS Preprocessors
 
