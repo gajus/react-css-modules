@@ -100,7 +100,7 @@ Thats it!
 
 ## Multiple CSS Classes
 
-CSS modules promote composition pattern, i.e. every CSS class should define all properties required to describe the element, e.g.
+CSS modules promote composition pattern, i.e. every CSS class thats is used in a component should define all properties required to describe the element, e.g.
 
 ```css
 .button {
@@ -122,7 +122,7 @@ CSS modules promote composition pattern, i.e. every CSS class should define all 
 
 To learn more about composing CSS rules, I suggest reading Glen Maddern article about [CSS Modules](http://glenmaddern.com/articles/css-modules) and the official [CSS modules spec](https://github.com/css-modules/css-modules).
 
-However, using React CSS Modules, you can map as many CSS classes to the element as you want. `CSSModules` will append the unique class name for every class name it matches in the `className` declaration, e.g.
+Using React CSS Modules, you can map as many CSS classes to the element as you want. `CSSModules` will append the unique class name for every class name it matches in the `className` declaration, e.g.
 
 ```css
 .button {
@@ -138,4 +138,6 @@ However, using React CSS Modules, you can map as many CSS classes to the element
 <div className='button active'></div>
 ```
 
-This will work as you'd expect.
+This will map both [ICSS](https://github.com/css-modules/icss) classes to the target element.
+
+However, I encourage you to use composing whenever possible. You can enforce one CSS class name per `className` using [`allowMultiple` option](#usage).
