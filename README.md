@@ -7,6 +7,8 @@ Seamless mapping of class names to CSS modules inside of React components.
 
 - [What's the Problem?](#whats-the-problem)
 - [Usage](#usage)
+    - [webpack](#webpack)
+    - [Browserify](#browserify)
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
         - [`keepOriginal`](#keeporiginal)
@@ -80,6 +82,37 @@ Refer to the [react-css-modules-examples](https://github.com/gajus/react-css-mod
 
 ## Usage
 
+Setup a module bundler to load your [ICSS](https://github.com/css-modules/icss).
+
+### webpack
+
+* Install [`style-loader`](https://www.npmjs.com/package/style-loader) and [`css-loader`](https://www.npmjs.com/package/css-loader).
+* You will also need to use [`extract-text-webpack-plugin`](https://www.npmjs.com/package/extract-text-webpack-plugin) to aggregate the CSS into a single file.
+* Setup a `/\.css$/` loader:
+
+```js
+{
+    test: /\.css$/,
+    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+}
+```
+
+* Setup `extract-text-webpack-plugin` plugin:
+
+```js
+new ExtractTextPlugin('app.css', {
+    allChunks: true
+})
+```
+
+Refer to [webpack-demo](https://github.com/css-modules/webpack-demo) or [react-css-modules-examples](https://github.com/gajus/react-css-modules-examples) for a complete setup.
+
+### Browserify
+
+Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
+
+### `CSSModules`
+
 ```js
 /**
  * @typedef CSSModules~Options
@@ -95,8 +128,6 @@ Refer to the [react-css-modules-examples](https://github.com/gajus/react-css-mod
  * @return {ReactClass}
  */
 ```
-
-First you need to setup [webpack](http://webpack.github.io/docs/) to load your css files using "css" loader and enable CSS modules. You will also need to use `extract-text-webpack-plugin` to aggregate the CSS into a single file. Refer to [webpack-demo](https://github.com/css-modules/webpack-demo).
 
 Then you need to decorate your component using `CSSModules`, e.g.
 
