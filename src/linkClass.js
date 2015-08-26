@@ -9,11 +9,12 @@ let linkClass;
  * @return {ReactElement}
  */
 linkClass = (element, styles = {}, options = {}) => {
-    let newProps,
-        newClassName,
+    let childrenCount,
+        clonedElement,
+        moduleName,
         newChildren,
-        childrenCount,
-        moduleName;
+        newClassName,
+        newProps;
 
     if (options.useModuleName) {
         moduleName = element.props.moduleName;
@@ -50,7 +51,7 @@ linkClass = (element, styles = {}, options = {}) => {
             }
         });
 
-        newClassName = newClassName.filter(function (className) {
+        newClassName = newClassName.filter((className) => {
             return className.length;
         });
 
@@ -83,12 +84,12 @@ linkClass = (element, styles = {}, options = {}) => {
     }
 
     if (newChildren) {
-        element = React.cloneElement(element, newProps, newChildren);
+        clonedElement = React.cloneElement(element, newProps, newChildren);
     } else {
-        element = React.cloneElement(element, newProps);
+        clonedElement = React.cloneElement(element, newProps);
     }
 
-    return element;
+    return clonedElement;
 };
 
 export default linkClass;

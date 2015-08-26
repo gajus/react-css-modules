@@ -16,6 +16,7 @@ var _utils2 = _interopRequireDefault(_utils);
  * @property {Boolean} keepOriginal
  * @property {Boolean} errorNotFound
  * @property {Boolean} useModuleNam
+ * @return {Object}
  */
 
 exports['default'] = function () {

@@ -22,8 +22,8 @@ var _makeConfig = require('./makeConfig');
 
 var _makeConfig2 = _interopRequireDefault(_makeConfig);
 
-var functionConstructor = undefined,
-    decoratorConstructor = undefined;
+var decoratorConstructor = undefined,
+    functionConstructor = undefined;
 
 /**
  * When used as a function.

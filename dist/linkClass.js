@@ -22,11 +22,12 @@ linkClass = function (element) {
     var styles = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
     var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
-    var newProps = undefined,
-        newClassName = undefined,
+    var childrenCount = undefined,
+        clonedElement = undefined,
+        moduleName = undefined,
         newChildren = undefined,
-        childrenCount = undefined,
-        moduleName = undefined;
+        newClassName = undefined,
+        newProps = undefined;
 
     if (options.useModuleName) {
         moduleName = element.props.moduleName;
@@ -95,12 +96,12 @@ linkClass = function (element) {
     }
 
     if (newChildren) {
-        element = _react2['default'].cloneElement(element, newProps, newChildren);
+        clonedElement = _react2['default'].cloneElement(element, newProps, newChildren);
     } else {
-        element = _react2['default'].cloneElement(element, newProps);
+        clonedElement = _react2['default'].cloneElement(element, newProps);
     }
 
-    return element;
+    return clonedElement;
 };
 
 exports['default'] = linkClass;

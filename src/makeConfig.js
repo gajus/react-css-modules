@@ -6,6 +6,7 @@ import _ from './utils';
  * @property {Boolean} keepOriginal
  * @property {Boolean} errorNotFound
  * @property {Boolean} useModuleNam
+ * @return {Object}
  */
 export default (userConfig = {}) => {
     let knownProperties,

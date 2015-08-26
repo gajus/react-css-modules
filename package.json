@@ -27,14 +27,17 @@
   },
   "devDependencies": {
     "babel": "^5.8.21",
+    "babel-eslint": "^4.1.0",
     "chai": "^3.2.0",
+    "eslint": "^1.2.1",
+    "eslint-plugin-react": "^3.3.0",
     "jsdom": "^6.2.0",
     "mocha": "^2.2.5",
     "react": "^0.14.0-beta3",
     "react-addons-test-utils": "^0.14.0-beta3"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "./node_modules/.bin/eslint ./src/ ./test/ && mocha",
     "build": "babel ./src/ --out-dir ./dist/",
     "watch": "babel --watch ./src/ --out-dir ./dist/"
   }

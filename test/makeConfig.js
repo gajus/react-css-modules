@@ -7,6 +7,7 @@ import makeConfig from './../dist/makeConfig';
 describe('makeConfig', () => {
     describe('when using default config', () => {
         let options;
+
         beforeEach(() => {
             options = makeConfig();
         });

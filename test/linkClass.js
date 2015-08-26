@@ -169,7 +169,7 @@ describe('linkClass', () => {
     describe('when options.errorNotFound is true', () => {
         it('throws an error when className defines a CSS class that does not exist in CSS modules styles', () => {
             expect(() => {
-                linkClass(<div className='foo'></div>, {}, {errorNotFound: true})
+                linkClass(<div className='foo'></div>, {}, {errorNotFound: true});
             }).to.throw(Error, '"foo" CSS class name is not found in CSS modules styles.');
         });
     });

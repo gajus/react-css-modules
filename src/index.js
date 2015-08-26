@@ -1,8 +1,8 @@
 import linkClass from './linkClass';
 import makeConfig from './makeConfig';
 
-let functionConstructor,
-    decoratorConstructor;
+let decoratorConstructor,
+    functionConstructor;
 
 /**
  * When used as a function.
