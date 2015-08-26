@@ -78,5 +78,5 @@ This will work as you'd expect.
 
 |Name|Type|Description|Default|
 |---|---|---|---|
-|`allowMultiple`|`Boolean`|Determines weather `className` can have multiple class names.|`true`|
-|`includeOriginal`|`Boolean`|Determines weather the original `className` value should be kept in addition to the appended generated value.|`true`|
+|`allowMultiple`|`Boolean`| Determines whether `className` can have multiple class names. Throws an error when the constrained is not met. |`true`|
+|`includeOriginal`|`Boolean`| Determines whether the original `className` value should be kept in addition to the appended generated value. |`true`|
