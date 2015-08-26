@@ -3,7 +3,7 @@
 [![Travis build status](http://img.shields.io/travis/gajus/react-css-modules/master.svg?style=flat)](https://travis-ci.org/gajus/react-css-modules)
 [![NPM version](http://img.shields.io/npm/v/react-css-modules.svg?style=flat)](https://www.npmjs.org/package/react-css-modules)
 
-Seamless CSS modules for React.
+Seamless mapping of class names to CSS modules inside of React components.
 
 ## What's the Problem?
 
@@ -108,6 +108,8 @@ export default CSSModules(Car, styles);
 ```
 
 Thats it!
+
+### Options
 
 ## SASS, SCSS, LESS and other CSS Preprocessors
 

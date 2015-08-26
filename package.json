@@ -1,6 +1,6 @@
 {
   "name": "react-css-modules",
-  "description": "Seamless CSS modules for React.",
+  "description": "Seamless mapping of class names to CSS modules inside of React components.",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
