@@ -9,6 +9,7 @@ Seamless mapping of class names to CSS modules inside of React components.
 - [Usage](#usage)
     - [webpack](#webpack)
     - [Browserify](#browserify)
+    - [react-css-modules](#react-css-modules)
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
         - [`keepOriginal`](#keeporiginal)
@@ -85,7 +86,7 @@ Refer to the [react-css-modules-examples](https://github.com/gajus/react-css-mod
 Setup consists of:
 
 * Setting up a module bundler to load your [ICSS](https://github.com/css-modules/icss).
-* Decorating your component using [`react-css-modules`](#cssmodules).
+* Decorating your component using [`react-css-modules`](#react-css-modules).
 
 ### webpack
 
@@ -114,7 +115,7 @@ Refer to [webpack-demo](https://github.com/css-modules/webpack-demo) or [react-c
 
 Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
 
-### `CSSModules`
+### `react-css-modules`
 
 ```js
 /**
