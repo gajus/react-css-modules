@@ -3,6 +3,8 @@
 [![Travis build status](http://img.shields.io/travis/gajus/react-css-modules/master.svg?style=flat)](https://travis-ci.org/gajus/react-css-modules)
 [![NPM version](http://img.shields.io/npm/v/react-css-modules.svg?style=flat)](https://www.npmjs.org/package/react-css-modules)
 
+Seamless CSS modules for React.
+
 ## What's the Problem?
 
 [CSS modules](https://github.com/css-modules/css-modules) are awesome. If you are not familiar with CSS modules, it is a concept of using a module bundler such as webpack to load CSS scoped to a particular document. CSS modules loader will generate a unique name for a each CSS class at the time of loading the CSS. Refer to [webpack-demo](https://css-modules.github.io/webpack-demo/) for a full example.
@@ -48,6 +50,8 @@ class Car extends React.Component {
 
 export default CSSModules(Car, styles);
 ```
+
+Awesome!
 
 ## Usage
 
