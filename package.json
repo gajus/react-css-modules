@@ -22,9 +22,7 @@
   "peerDependencies": {
     "react": "^0.14.0-beta3"
   },
-  "dependencies": {
-    "lodash": "^3.10.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel": "^5.8.21",
     "chai": "^3.2.0",
