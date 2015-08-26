@@ -7,6 +7,7 @@ let linkClass;
  * @property {Boolean} allowMultiple Determines whether `className` can have multiple class names. Throws an error when the constrained is not met. Default: true.
  * @property {Boolean} keepOriginal Determines whether the original `className` value is kept in addition to the appended CSS modules styles CSS class name. Default: true.
  * @property {Boolean} errorNotFound Determines whether an error is raised if `className` defines a CSS class(es) that is not present in the CSS modules styles. Default: false.
+ * @property {Boolean} useModuleName When enabled then CSS Modules are loaded using `moduleName` property and `className` is used only for global CSS. Default: false.
  */
 
 /**
@@ -19,10 +20,17 @@ linkClass = (element, styles = {}, options = {}) => {
     let newProps,
         newClassName,
         newChildren,
-        childrenCount;
+        childrenCount,
+        moduleName;
 
-    if (element.props.className) {
-        newClassName = element.props.className.split(' ');
+    if (options.useModuleName) {
+        moduleName = element.props.moduleName;
+    } else {
+        moduleName = element.props.className;
+    }
+
+    if (moduleName) {
+        newClassName = moduleName.split(' ');
 
         if (options.allowMultiple === false && newClassName.length > 1) {
             throw new Error(`ReactElement defines multiple class names ("${element.props.className}") in className declaration.`);

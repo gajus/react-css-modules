@@ -56,6 +56,10 @@ functionConstructor = function (Component, styles) {
                     options.errorNotFound = false;
                 }
 
+                if (options.useModuleNames !== true) {
+                    options.useModuleNames = false;
+                }
+
                 return (0, _linkClass2['default'])(_get(Object.getPrototypeOf(_class.prototype), 'render', this).call(this), styles, options);
             }
         }]);

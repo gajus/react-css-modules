@@ -12,6 +12,7 @@ React CSS Modules implement automatic mapping of class names to CSS modules. Eve
         - [Browserify](#browserify)
     - [Decorator](#decorator)
     - [Options](#options)
+        - [`useModuleName`](#usemodulename)
         - [`allowMultiple`](#allowmultiple)
         - [`keepOriginal`](#keeporiginal)
         - [`errorNotFound`](#errornotfound)
@@ -191,9 +192,21 @@ or as a second parameter when using `CSSModules` as a decorator:
 @CSSModules(styles, options);
 ```
 
+#### `useModuleName`
+
+Default: `false`.
+
+When enabled then CSS Modules are loaded using `moduleName` property and `className` is used only for global CSS, e.g.
+
+```js
+<div className='global-css-class' moduleName='local-module-name' />
+```
+
 #### `allowMultiple`
 
-Allows multiple CSS class names. Default: `true`.
+Default: `true`.
+
+Allows multiple CSS class names.
 
 When `false`, the following will cause an error:
 
@@ -203,7 +216,9 @@ When `false`, the following will cause an error:
 
 #### `keepOriginal`
 
-Keeps original CSS class name in addition to the names of the CSS Modules. Default: `true`.
+Default: `true`.
+
+Keeps original CSS class name in addition to the names of the CSS Modules.
 
 When `true`, the following `ReactElement`:
 
@@ -215,7 +230,9 @@ will be rendered with a `className` property `foo component__foo___2w27N bar com
 
 #### `errorNotFound`
 
-Throws an error when class name cannot be mapped to a CSS Module. Default: `false`.
+Default: `false`.
+
+Throws an error when class name cannot be mapped to a CSS Module.
 
 ## SASS, SCSS, LESS and other CSS Preprocessors
 

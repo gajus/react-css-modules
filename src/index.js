@@ -26,6 +26,10 @@ functionConstructor = (Component, styles, options = {}) => {
                 options.errorNotFound = false;
             }
 
+            if (options.useModuleNames !== true) {
+                options.useModuleNames = false;
+            }
+
             return linkClass(super.render(), styles, options);
         }
     };
