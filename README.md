@@ -12,6 +12,7 @@ Seamless mapping of class names to CSS modules inside of React components.
         - [`keepOriginal`](#keeporiginal)
         - [`errorNotFound`](#errornotfound)
 - [SASS, SCSS, LESS and other CSS Preprocessors](#sass-scss-less-and-other-css-preprocessors)
+- [Global CSS](#global-css)
 - [Multiple CSS Classes](#multiple-css-classes)
 
 ## What's the Problem?
@@ -162,6 +163,20 @@ Throws an error when class name cannot be mapped to a CSS Module. Default: `fals
     loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
 }
 ```
+
+## Global CSS
+
+CSS Modules does not restrict you from using global CSS.
+
+```css
+:global .foo {
+
+}
+```
+
+When using global CSS, you need to enable [`keepOriginal`](#keeporiginal) option.
+
+Use global CSS with caution. With CSS Modules, there are only a handful of valid use cases for global CSS (e.g. [normalization](https://github.com/necolas/normalize.css/)).
 
 ## Multiple CSS Classes
 
