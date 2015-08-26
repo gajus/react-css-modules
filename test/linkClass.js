@@ -129,6 +129,23 @@ describe('linkClass', () => {
         });
     });
 
+    describe('when options.useModuleName is true', () => {
+        it('does not lookup the className property', () => {
+            let subject;
+
+            subject = linkClass(<div className='foo'></div>, {foo: 'foo-1'}, {useModuleName: true});
+
+            expect(subject.props.className).to.equal('foo');
+        });
+        it('appends CSS Modules using modulName', () => {
+            let subject;
+
+            subject = linkClass(<div moduleName='foo'></div>, {foo: 'foo-1'}, {useModuleName: true});
+
+            expect(subject.props.className).to.equal('foo-1');
+        });
+    });
+
     describe('when options.allowMultiple is false', () => {
         describe('when it finds multiple CSS class names in a className', () => {
             it('throws an error', () => {

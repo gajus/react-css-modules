@@ -25,6 +25,8 @@ linkClass = (element, styles = {}, options = {}) => {
 
     if (options.useModuleName) {
         moduleName = element.props.moduleName;
+
+        options.includeOriginal = false;
     } else {
         moduleName = element.props.className;
     }

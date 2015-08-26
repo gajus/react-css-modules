@@ -38,6 +38,8 @@ linkClass = function (element) {
 
     if (options.useModuleName) {
         moduleName = element.props.moduleName;
+
+        options.includeOriginal = false;
     } else {
         moduleName = element.props.className;
     }
