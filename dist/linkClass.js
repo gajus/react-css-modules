@@ -10,14 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _lodashLangIsArray = require('lodash/lang/isArray');
-
-var _lodashLangIsArray2 = _interopRequireDefault(_lodashLangIsArray);
-
-var _lodashLangToarray = require('lodash/lang/toarray');
-
-var _lodashLangToarray2 = _interopRequireDefault(_lodashLangToarray);
-
 var linkClass = undefined;
 
 /**
@@ -43,25 +35,37 @@ linkClass = function (element) {
         }).join(' ');
     }
 
-    childrenCount = _react2['default'].Children.count(element.props.children);
+    // A child can be either an array, a sole object or a string.
+    // <div>test</div>
+    if (typeof element.props.children !== 'string') {
+        childrenCount = _react2['default'].Children.count(element.props.children);
 
-    if (childrenCount > 1) {
-        newChildren = [];
+        if (childrenCount > 1) {
+            newChildren = [];
 
-        _react2['default'].Children.forEach(element.props.children, function (node) {
-            if (_react2['default'].isValidElement(node)) {
-                newChildren.push(linkClass(node, styles));
-            } else {
-                newChildren.push(node);
+            _react2['default'].Children.forEach(element.props.children, function (node) {
+                if (_react2['default'].isValidElement(node)) {
+                    newChildren.push(linkClass(node, styles));
+                } else {
+                    newChildren.push(node);
+                }
+            });
+
+            // Do not use React.Children.map.
+            // For whatever reason React render multiple children as an array, while
+            // React.Children.map generates an object.
+
+            /* newChildren = React.Children.map((node) => {
+                if (React.isValidElement(node)) {
+                    return linkClass(node, styles);
+                } else {
+                    return node;
+                }
+            }); */
+        } else if (childrenCount === 1) {
+                newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles);
             }
-        });
-
-        // Do not use React.Children.map.
-        // For whatever reason React render multiple children as an array, while
-        // React.Children.map generates an object.
-    } else if (childrenCount === 1) {
-            newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles);
-        } else {}
+    }
 
     if (newClassName) {
         newProps = {

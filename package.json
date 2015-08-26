@@ -25,6 +25,7 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
+    "babel": "^5.8.21",
     "chai": "^3.2.0",
     "jsdom": "^6.2.0",
     "mocha": "^2.2.5",

@@ -20,7 +20,7 @@ var _linkClass2 = _interopRequireDefault(_linkClass);
 
 /**
  * @param {ReactClass} Target
- * @param {Object} styles
+ * @param {Object} styles {localClassName: 'generatedClassName'}
  * @return {ReactClass}
  */
 

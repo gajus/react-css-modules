@@ -13,8 +13,12 @@ describe('linkClass', () => {
             expect(linkClass(<div></div>)).to.deep.equal(<div></div>);
         });
 
-        it('does not affect element with a single child', () => {
+        it('does not affect element with a single element child', () => {
             expect(linkClass(<div><p></p></div>)).to.deep.equal(<div><p></p></div>);
+        });
+
+        it('does not affect element with a single text child', () => {
+            expect(linkClass(<div>test</div>)).to.deep.equal(<div>test</div>);
         });
 
         it('does not affect element with multiple children', () => {

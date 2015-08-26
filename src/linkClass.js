@@ -1,6 +1,4 @@
 import React from 'react';
-import isArray from 'lodash/lang/isArray';
-import toArray from 'lodash/lang/toarray';
 
 let linkClass;
 
@@ -25,28 +23,38 @@ linkClass = (element, styles = {}) => {
         }).join(' ');
     }
 
-    childrenCount = React.Children.count(element.props.children);
+    // A child can be either an array, a sole object or a string.
+    // <div>test</div>
+    if (typeof element.props.children !== 'string') {
+        childrenCount = React.Children.count(element.props.children);
 
-    if (childrenCount > 1) {
-        newChildren = [];
+        if (childrenCount > 1) {
+            newChildren = [];
 
-        React.Children.forEach(element.props.children, (node) => {
-            if (React.isValidElement(node)) {
-                newChildren.push(linkClass(node, styles));
-            } else {
-                newChildren.push(node);
-            }
-        });
+            React.Children.forEach(element.props.children, (node) => {
+                if (React.isValidElement(node)) {
+                    newChildren.push(linkClass(node, styles));
+                } else {
+                    newChildren.push(node);
+                }
+            });
 
-        // Do not use React.Children.map.
-        // For whatever reason React render multiple children as an array, while
-        // React.Children.map generates an object.
+            // Do not use React.Children.map.
+            // For whatever reason React render multiple children as an array, while
+            // React.Children.map generates an object.
 
-    } else if (childrenCount === 1) {
-        newChildren = linkClass(React.Children.only(element.props.children), styles);
-    } else {
-
+            /* newChildren = React.Children.map((node) => {
+                if (React.isValidElement(node)) {
+                    return linkClass(node, styles);
+                } else {
+                    return node;
+                }
+            }); */
+        } else if (childrenCount === 1) {
+            newChildren = linkClass(React.Children.only(element.props.children), styles);
+        }
     }
+
 
     if (newClassName) {
         newProps = {
