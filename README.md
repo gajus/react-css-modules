@@ -185,6 +185,12 @@ Options are supplied as the third parameter to the `CSSModules` function.
 CSSModules(Component, styles, options);
 ```
 
+or as a second parameter when using `CSSModules` as a decorator:
+
+```js
+@CSSModules(styles, options);
+```
+
 #### `allowMultiple`
 
 Allows multiple CSS class names. Default: `true`.
@@ -197,7 +203,7 @@ When `false`, the following will cause an error:
 
 #### `keepOriginal`
 
-Keeps original CSS class name in addition to names of the CSS Modules. Default: `true`.
+Keeps original CSS class name in addition to the names of the CSS Modules. Default: `true`.
 
 When `true`, the following `ReactElement`:
 
