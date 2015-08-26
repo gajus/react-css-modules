@@ -25,6 +25,17 @@ export default class Car extends React.Component {
 }
 ```
 
+Rendering the component will produce a markup similar to:
+
+```js
+<div class="car__car___32osj" data-reactid=".0.0">
+    <div class="car__front-door___2w27N" data-reactid=".0.0.$=10:0">front-door</div>
+    <div class="car__back-door___1oVw5" data-reactid=".0.0.$=11:0">back-door</div>
+</div>
+```
+
+and a corresponding CSS file that matches those CSS classes.
+
 Awesome!
 
 However, this approach has several disadvantages:
