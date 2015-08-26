@@ -18,14 +18,18 @@ var _linkClass = require('./linkClass');
 
 var _linkClass2 = _interopRequireDefault(_linkClass);
 
+var functionConstructor = undefined,
+    decoratorConstructor = undefined;
+
 /**
- * @param {ReactClass} Component
+ * When used as a function.
+ *
+ * @param {Function} Component
  * @param {Object} styles CSS modules class map.
  * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
- * @return {ReactClass}
+ * @return {Function}
  */
-
-exports['default'] = function (Component, styles) {
+functionConstructor = function (Component, styles) {
     var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
     return (function (_Component) {
@@ -58,6 +62,27 @@ exports['default'] = function (Component, styles) {
 
         return _class;
     })(Component);
+};
+
+/**
+ * When used as a ES7 decorator.
+ *
+ * @param {Object} styles CSS modules class map.
+ * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
+ * @return {Function}
+ */
+decoratorConstructor = function (styles, options) {
+    return function (Component) {
+        return functionConstructor(Component, styles, options);
+    };
+};
+
+exports['default'] = function () {
+    if (typeof arguments[0] === 'function') {
+        return functionConstructor(arguments[0], arguments[1], arguments[2]);
+    } else {
+        return decoratorConstructor(arguments[0], arguments[1]);
+    }
 };
 
 module.exports = exports['default'];

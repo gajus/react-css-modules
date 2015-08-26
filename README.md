@@ -136,7 +136,7 @@ Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
  */
 ```
 
-Then you need to decorate your component using `CSSModules`, e.g.
+You need to decorate your component using `react-css-modules`, e.g.
 
 ```js
 import React from 'react';
@@ -156,6 +156,26 @@ export default CSSModules(Car, styles);
 ```
 
 Thats it!
+
+As the name implies, `react-css-modules` is compatible with the [ES7 decorators](https://github.com/wycats/javascript-decorators) syntax:
+
+```js
+import React from 'react';
+import styles from './car.css';
+import CSSModules from 'react-css-modules';
+
+@CSSModules(styles)
+export default class extends React.Component {
+    render () {
+        return <div className='car'>
+            <div className='front-door'>front-door</div>
+            <div className='back-door'>back-door</div>
+        </div>;
+    }
+}
+```
+
+[Awesome!](https://twitter.com/intent/retweet?tweet_id=636497036603428864)
 
 ### Options
 
