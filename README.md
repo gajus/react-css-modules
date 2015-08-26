@@ -82,7 +82,10 @@ Refer to the [react-css-modules-examples](https://github.com/gajus/react-css-mod
 
 ## Usage
 
-Setup a module bundler to load your [ICSS](https://github.com/css-modules/icss).
+Setup consists of:
+
+* Setting up a module bundler to load your [ICSS](https://github.com/css-modules/icss).
+* Decorating your component using [`react-css-modules`](#cssmodules).
 
 ### webpack
 
