@@ -54,29 +54,15 @@ linkClass = (element, styles = {}, options = {}) => {
         childrenCount = React.Children.count(element.props.children);
 
         if (childrenCount > 1) {
-            newChildren = [];
-
-            React.Children.forEach(element.props.children, (node) => {
+            newChildren = React.Children.map(element.props.children, (node) => {
                 if (React.isValidElement(node)) {
-                    newChildren.push(linkClass(node, styles));
-                } else {
-                    newChildren.push(node);
-                }
-            });
-
-            // Do not use React.Children.map.
-            // For whatever reason React render multiple children as an array, while
-            // React.Children.map generates an object.
-
-            /* newChildren = React.Children.map((node) => {
-                if (React.isValidElement(node)) {
-                    return linkClass(node, styles);
+                    return linkClass(node, styles, options);
                 } else {
                     return node;
                 }
-            }); */
+            });
         } else if (childrenCount === 1) {
-            newChildren = linkClass(React.Children.only(element.props.children), styles);
+            newChildren = linkClass(React.Children.only(element.props.children), styles, options);
         }
     }
 

@@ -67,30 +67,16 @@ linkClass = function (element) {
         childrenCount = _react2['default'].Children.count(element.props.children);
 
         if (childrenCount > 1) {
-            newChildren = [];
-
-            _react2['default'].Children.forEach(element.props.children, function (node) {
+            newChildren = _react2['default'].Children.map(element.props.children, function (node) {
                 if (_react2['default'].isValidElement(node)) {
-                    newChildren.push(linkClass(node, styles));
-                } else {
-                    newChildren.push(node);
-                }
-            });
-
-            // Do not use React.Children.map.
-            // For whatever reason React render multiple children as an array, while
-            // React.Children.map generates an object.
-
-            /* newChildren = React.Children.map((node) => {
-                if (React.isValidElement(node)) {
-                    return linkClass(node, styles);
+                    return linkClass(node, styles, options);
                 } else {
                     return node;
                 }
-            }); */
+            });
         } else if (childrenCount === 1) {
-                newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles);
-            }
+            newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles, options);
+        }
     }
 
     if (newClassName) {
