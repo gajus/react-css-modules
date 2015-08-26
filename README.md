@@ -5,9 +5,9 @@
 
 ## Usage
 
-First you need to setup [webpack](http://webpack.github.io/docs/) to load your css files using "css" loader and enable CSS modules. You will also need to use `extract-text-webpack-plugin` to construct the CSS file. Refer to [webpack-demo](https://github.com/css-modules/webpack-demo).
+First you need to setup [webpack](http://webpack.github.io/docs/) to load your css files using "css" loader and enable CSS modules. You will also need to use `extract-text-webpack-plugin` to aggregate the CSS into a single file. Refer to [webpack-demo](https://github.com/css-modules/webpack-demo).
 
-Then you need use the higher order component declaration pattern to encapsulate your component:
+Then you need use the higher order component declaration pattern to "decorate" your component, e.g.
 
 ```js
 import React from 'react';
@@ -28,4 +28,4 @@ export default CSSModules(Car, styles);
 
 Thats it!
 
-CSSModules component will look for CSS classes in `./car.css` that match `ReactElement` `className` and will extend the `className` declaration at the time of `render`.
+CSSModules extends `Car` `render` method. It will look for CSS classes in `./car.css` that match `ReactElement` `className` and will append the matching unique class names to `className` declaration.
