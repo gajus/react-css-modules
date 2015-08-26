@@ -3,14 +3,6 @@ import React from 'react';
 let linkClass;
 
 /**
- * @typedef CSSModules~Options
- * @property {Boolean} allowMultiple Determines whether `className` can have multiple class names. Throws an error when the constrained is not met. Default: true.
- * @property {Boolean} keepOriginal Determines whether the original `className` value is kept in addition to the appended CSS modules styles CSS class name. Default: true.
- * @property {Boolean} errorNotFound Determines whether an error is raised if `className` defines a CSS class(es) that is not present in the CSS modules styles. Default: false.
- * @property {Boolean} useModuleName When enabled then CSS Modules are loaded using `moduleName` property and `className` is used only for global CSS. Default: false.
- */
-
-/**
  * @param {ReactElement} element
  * @param {Object} styles CSS modules class map.
  * @param {CSSModules~Options} options

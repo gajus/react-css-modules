@@ -1,4 +1,5 @@
 import linkClass from './linkClass';
+import makeConfig from './makeConfig';
 
 let functionConstructor,
     decoratorConstructor;
@@ -14,23 +15,7 @@ let functionConstructor,
 functionConstructor = (Component, styles, options = {}) => {
     return class extends Component {
         render () {
-            if (options.allowMultiple !== false) {
-                options.allowMultiple = true;
-            }
-
-            if (options.includeOriginal !== false) {
-                options.includeOriginal = true;
-            }
-
-            if (options.errorNotFound !== true) {
-                options.errorNotFound = false;
-            }
-
-            if (options.useModuleNames !== true) {
-                options.useModuleNames = false;
-            }
-
-            return linkClass(super.render(), styles, options);
+            return linkClass(super.render(), styles, makeConfig(options));
         }
     };
 };
