@@ -77,7 +77,7 @@ Awesome!
 
 First you need to setup [webpack](http://webpack.github.io/docs/) to load your css files using "css" loader and enable CSS modules. You will also need to use `extract-text-webpack-plugin` to aggregate the CSS into a single file. Refer to [webpack-demo](https://github.com/css-modules/webpack-demo).
 
-Then you need use the higher order component declaration pattern to "decorate" your component, e.g.
+Then you need to decorate your component using `CSSModules`, e.g.
 
 ```js
 import React from 'react';
@@ -100,7 +100,7 @@ Thats it!
 
 ## SASS, SCSS, LASS and other CSS Preprocessors
 
-[ICSS](https://github.com/css-modules/icss) works with CSS Preprocessors. All you need is to add the preprocessor the chain of loaders, e.g. in the case of webpack it is as simple as install `sass-loader` and adding `!sass` to the end of the `style-loader` loader chain declaration (loaders are processed from right to left):
+[ICSS](https://github.com/css-modules/icss) is compatible with the CSS Preprocessors. All you need is to add the preprocessor to the chain of loaders, e.g. in the case of webpack it is as simple as installing `sass-loader` and adding `!sass` to the end of the `style-loader` loader chain declaration (loaders are processed from right to left):
 
 ```js
 {
@@ -111,7 +111,7 @@ Thats it!
 
 ## Multiple CSS Classes
 
-CSS modules promote composition pattern, i.e. every CSS class thats is used in a component should define all properties required to describe the element, e.g.
+CSS modules promote composition pattern, i.e. every CSS class that is used in a component should define all properties required to describe the element, e.g.
 
 ```css
 .button {
@@ -133,7 +133,7 @@ CSS modules promote composition pattern, i.e. every CSS class thats is used in a
 
 To learn more about composing CSS rules, I suggest reading Glen Maddern article about [CSS Modules](http://glenmaddern.com/articles/css-modules) and the official [CSS modules spec](https://github.com/css-modules/css-modules).
 
-Using React CSS Modules, you can map as many CSS classes to the element as you want. `CSSModules` will append the unique class name for every class name it matches in the `className` declaration, e.g.
+Using React CSS Modules, you can map as many CSS classes to the element as you want. `CSSModules` will append a unique class name for every class name it matches in the `className` declaration, e.g.
 
 ```css
 .button {
@@ -149,6 +149,6 @@ Using React CSS Modules, you can map as many CSS classes to the element as you w
 <div className='button active'></div>
 ```
 
-This will map both [ICSS](https://github.com/css-modules/icss) classes to the target element.
+This will map both [ICSS](https://github.com/css-modules/icss) CSS classes to the target element.
 
 However, I encourage you to use composition whenever possible. Composition promotes better separation of markup from style sheets using semantics that would be hard to achieve without CSS modules. You can enforce one CSS class name per `className` using [`allowMultiple` option](#usage).
