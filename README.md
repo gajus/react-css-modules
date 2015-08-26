@@ -40,7 +40,7 @@ Awesome!
 
 However, this approach has several disadvantages:
 
-* You have to use `camelCael` CSS class names.
+* You have to use `camelCasel` CSS class names.
 * You have to use `styles` object whenever constructing a `className`.
 
 React CSS Modules enables seamless CSS modules for React, e.g.
