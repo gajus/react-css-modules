@@ -109,7 +109,7 @@ export default CSSModules(Car, styles);
 
 Thats it!
 
-## SASS, SCSS, LASS and other CSS Preprocessors
+## SASS, SCSS, LESS and other CSS Preprocessors
 
 [ICSS](https://github.com/css-modules/icss) is compatible with the CSS Preprocessors. All you need is to add the preprocessor to the chain of loaders, e.g. in the case of webpack it is as simple as installing `sass-loader` and adding `!sass` to the end of the `style-loader` loader chain declaration (loaders are processed from right to left):
 
