@@ -7,7 +7,7 @@ Seamless CSS modules for React.
 
 ## What's the Problem?
 
-[CSS modules](https://github.com/css-modules/css-modules) are awesome. If you are not familiar with CSS modules, it is a concept of using a module bundler such as webpack to load CSS scoped to a particular document. CSS modules loader will generate a unique name for a each CSS class at the time of loading the CSS. Refer to [webpack-demo](https://css-modules.github.io/webpack-demo/) for a full example.
+[CSS modules](https://github.com/css-modules/css-modules) are awesome. If you are not familiar with CSS modules, it is a concept of using a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. CSS modules loader will generate a unique name for a each CSS class at the time of loading the CSS. Refer to [webpack-demo](https://css-modules.github.io/webpack-demo/) for a full example.
 
 In the context of React, this looks like this:
 
@@ -27,10 +27,10 @@ export default class Car extends React.Component {
 
 Awesome!
 
-However, there are a several disadvantages of this approach:
+However, this approach has several disadvantages:
 
 * You have to use `camelCael` CSS class names.
-* You have to use `styles` object whenever assigning a class.
+* You have to use `styles` object whenever constructing a `className`.
 
 React CSS Modules enables seamless CSS modules for React, e.g.
 
@@ -50,6 +50,10 @@ class Car extends React.Component {
 
 export default CSSModules(Car, styles);
 ```
+
+`CSSModules` extends `Car` `render` method. It will look for CSS classes in `./car.css` that match CSS class names in `ReactElement` `className` and will replace/append the matching unique class names to `className` declaration.
+
+Refer to the [react-css-modules-examples](https://github.com/gajus/react-css-modules-examples) repository for a complete usage example.
 
 Awesome!
 
@@ -93,10 +97,6 @@ export default CSSModules(Car, styles);
 ```
 
 Thats it!
-
-`CSSModules` extends `Car` `render` method. It will look for CSS classes in `./car.css` that match `ReactElement` `className` and will append the matching unique class names to `className` declaration.
-
-Refer to the [react-css-modules-examples](https://github.com/gajus/react-css-modules-examples) repository for a complete usage example.
 
 ## Multiple CSS Classes
 
