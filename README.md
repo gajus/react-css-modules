@@ -77,6 +77,6 @@ This will work as you'd expect.
 ## Options
 
 |Name|Type|Description|Default|
-|---|---|---|
+|---|---|---|---|
 |`allowMultiple`|`Boolean`|Determines weather `className` can have multiple class names.|`true`|
 |`includeOriginal`|`Boolean`|Determines weather the original `className` value should be kept in addition to the appended generated value.|`true`|
