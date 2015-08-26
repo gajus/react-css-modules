@@ -3,9 +3,16 @@ import React from 'react';
 let linkClass;
 
 /**
+ * @typedef CSSModules~Options
+ * @property {Boolean} allowMultiple Determines whether `className` can have multiple class names. Throws an error when the constrained is not met. Default: true.
+ * @property {Boolean} keepOriginal Determines whether the original `className` value is kept in addition to the appended CSS modules styles CSS class name. Default: true.
+ * @property {Boolean} errorNotFound Determines whether an error is raised if `className` defines a CSS class(es) that is not present in the CSS modules styles. Default: false.
+ */
+
+/**
  * @param {ReactElement} element
  * @param {Object} styles CSS modules class map.
- * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
+ * @param {CSSModules~Options} options
  * @return {ReactElement}
  */
 linkClass = (element, styles = {}, options = {}) => {

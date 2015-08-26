@@ -3,13 +3,66 @@
 [![Travis build status](http://img.shields.io/travis/gajus/react-css-modules/master.svg?style=flat)](https://travis-ci.org/gajus/react-css-modules)
 [![NPM version](http://img.shields.io/npm/v/react-css-modules.svg?style=flat)](https://www.npmjs.org/package/react-css-modules)
 
+## What's the Problem?
+
+[CSS modules](https://github.com/css-modules/css-modules) are awesome. If you are not familiar with CSS modules, it is a concept of using a module bundler such as webpack to load CSS scoped to a particular document. CSS modules loader will generate a unique name for a each CSS class at the time of loading the CSS. Refer to [webpack-demo](https://css-modules.github.io/webpack-demo/) for a full example.
+
+In the context of React, this looks like this:
+
+```js
+import React from 'react';
+import styles from './car.css';
+
+export default class Car extends React.Component {
+    render () {
+        return <div className={styles.car}>
+            <div className={styles.frontDoor}></div>
+            <div className={styles.backDoor}></div>
+        </div>;
+    }
+}
+```
+
+Awesome!
+
+However, there are a several disadvantages of this approach:
+
+* You have to use `camelCael` CSS class names.
+* You have to use `styles` object whenever assigning a class.
+
+React CSS Modules enables seamless CSS modules for React, e.g.
+
+```js
+import React from 'react';
+import styles from './car.css';
+import CSSModules from 'react-css-modules';
+
+class Car extends React.Component {
+    render () {
+        return <div className='car'>
+            <div className='front-door'></div>
+            <div className='back-door'></div>
+        </div>;
+    }
+}
+
+export default CSSModules(Car, styles);
+```
+
 ## Usage
 
 ```js
 /**
+ * @typedef CSSModules~Options
+ * @property {Boolean} allowMultiple Determines whether `className` can have multiple class names. Throws an error when the constrained is not met. Default: true.
+ * @property {Boolean} keepOriginal Determines whether the original `className` value is kept in addition to the appended CSS modules styles CSS class name. Default: true.
+ * @property {Boolean} errorNotFound Determines whether an error is raised if `className` defines a CSS class(es) that is not present in the CSS modules styles. Default: false.
+ */
+
+/**
  * @param {ReactClass} Component
  * @param {Object} styles CSS modules class map.
- * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
+ * @param {CSSModules~Options} options
  * @return {ReactClass}
  */
 ```
@@ -82,11 +135,3 @@ However, using React CSS Modules, you can map as many CSS classes to the element
 ```
 
 This will work as you'd expect.
-
-## Options
-
-|Name|Type|Description|Default|
-|---|---|---|---|
-|`allowMultiple`|`Boolean`| Determines whether `className` can have multiple class names. Throws an error when the constrained is not met. |`true`|
-|`keepOriginal`|`Boolean`| Determines whether the original `className` value is kept in addition to the appended CSS modules styles CSS class name. |`true`|
-|`errorNotFound`|`Boolean`| Determines whether an error is raised if `className` defines a CSS class(es) that is not present in the CSS modules styles. |`true`|
