@@ -146,7 +146,7 @@ When `true`, the following `ReactElement`:
 <div className='foo bar' />
 ```
 
-will be rendered with a `className` property "foo foo-unique-css-module reference bar bar-unique-css-module-reference".
+will be rendered with a `className` property "foo component__foo___2w27N bar component__bar__1oVw5".
 
 #### `errorNotFound`
 
