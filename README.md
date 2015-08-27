@@ -59,7 +59,7 @@ However, this approach has several disadvantages:
 * Mixing CSS Modules and global CSS classes is cumbersome.
 * Reference to an undefined CSS Module resolves to `undefined` without a warning.
 
-React CSS Modules component automates loading of CSS Modules using `localClassName` property, e.g.
+React CSS Modules component automates loading of CSS Modules using `styleName` property, e.g.
 
 ```js
 import React from 'react';
@@ -68,9 +68,9 @@ import CSSModules from 'react-css-modules';
 
 class Car extends React.Component {
     render () {
-        return <div localClassName='car'>
-            <div localClassName='front-door'></div>
-            <div localClassName='back-door'></div>
+        return <div styleName='car'>
+            <div styleName='front-door'></div>
+            <div styleName='back-door'></div>
         </div>;
     }
 }
@@ -85,15 +85,15 @@ Using `react-css-modules`:
 * There is clear distinction between global CSS and CSS Modules, e.g.
 
 ```js
-<div className='global-css' localClassName='local-module'></div>
+<div className='global-css' styleName='local-module'></div>
 ```
 
-* You are warned when `localClassName` refers to an undefined CSS Module ([`errorWhenNotFound`](#errorwhennotfound) option).
+* You are warned when `styleName` refers to an undefined CSS Module ([`errorWhenNotFound`](#errorwhennotfound) option).
 * You can enforce use of a single CSS module per `ReactElement` ([`allowMultiple`](#allowmultiple) option).
 
 ## The Implementation
 
-`react-css-modules` extends `render` method of the target component. It will use the value of `localClassName` to look for CSS Modules in the associated styles object and will append the matching unique CSS class names to the `ReactElement` `className` property value.
+`react-css-modules` extends `render` method of the target component. It will use the value of `styleName` to look for CSS Modules in the associated styles object and will append the matching unique CSS class names to the `ReactElement` `className` property value.
 
 [Awesome!](https://twitter.com/intent/retweet?tweet_id=636497036603428864)
 
@@ -217,14 +217,14 @@ Allows multiple CSS Module names.
 When `false`, the following will cause an error:
 
 ```js
-<div localClassName='foo bar' />
+<div styleName='foo bar' />
 ```
 
 #### `errorWhenNotFound`
 
 Default: `true`.
 
-Throws an error when `localClassName` cannot be mapped to an existing CSS Module.
+Throws an error when `styleName` cannot be mapped to an existing CSS Module.
 
 ## SASS, SCSS, LESS and other CSS Preprocessors
 
@@ -275,7 +275,7 @@ Composition promotes better separation of markup and style using semantics that 
 
 To learn more about composing CSS rules, I suggest reading Glen Maddern article about [CSS Modules](http://glenmaddern.com/articles/css-modules) and the official [spec of the CSS Modules](https://github.com/css-modules/css-modules).
 
-That said, if you enable [`allowMultiple`](#allowmultiple) option, you can map multiple CSS Modules to a single `ReactElement`. `react-css-modules` will append a unique class name for every CSS Module it matches in the `localClassName` declaration, e.g.
+That said, if you enable [`allowMultiple`](#allowmultiple) option, you can map multiple CSS Modules to a single `ReactElement`. `react-css-modules` will append a unique class name for every CSS Module it matches in the `styleName` declaration, e.g.
 
 ```css
 .button {
@@ -288,7 +288,7 @@ That said, if you enable [`allowMultiple`](#allowmultiple) option, you can map m
 ```
 
 ```js
-<div localClassName='button active'></div>
+<div styleName='button active'></div>
 ```
 
 This will map both [Interoperable CSS](https://github.com/css-modules/icss) CSS classes to the target element.
