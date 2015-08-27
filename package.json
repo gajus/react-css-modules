@@ -19,9 +19,6 @@
     "url": "http://gajus.com"
   },
   "license": "BSD-3-Clause",
-  "peerDependencies": {
-    "react": "^0.14.0-beta3"
-  },
   "dependencies": {
     "lodash": "^3.10.1"
   },
