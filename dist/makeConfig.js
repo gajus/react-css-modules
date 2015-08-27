@@ -11,12 +11,15 @@ var _utils = require('./utils');
 var _utils2 = _interopRequireDefault(_utils);
 
 /**
+ * @typedef CSSModules~Options
  * @see {@link https://github.com/gajus/react-css-modules#options}
  * @property {Boolean} allowMultiple
- * @property {Boolean} keepOriginal
- * @property {Boolean} errorNotFound
- * @property {Boolean} useModuleNam
- * @return {Object}
+ * @property {Boolean} errorWhenNotFound
+ */
+
+/**
+ * @param {Options} userConfig
+ * @return {CSSModules~Options}
  */
 
 exports['default'] = function () {
@@ -25,7 +28,7 @@ exports['default'] = function () {
     var knownProperties = undefined,
         unknownProperties = undefined;
 
-    knownProperties = ['allowMultiple', 'includeOriginal', 'errorNotFound', 'useModuleName'];
+    knownProperties = ['allowMultiple', 'errorWhenNotFound'];
 
     unknownProperties = _utils2['default'].difference(_utils2['default'].keys(userConfig), knownProperties);
 
@@ -40,19 +43,11 @@ exports['default'] = function () {
     });
 
     if (typeof userConfig.allowMultiple === 'undefined') {
-        userConfig.allowMultiple = true;
+        userConfig.allowMultiple = false;
     }
 
-    if (typeof userConfig.includeOriginal === 'undefined') {
-        userConfig.includeOriginal = true;
-    }
-
-    if (typeof userConfig.errorNotFound === 'undefined') {
-        userConfig.errorNotFound = false;
-    }
-
-    if (typeof userConfig.useModuleName === 'undefined') {
-        userConfig.useModuleName = false;
+    if (typeof userConfig.errorWhenNotFound === 'undefined') {
+        userConfig.errorWhenNotFound = false;
     }
 
     return userConfig;

@@ -12,25 +12,13 @@ describe('makeConfig', () => {
             options = makeConfig();
         });
         describe('allowMultiple property', () => {
-            it('defaults to true', () => {
-                expect(options.allowMultiple).to.equal(true);
+            it('defaults to false', () => {
+                expect(options.allowMultiple).to.equal(false);
             });
         });
-        describe('includeOriginal property', () => {
+        describe('errorWhenNotFound property', () => {
             it('defaults to true', () => {
-                expect(options.includeOriginal).to.equal(true);
-            });
-        });
-
-        describe('errorNotFound property', () => {
-            it('defaults to true', () => {
-                expect(options.errorNotFound).to.equal(false);
-            });
-        });
-
-        describe('useModuleName property', () => {
-            it('defaults to true', () => {
-                expect(options.useModuleName).to.equal(false);
+                expect(options.errorWhenNotFound).to.equal(false);
             });
         });
     });
@@ -41,15 +29,6 @@ describe('makeConfig', () => {
                     unknownProperty: true
                 });
             }).to.throw(Error, 'Unknown config property "unknownProperty".');
-        });
-    });
-    describe('when property value is not boolean', () => {
-        it('throws an error', () => {
-            expect(() => {
-                makeConfig({
-                    useModuleName: 1
-                });
-            }).to.throw(Error, '"useModuleName" property value must be a boolean.');
         });
     });
 });

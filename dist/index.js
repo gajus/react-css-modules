@@ -29,7 +29,7 @@ var decoratorConstructor = undefined,
  * When used as a function.
  *
  * @param {Function} Component
- * @param {Object} styles CSS modules class map.
+ * @param {Object} styles CSS Modules class map.
  * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
  * @return {Function}
  */
@@ -59,7 +59,7 @@ functionConstructor = function (Component, styles) {
 /**
  * When used as a ES7 decorator.
  *
- * @param {Object} styles CSS modules class map.
+ * @param {Object} styles CSS Modules class map.
  * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
  * @return {Function}
  */

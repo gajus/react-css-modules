@@ -11,51 +11,37 @@ let linkClass;
 linkClass = (element, styles = {}, options = {}) => {
     let childrenCount,
         clonedElement,
-        moduleName,
+        moduleNames,
         newChildren,
-        newClassName,
-        newProps;
+        newProps,
+        appendClassName;
 
-    if (options.useModuleName) {
-        moduleName = element.props.moduleName;
+    moduleNames = element.props.moduleName;
 
-        options.includeOriginal = false;
-    } else {
-        moduleName = element.props.className;
-    }
+    if (moduleNames) {
+        moduleNames = moduleNames.split(' ');
 
-    if (moduleName) {
-        newClassName = moduleName.split(' ');
-
-        if (options.allowMultiple === false && newClassName.length > 1) {
-            throw new Error(`ReactElement defines multiple class names ("${element.props.className}") in className declaration.`);
+        if (options.allowMultiple === false && moduleNames.length > 1) {
+            throw new Error(`ReactElement moduleName property defines multiple module names ("${element.props.moduleName}").`);
         }
 
-        newClassName = newClassName.map((className) => {
-            if (!styles[className] && options.errorNotFound === true) {
-                throw new Error(`"${className}" CSS class name is not found in CSS modules styles.`);
-            }
-
-            if (options.includeOriginal === false) {
-                if (styles[className]) {
-                    return styles[className];
-                } else {
-                    return '';
-                }
+        appendClassName = moduleNames.map((moduleName) => {
+            if (styles[moduleName]) {
+                return styles[moduleName];
             } else {
-                if (styles[className]) {
-                    return `${className} ${styles[className]}`;
-                } else {
-                    return className;
+                if (options.errorWhenNotFound === true) {
+                    throw new Error(`"${moduleName}" CSS module is undefined.`);
                 }
+
+                return '';
             }
         });
 
-        newClassName = newClassName.filter((className) => {
+        appendClassName = appendClassName.filter((className) => {
             return className.length;
         });
 
-        newClassName = newClassName.join(' ');
+        appendClassName = appendClassName.join(' ');
     }
 
     // A child can be either an array, a sole object or a string.
@@ -77,9 +63,13 @@ linkClass = (element, styles = {}, options = {}) => {
     }
 
 
-    if (newClassName) {
+    if (appendClassName) {
+        if (element.props.className) {
+            appendClassName = element.props.className + ' ' + appendClassName;
+        }
+
         newProps = {
-            className: newClassName
+            className: appendClassName
         };
     }
 

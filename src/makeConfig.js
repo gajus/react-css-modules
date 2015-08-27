@@ -1,12 +1,15 @@
 import _ from './utils';
 
 /**
+ * @typedef CSSModules~Options
  * @see {@link https://github.com/gajus/react-css-modules#options}
  * @property {Boolean} allowMultiple
- * @property {Boolean} keepOriginal
- * @property {Boolean} errorNotFound
- * @property {Boolean} useModuleNam
- * @return {Object}
+ * @property {Boolean} errorWhenNotFound
+ */
+
+/**
+ * @param {Options} userConfig
+ * @return {CSSModules~Options}
  */
 export default (userConfig = {}) => {
     let knownProperties,
@@ -14,9 +17,7 @@ export default (userConfig = {}) => {
 
     knownProperties = [
         'allowMultiple',
-        'includeOriginal',
-        'errorNotFound',
-        'useModuleName'
+        'errorWhenNotFound'
     ];
 
     unknownProperties = _.difference(_.keys(userConfig), knownProperties);
@@ -32,19 +33,11 @@ export default (userConfig = {}) => {
     });
 
     if (typeof userConfig.allowMultiple === 'undefined') {
-        userConfig.allowMultiple = true;
+        userConfig.allowMultiple = false;
     }
 
-    if (typeof userConfig.includeOriginal === 'undefined') {
-        userConfig.includeOriginal = true;
-    }
-
-    if (typeof userConfig.errorNotFound === 'undefined') {
-        userConfig.errorNotFound = false;
-    }
-
-    if (typeof userConfig.useModuleName === 'undefined') {
-        userConfig.useModuleName = false;
+    if (typeof userConfig.errorWhenNotFound === 'undefined') {
+        userConfig.errorWhenNotFound = false;
     }
 
     return userConfig;
