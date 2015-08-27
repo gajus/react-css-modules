@@ -15,6 +15,9 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
         - [`errorWhenNotFound`](#errorwhennotfound)
+- [Class Composition](#class-composition)
+    - [What Problems does Class Composition Solve?](#what-problems-does-class-composition-solve)
+    - [A Variation of Class Composition Using CSS Preprocessors](#a-variation-of-class-composition-using-css-preprocessors)
 - [SASS, SCSS, LESS and other CSS Preprocessors](#sass-scss-less-and-other-css-preprocessors)
 - [Global CSS](#global-css)
 - [Multiple CSS Classes](#multiple-css-classes)
@@ -228,12 +231,148 @@ Throws an error when `styleName` cannot be mapped to an existing CSS Module.
 
 ## SASS, SCSS, LESS and other CSS Preprocessors
 
-[Interoperable CSS](https://github.com/css-modules/icss) is compatible with the CSS Preprocessors. To use a preprocessor, all you need to do is add the preprocessor to the chain of loaders, e.g. in the case of webpack it is as simple as installing `sass-loader` and adding `!sass` to the end of the `style-loader` loader query (loaders are processed from right to left):
+[Interoperable CSS](https://github.com/css-modules/icss) is compatible with the CSS preprocessors. To use a preprocessor, all you need to do is add the preprocessor to the chain of loaders, e.g. in the case of webpack it is as simple as installing `sass-loader` and adding `!sass` to the end of the `style-loader` loader query (loaders are processed from right to left):
 
 ```js
 {
     test: /\.scss$/,
     loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
+}
+```
+
+## Class Composition
+
+CSS Modules promote composition pattern, i.e. every CSS Module that is used in a component should define all properties required to describe an element, e.g.
+
+```css
+.box {
+    width: 100px;
+    height: 100px;
+}
+
+.empty {
+    composes: box;
+
+    background: #4CAF50;
+}
+
+.full {
+    composes: box;
+
+    background: #F44336;
+}
+```
+
+Composition promotes better separation of markup and style using semantics that would be hard to achieve without CSS Modules.
+
+Because CSS Module names are local, it is perfectly fine to use generic style names such as "empty" or "full", without "box-" prefix.
+
+To learn more about composing CSS rules, I suggest reading Glen Maddern article about [CSS Modules](http://glenmaddern.com/articles/css-modules) and the official [spec of the CSS Modules](https://github.com/css-modules/css-modules).
+
+### What Problems does Class Composition Solve?
+
+Consider the same example in CSS and HTML:
+
+```css
+.box {
+    width: 100px;
+    height: 100px;
+}
+
+.box-empty {
+    background: #4CAF50;
+}
+
+.box-full {
+    background: #F44336;
+}
+```
+
+```html
+<div class='box box-empty'></div>
+```
+
+This pattern emerged with the advent of OOCSS. The biggest disadvantage of this implementation is that you will need to change HTML almost every time you want to change the style.
+
+### A Variation of Class Composition Using CSS Preprocessors
+
+This section of the document is included as a learning exercise to broaden the understanding about the origin of Class Composition. CSS Modules support a native method of composting CSS Modules using [`composes`](https://github.com/css-modules/css-modules#composition) keyword. CSS Preprocessor is not required.
+
+You can write compositions in SCSS using [`@extend`](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#extend) keyword and using [Mixin Directives](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins), e.g.
+
+Using `@extend`:
+
+```css
+%box {
+    width: 100px;
+    height: 100px;
+}
+
+.box-empty {
+    @extend %box;
+
+    background: #4CAF50;
+}
+
+.box-full {
+    @extend %box;
+
+    background: #F44336;
+}
+```
+
+This translates to:
+
+```css
+.box-empty,
+.box-full {
+    width: 100px;
+    height: 100px;
+}
+
+.box-empty {
+    background: #4CAF50;
+}
+
+.box-full {
+    background: #F44336;
+}
+```
+
+Using mixins:
+
+```css
+@mixin box {
+    width: 100px;
+    height: 100px;
+}
+
+.box-empty {
+    @include box;
+
+    background: #4CAF50;
+}
+
+.box-full {
+    @include box;
+
+    background: #F44336;
+}
+```
+
+This translates to:
+
+```css
+.box-empty {
+    width: 100px;
+    height: 100px;
+    background: #4CAF50;
+}
+
+.box-full {
+    width: 100px;
+    height: 100px;
+    background: #F44336;
 }
 ```
 
@@ -251,31 +390,9 @@ However, use global CSS with caution. With CSS Modules, there are only a handful
 
 ## Multiple CSS Modules
 
-CSS Modules promote composition pattern, i.e. every CSS Module that is used in a component should define all properties required to describe an element, e.g.
+Avoid using multiple CSS Modules to describe a single element. Read about [Class Composition](#class-compositon).
 
-```css
-.button {
-
-}
-
-.active {
-    composes: common;
-
-    /* anything that only applies to active state of the button */
-}
-
-.disabled {
-    composes: common;
-
-    /* anything that only applies to disabled state of the button */
-}
-```
-
-Composition promotes better separation of markup and style using semantics that would be hard to achieve without CSS Modules.
-
-To learn more about composing CSS rules, I suggest reading Glen Maddern article about [CSS Modules](http://glenmaddern.com/articles/css-modules) and the official [spec of the CSS Modules](https://github.com/css-modules/css-modules).
-
-That said, if you enable [`allowMultiple`](#allowmultiple) option, you can map multiple CSS Modules to a single `ReactElement`. `react-css-modules` will append a unique class name for every CSS Module it matches in the `styleName` declaration, e.g.
+That said, if you require to use multiple CSS Modules to describe an element, enable the [`allowMultiple`](#allowmultiple) option. When multiple CSS Modules are used to describe an element, `react-css-modules` will append a unique class name for every CSS Module it matches in the `styleName` declaration, e.g.
 
 ```css
 .button {
