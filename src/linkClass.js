@@ -12,9 +12,9 @@ linkClass = (element, styles = {}, options = {}) => {
     let appendClassName,
         childrenCount,
         clonedElement,
-        styleNames,
         newChildren,
-        newProps;
+        newProps,
+        styleNames;
 
     styleNames = element.props.styleName;
 

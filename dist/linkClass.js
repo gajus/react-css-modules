@@ -25,9 +25,9 @@ linkClass = function (element) {
     var appendClassName = undefined,
         childrenCount = undefined,
         clonedElement = undefined,
-        styleNames = undefined,
         newChildren = undefined,
-        newProps = undefined;
+        newProps = undefined,
+        styleNames = undefined;
 
     styleNames = element.props.styleName;
 
