@@ -160,9 +160,9 @@ import CSSModules from 'react-css-modules';
 
 class Car extends React.Component {
     render () {
-        return <div className='car'>
-            <div className='front-door'></div>
-            <div className='back-door'></div>
+        return <div styleName='car'>
+            <div styleName='front-door'></div>
+            <div styleName='back-door'></div>
         </div>;
     }
 }
@@ -182,9 +182,9 @@ import CSSModules from 'react-css-modules';
 @CSSModules(styles)
 export default class extends React.Component {
     render () {
-        return <div className='car'>
-            <div className='front-door'>front-door</div>
-            <div className='back-door'>back-door</div>
+        return <div styleName='car'>
+            <div styleName='front-door'>front-door</div>
+            <div styleName='back-door'>back-door</div>
         </div>;
     }
 }
