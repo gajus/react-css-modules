@@ -17,7 +17,7 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
         - [`errorWhenNotFound`](#errorwhennotfound)
 - [Class Composition](#class-composition)
     - [What Problems does Class Composition Solve?](#what-problems-does-class-composition-solve)
-    - [A Variation of Class Composition Using CSS Preprocessors](#a-variation-of-class-composition-using-css-preprocessors)
+    - [Class Composition Using CSS Preprocessors](#class-composition-using-css-preprocessors)
 - [SASS, SCSS, LESS and other CSS Preprocessors](#sass-scss-less-and-other-css-preprocessors)
 - [Global CSS](#global-css)
 - [Multiple CSS Classes](#multiple-css-classes)
@@ -294,7 +294,7 @@ Consider the same example in CSS and HTML:
 
 This pattern emerged with the advent of OOCSS. The biggest disadvantage of this implementation is that you will need to change HTML almost every time you want to change the style.
 
-### A Variation of Class Composition Using CSS Preprocessors
+### Class Composition Using CSS Preprocessors
 
 This section of the document is included as a learning exercise to broaden the understanding about the origin of Class Composition. CSS Modules support a native method of composting CSS Modules using [`composes`](https://github.com/css-modules/css-modules#composition) keyword. CSS Preprocessor is not required.
 
