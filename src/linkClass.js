@@ -9,28 +9,28 @@ let linkClass;
  * @return {ReactElement}
  */
 linkClass = (element, styles = {}, options = {}) => {
-    let childrenCount,
+    let appendClassName,
+        childrenCount,
         clonedElement,
-        moduleNames,
+        localClassNames,
         newChildren,
-        newProps,
-        appendClassName;
+        newProps;
 
-    moduleNames = element.props.moduleName;
+    localClassNames = element.props.localClassName;
 
-    if (moduleNames) {
-        moduleNames = moduleNames.split(' ');
+    if (localClassNames) {
+        localClassNames = localClassNames.split(' ');
 
-        if (options.allowMultiple === false && moduleNames.length > 1) {
-            throw new Error(`ReactElement moduleName property defines multiple module names ("${element.props.moduleName}").`);
+        if (options.allowMultiple === false && localClassNames.length > 1) {
+            throw new Error(`ReactElement localClassName property defines multiple module names ("${element.props.localClassName}").`);
         }
 
-        appendClassName = moduleNames.map((moduleName) => {
-            if (styles[moduleName]) {
-                return styles[moduleName];
+        appendClassName = localClassNames.map((localClassName) => {
+            if (styles[localClassName]) {
+                return styles[localClassName];
             } else {
                 if (options.errorWhenNotFound === true) {
-                    throw new Error(`"${moduleName}" CSS module is undefined.`);
+                    throw new Error(`"${localClassName}" CSS module is undefined.`);
                 }
 
                 return '';
@@ -65,7 +65,7 @@ linkClass = (element, styles = {}, options = {}) => {
 
     if (appendClassName) {
         if (element.props.className) {
-            appendClassName = element.props.className + ' ' + appendClassName;
+            appendClassName = `${element.props.className} ${appendClassName}`;
         }
 
         newProps = {

@@ -22,28 +22,28 @@ linkClass = function (element) {
     var styles = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
     var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
-    var childrenCount = undefined,
+    var appendClassName = undefined,
+        childrenCount = undefined,
         clonedElement = undefined,
-        moduleNames = undefined,
+        localClassNames = undefined,
         newChildren = undefined,
-        newProps = undefined,
-        appendClassName = undefined;
+        newProps = undefined;
 
-    moduleNames = element.props.moduleName;
+    localClassNames = element.props.localClassName;
 
-    if (moduleNames) {
-        moduleNames = moduleNames.split(' ');
+    if (localClassNames) {
+        localClassNames = localClassNames.split(' ');
 
-        if (options.allowMultiple === false && moduleNames.length > 1) {
-            throw new Error('ReactElement moduleName property defines multiple module names ("' + element.props.moduleName + '").');
+        if (options.allowMultiple === false && localClassNames.length > 1) {
+            throw new Error('ReactElement localClassName property defines multiple module names ("' + element.props.localClassName + '").');
         }
 
-        appendClassName = moduleNames.map(function (moduleName) {
-            if (styles[moduleName]) {
-                return styles[moduleName];
+        appendClassName = localClassNames.map(function (localClassName) {
+            if (styles[localClassName]) {
+                return styles[localClassName];
             } else {
                 if (options.errorWhenNotFound === true) {
-                    throw new Error('"' + moduleName + '" CSS module is undefined.');
+                    throw new Error('"' + localClassName + '" CSS module is undefined.');
                 }
 
                 return '';

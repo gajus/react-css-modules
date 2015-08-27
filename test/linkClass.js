@@ -8,7 +8,7 @@ import jsdom from 'jsdom';
 import linkClass from './../dist/linkClass';
 
 describe('linkClass', () => {
-    context('when ReactElement does not define moduleName', () => {
+    context('when ReactElement does not define localClassName', () => {
         it('does not affect element properties', () => {
             expect(linkClass(<div></div>)).to.deep.equal(<div></div>);
         });
@@ -33,12 +33,12 @@ describe('linkClass', () => {
         });
     });
 
-    context('when moduleName matches an existing CSS module', () => {
+    context('when localClassName matches an existing CSS module', () => {
         context('when ReactElement does not have an existing className', () => {
             it('uses the generated class name to set the className property', () => {
                 let subject;
 
-                subject = <div moduleName='foo'></div>;
+                subject = <div localClassName='foo'></div>;
 
                 subject = linkClass(subject, {
                     foo: 'foo-1'
@@ -51,7 +51,7 @@ describe('linkClass', () => {
             it('appends the generated class name to the className property', () => {
                 let subject;
 
-                subject = <div className='foo' moduleName='bar'></div>;
+                subject = <div className='foo' localClassName='bar'></div>;
 
                 subject = linkClass(subject, {
                     bar: 'bar-1'
@@ -67,15 +67,15 @@ describe('linkClass', () => {
             context('when false', () => {
                 it('throws an error', () => {
                     expect(() => {
-                        linkClass(<div moduleName='foo bar'></div>, {}, {allowMultiple: false});
-                    }).to.throw(Error, 'ReactElement moduleName property defines multiple module names ("foo bar").');
+                        linkClass(<div localClassName='foo bar'></div>, {}, {allowMultiple: false});
+                    }).to.throw(Error, 'ReactElement localClassName property defines multiple module names ("foo bar").');
                 });
             });
             context('when true', () => {
                 it('appends a generated class name for every referenced CSS module', () => {
                     let subject;
 
-                    subject = <div moduleName='foo bar'></div>;
+                    subject = <div localClassName='foo bar'></div>;
 
                     subject = linkClass(subject, {
                         foo: 'foo-1',
@@ -89,12 +89,12 @@ describe('linkClass', () => {
     });
 
     describe('options.errorWhenNotFound', () => {
-        context('when moduleName does not match an existing CSS module', () => {
+        context('when localClassName does not match an existing CSS module', () => {
             context('when false', () => {
                 it('ignores the missing CSS module', () => {
                     let subject;
 
-                    subject = <div moduleName='foo'></div>;
+                    subject = <div localClassName='foo'></div>;
 
                     subject = linkClass(subject, {}, {errorWhenNotFound: false});
 
@@ -104,7 +104,7 @@ describe('linkClass', () => {
             context('when is true', () => {
                 it('throws an error', () => {
                     expect(() => {
-                        linkClass(<div moduleName='foo'></div>, {}, {errorWhenNotFound: true});
+                        linkClass(<div localClassName='foo'></div>, {}, {errorWhenNotFound: true});
                     }).to.throw(Error, '"foo" CSS module is undefined.');
                 });
             });
@@ -130,11 +130,11 @@ describe('linkClass', () => {
 
             Foo = class extends React.Component {
                 render () {
-                    return <div moduleName='foo'>Hello</div>;
+                    return <div localClassName='foo'>Hello</div>;
                 }
             };
 
-            nodeList = TestUtils.renderIntoDocument(linkClass(<div moduleName='foo'><Foo /></div>, {foo: 'foo-1'}));
+            nodeList = TestUtils.renderIntoDocument(linkClass(<div localClassName='foo'><Foo /></div>, {foo: 'foo-1'}));
         });
         it('processes ReactElement nodes', () => {
             expect(nodeList.className).to.equal('foo-1');
