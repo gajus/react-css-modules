@@ -390,7 +390,7 @@ However, use global CSS with caution. With CSS Modules, there are only a handful
 
 ## Multiple CSS Modules
 
-Avoid using multiple CSS Modules to describe a single element. Read about [Class Composition](#class-compositon).
+Avoid using multiple CSS Modules to describe a single element. Read about [Class Composition](#class-composition).
 
 That said, if you require to use multiple CSS Modules to describe an element, enable the [`allowMultiple`](#allowmultiple) option. When multiple CSS Modules are used to describe an element, `react-css-modules` will append a unique class name for every CSS Module it matches in the `styleName` declaration, e.g.
 
