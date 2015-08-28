@@ -18,7 +18,7 @@ describe('makeConfig', () => {
         });
         describe('errorWhenNotFound property', () => {
             it('defaults to true', () => {
-                expect(options.errorWhenNotFound).to.equal(false);
+                expect(options.errorWhenNotFound).to.equal(true);
             });
         });
     });

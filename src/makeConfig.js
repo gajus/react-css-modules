@@ -37,7 +37,7 @@ export default (userConfig = {}) => {
     }
 
     if (typeof userConfig.errorWhenNotFound === 'undefined') {
-        userConfig.errorWhenNotFound = false;
+        userConfig.errorWhenNotFound = true;
     }
 
     return userConfig;

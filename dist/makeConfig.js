@@ -47,7 +47,7 @@ exports['default'] = function () {
     }
 
     if (typeof userConfig.errorWhenNotFound === 'undefined') {
-        userConfig.errorWhenNotFound = false;
+        userConfig.errorWhenNotFound = true;
     }
 
     return userConfig;
