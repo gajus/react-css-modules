@@ -3,8 +3,12 @@
 [![Travis build status](http://img.shields.io/travis/gajus/react-css-modules/master.svg?style=flat)](https://travis-ci.org/gajus/react-css-modules)
 [![NPM version](http://img.shields.io/npm/v/react-css-modules.svg?style=flat)](https://www.npmjs.org/package/react-css-modules)
 
+<img src='./README/react-css-modules' width='150' height='150' />
+
 React CSS Modules implement automatic mapping of CSS modules. Every CSS class is assigned a local-scoped identifier with a global unique name. CSS Modules enable a modular and reusable CSS!
 
+- [CSS Modules](#css-modules)
+    - [webpack `css-loader`](#webpack-css-loader)
 - [What's the Problem?](#whats-the-problem)
 - [The Implementation](#the-implementation)
 - [Usage](#usage)
@@ -22,7 +26,7 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
 - [Global CSS](#global-css)
 - [Multiple CSS Classes](#multiple-css-classes)
 
-## What's the Problem?
+## CSS Modules
 
 [CSS Modules](https://github.com/css-modules/css-modules) are awesome. If you are not familiar with CSS Modules, it is a concept of using a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. CSS module loader will generate a unique name for a each CSS class at the time of loading the CSS document ([Interoperable CSS](https://github.com/css-modules/icss) to be precise). To see CSS Modules in practice, [webpack-demo](https://css-modules.github.io/webpack-demo/).
 
@@ -55,7 +59,13 @@ and a corresponding CSS file that matches those CSS classes.
 
 Awesome!
 
-However, this approach has several disadvantages:
+### webpack `css-loader`
+
+[CSS Modules](https://github.com/css-modules/css-modules) is a specification that can be implemented in multiple ways. `react-css-modules` leverages as existing CSS Modules implementation webpack [css-loader](https://github.com/webpack/css-loader#css-modules).
+
+## What's the Problem?
+
+webpack [css-loader](https://github.com/webpack/css-loader#css-modules) itself has several disadvantages:
 
 * You have to use `camelCase` CSS class names.
 * You have to use `styles` object whenever constructing a `className`.
