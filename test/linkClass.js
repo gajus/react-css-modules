@@ -5,7 +5,7 @@ import {
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import jsdom from 'jsdom';
-import linkClass from './../dist/linkClass';
+import linkClass from './../src/linkClass';
 
 describe('linkClass', () => {
     context('when ReactElement does not define styleName', () => {

@@ -1,27 +1,31 @@
 import React from 'react';
+import makeConfiguration from './makeConfiguration';
 
 let linkClass;
 
 /**
  * @param {ReactElement} element
  * @param {Object} styles CSS modules class map.
- * @param {CSSModules~Options} options
+ * @param {CSSModules~Options} userConfiguration
  * @return {ReactElement}
  */
-linkClass = (element, styles = {}, options = {}) => {
+linkClass = (element, styles = {}, userConfiguration) => {
     let appendClassName,
         childrenCount,
         clonedElement,
+        configuration,
         newChildren,
         newProps,
         styleNames;
+
+    configuration = makeConfiguration(userConfiguration);
 
     styleNames = element.props.styleName;
 
     if (styleNames) {
         styleNames = styleNames.split(' ');
 
-        if (options.allowMultiple === false && styleNames.length > 1) {
+        if (configuration.allowMultiple === false && styleNames.length > 1) {
             throw new Error(`ReactElement styleName property defines multiple module names ("${element.props.styleName}").`);
         }
 
@@ -29,7 +33,7 @@ linkClass = (element, styles = {}, options = {}) => {
             if (styles[styleName]) {
                 return styles[styleName];
             } else {
-                if (options.errorWhenNotFound === true) {
+                if (configuration.errorWhenNotFound === true) {
                     throw new Error(`"${styleName}" CSS module is undefined.`);
                 }
 
@@ -52,13 +56,13 @@ linkClass = (element, styles = {}, options = {}) => {
         if (childrenCount > 1) {
             newChildren = React.Children.map(element.props.children, (node) => {
                 if (React.isValidElement(node)) {
-                    return linkClass(node, styles, options);
+                    return linkClass(node, styles, configuration);
                 } else {
                     return node;
                 }
             });
         } else if (childrenCount === 1) {
-            newChildren = linkClass(React.Children.only(element.props.children), styles, options);
+            newChildren = linkClass(React.Children.only(element.props.children), styles, configuration);
         }
     }
 

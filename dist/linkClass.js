@@ -10,31 +10,37 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _makeConfiguration = require('./makeConfiguration');
+
+var _makeConfiguration2 = _interopRequireDefault(_makeConfiguration);
+
 var linkClass = undefined;
 
 /**
  * @param {ReactElement} element
  * @param {Object} styles CSS modules class map.
- * @param {CSSModules~Options} options
+ * @param {CSSModules~Options} userConfiguration
  * @return {ReactElement}
  */
-linkClass = function (element) {
-    var styles = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-    var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+linkClass = function (element, styles, userConfiguration) {
+    if (styles === undefined) styles = {};
 
     var appendClassName = undefined,
         childrenCount = undefined,
         clonedElement = undefined,
+        configuration = undefined,
         newChildren = undefined,
         newProps = undefined,
         styleNames = undefined;
+
+    configuration = (0, _makeConfiguration2['default'])(userConfiguration);
 
     styleNames = element.props.styleName;
 
     if (styleNames) {
         styleNames = styleNames.split(' ');
 
-        if (options.allowMultiple === false && styleNames.length > 1) {
+        if (configuration.allowMultiple === false && styleNames.length > 1) {
             throw new Error('ReactElement styleName property defines multiple module names ("' + element.props.styleName + '").');
         }
 
@@ -42,7 +48,7 @@ linkClass = function (element) {
             if (styles[styleName]) {
                 return styles[styleName];
             } else {
-                if (options.errorWhenNotFound === true) {
+                if (configuration.errorWhenNotFound === true) {
                     throw new Error('"' + styleName + '" CSS module is undefined.');
                 }
 
@@ -65,13 +71,13 @@ linkClass = function (element) {
         if (childrenCount > 1) {
             newChildren = _react2['default'].Children.map(element.props.children, function (node) {
                 if (_react2['default'].isValidElement(node)) {
-                    return linkClass(node, styles, options);
+                    return linkClass(node, styles, configuration);
                 } else {
                     return node;
                 }
             });
         } else if (childrenCount === 1) {
-            newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles, options);
+            newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles, configuration);
         }
     }
 

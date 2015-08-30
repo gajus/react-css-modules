@@ -1,5 +1,4 @@
 import linkClass from './linkClass';
-import makeConfig from './makeConfig';
 
 let decoratorConstructor,
     functionConstructor;
@@ -12,10 +11,10 @@ let decoratorConstructor,
  * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
  * @return {Function}
  */
-functionConstructor = (Component, styles, options = {}) => {
+functionConstructor = (Component, styles, options) => {
     return class extends Component {
         render () {
-            return linkClass(super.render(), styles, makeConfig(options));
+            return linkClass(super.render(), styles, options);
         }
     };
 };
