@@ -68,7 +68,7 @@ linkClass = function (element, styles, userConfiguration) {
     if (typeof element.props.children !== 'string') {
         childrenCount = _react2['default'].Children.count(element.props.children);
 
-        if (childrenCount > 1) {
+        if (childrenCount > 1 || Array.isArray(element.props.children)) {
             newChildren = _react2['default'].Children.map(element.props.children, function (node) {
                 if (_react2['default'].isValidElement(node)) {
                     return linkClass(node, styles, configuration);
