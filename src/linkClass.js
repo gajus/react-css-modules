@@ -53,7 +53,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
     if (typeof element.props.children !== 'string') {
         childrenCount = React.Children.count(element.props.children);
 
-        if (childrenCount > 1) {
+        if (childrenCount > 1 || Array.isArray(element.props.children)) {
             newChildren = React.Children.map(element.props.children, (node) => {
                 if (React.isValidElement(node)) {
                     return linkClass(node, styles, configuration);
