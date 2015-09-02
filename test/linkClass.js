@@ -25,11 +25,41 @@ describe('linkClass', () => {
             expect(linkClass(<div className='foo'></div>)).to.deep.equal(<div className='foo'></div>);
         });
 
-        // Using array instead of object causes the following error:
-        // Warning: Each child in an array or iterator should have a unique "key" prop.
-        // Check the render method of _class. See https://fb.me/react-warning-keys for more information.
-        xit('does not affect element with multiple children', () => {
-            expect(linkClass(<div><p></p><p></p></div>)).to.deep.equal(<div><p></p><p></p></div>);
+        // Does not affect
+        it('does not affect element with a single children when that children is contained in an array', () => {
+            let outcome,
+                subject;
+
+            subject = React.createElement('div', null, [
+                React.createElement('p')
+            ]);
+            outcome = React.createElement('div', null, [
+                React.createElement('p')
+            ]);
+
+            expect(linkClass(subject)).to.deep.equal(outcome);
+        });
+
+        it('does not affect element with multiple children', () => {
+            // Using array instead of object causes the following error:
+            // Warning: Each child in an array or iterator should have a unique "key" prop.
+            // Check the render method of _class. See https://fb.me/react-warning-keys for more information.
+            // @see https://github.com/facebook/react/issues/4723#issuecomment-135555277
+            // expect(linkClass(<div><p></p><p></p></div>)).to.deep.equal(<div><p></p><p></p></div>);
+
+            let outcome,
+                subject;
+
+            subject = React.createElement('div', null, [
+                React.createElement('p'),
+                React.createElement('p')
+            ]);
+            outcome = React.createElement('div', null, [
+                React.createElement('p'),
+                React.createElement('p')
+            ]);
+
+            expect(linkClass(subject)).to.deep.equal(outcome);
         });
     });
 

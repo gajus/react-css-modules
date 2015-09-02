@@ -1,5 +1,6 @@
 import React from 'react';
 import makeConfiguration from './makeConfiguration';
+import _ from './utils';
 
 let linkClass;
 
@@ -53,7 +54,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
     if (typeof element.props.children !== 'string') {
         childrenCount = React.Children.count(element.props.children);
 
-        if (childrenCount > 1) {
+        if (childrenCount > 1 || _.isArray(element.props.children)) {
             newChildren = React.Children.map(element.props.children, (node) => {
                 if (React.isValidElement(node)) {
                     return linkClass(node, styles, configuration);
@@ -61,6 +62,8 @@ linkClass = (element, styles = {}, userConfiguration) => {
                     return node;
                 }
             });
+            // https://github.com/facebook/react/issues/4723#issuecomment-135555277
+            newChildren = _.values(newChildren);
         } else if (childrenCount === 1) {
             newChildren = linkClass(React.Children.only(element.props.children), styles, configuration);
         }
