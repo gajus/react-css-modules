@@ -63,6 +63,39 @@ describe('linkClass', () => {
     });
 
     context('when styleName matches an existing CSS module', () => {
+        context('when a descendant element has styleName', () => {
+            it('assigns a generated className', () => {
+                let subject;
+
+                subject = <div>
+                    <p styleName='foo'></p>
+                </div>;
+
+                subject = linkClass(subject, {
+                    foo: 'foo-1'
+                });
+
+                expect(subject.props.children.props.className).to.equal('foo-1');
+            });
+        });
+        context('when multiple descendant elements have styleName', () => {
+            it('assigns a generated className', () => {
+                let subject;
+
+                subject = <div>
+                    <p styleName='foo'></p>
+                    <p styleName='bar'></p>
+                </div>;
+
+                subject = linkClass(subject, {
+                    foo: 'foo-1',
+                    bar: 'bar-1'
+                });
+
+                expect(subject.props.children['.0'].props.className).to.equal('foo-1');
+                expect(subject.props.children['.1'].props.className).to.equal('bar-1');
+            });
+        });
         context('when ReactElement does not have an existing className', () => {
             it('uses the generated class name to set the className property', () => {
                 let subject;

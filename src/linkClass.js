@@ -49,9 +49,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
         appendClassName = appendClassName.join(' ');
     }
 
-    // A child can be either an array, a sole object or a string.
-    // <div>test</div>
-    if (_.isArray(element.props.children)) {
+    if (_.isArray(element.props.children) || React.isValidElement(element.props.children)) {
         childrenCount = React.Children.count(element.props.children);
 
         // console.log('childrenCount', childrenCount, 'element.props.children', element.props.children);

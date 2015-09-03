@@ -67,9 +67,7 @@ linkClass = function (element, styles, userConfiguration) {
         appendClassName = appendClassName.join(' ');
     }
 
-    // A child can be either an array, a sole object or a string.
-    // <div>test</div>
-    if (_utils2['default'].isArray(element.props.children)) {
+    if (_utils2['default'].isArray(element.props.children) || _react2['default'].isValidElement(element.props.children)) {
         childrenCount = _react2['default'].Children.count(element.props.children);
 
         // console.log('childrenCount', childrenCount, 'element.props.children', element.props.children);
