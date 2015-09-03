@@ -51,8 +51,10 @@ linkClass = (element, styles = {}, userConfiguration) => {
 
     // A child can be either an array, a sole object or a string.
     // <div>test</div>
-    if (typeof element.props.children !== 'string') {
+    if (_.isArray(element.props.children)) {
         childrenCount = React.Children.count(element.props.children);
+
+        // console.log('childrenCount', childrenCount, 'element.props.children', element.props.children);
 
         if (childrenCount > 1 || _.isArray(element.props.children)) {
             newChildren = React.Children.map(element.props.children, (node) => {
@@ -63,7 +65,9 @@ linkClass = (element, styles = {}, userConfiguration) => {
                 }
             });
             // https://github.com/facebook/react/issues/4723#issuecomment-135555277
-            newChildren = _.values(newChildren);
+            // Forcing children into an array produces the following error:
+            // Warning: A ReactFragment is an opaque type. Accessing any of its properties is deprecated. Pass it to one of the React.Children helpers.
+            // newChildren = _.values(newChildren);
         } else if (childrenCount === 1) {
             newChildren = linkClass(React.Children.only(element.props.children), styles, configuration);
         }

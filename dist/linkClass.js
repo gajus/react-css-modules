@@ -14,6 +14,10 @@ var _makeConfiguration = require('./makeConfiguration');
 
 var _makeConfiguration2 = _interopRequireDefault(_makeConfiguration);
 
+var _utils = require('./utils');
+
+var _utils2 = _interopRequireDefault(_utils);
+
 var linkClass = undefined;
 
 /**
@@ -65,10 +69,12 @@ linkClass = function (element, styles, userConfiguration) {
 
     // A child can be either an array, a sole object or a string.
     // <div>test</div>
-    if (typeof element.props.children !== 'string') {
+    if (_utils2['default'].isArray(element.props.children)) {
         childrenCount = _react2['default'].Children.count(element.props.children);
 
-        if (childrenCount > 1) {
+        // console.log('childrenCount', childrenCount, 'element.props.children', element.props.children);
+
+        if (childrenCount > 1 || _utils2['default'].isArray(element.props.children)) {
             newChildren = _react2['default'].Children.map(element.props.children, function (node) {
                 if (_react2['default'].isValidElement(node)) {
                     return linkClass(node, styles, configuration);
@@ -76,9 +82,13 @@ linkClass = function (element, styles, userConfiguration) {
                     return node;
                 }
             });
+            // https://github.com/facebook/react/issues/4723#issuecomment-135555277
+            // Forcing children into an array produces the following error:
+            // Warning: A ReactFragment is an opaque type. Accessing any of its properties is deprecated. Pass it to one of the React.Children helpers.
+            // newChildren = _.values(newChildren);
         } else if (childrenCount === 1) {
-            newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles, configuration);
-        }
+                newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles, configuration);
+            }
     }
 
     if (appendClassName) {

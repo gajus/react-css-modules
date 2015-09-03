@@ -25,8 +25,7 @@ describe('linkClass', () => {
             expect(linkClass(<div className='foo'></div>)).to.deep.equal(<div className='foo'></div>);
         });
 
-        // Does not affect
-        it('does not affect element with a single children when that children is contained in an array', () => {
+        xit('does not affect element with a single children when that children is contained in an array', () => {
             let outcome,
                 subject;
 
@@ -40,7 +39,7 @@ describe('linkClass', () => {
             expect(linkClass(subject)).to.deep.equal(outcome);
         });
 
-        it('does not affect element with multiple children', () => {
+        xit('does not affect element with multiple children', () => {
             // Using array instead of object causes the following error:
             // Warning: Each child in an array or iterator should have a unique "key" prop.
             // Check the render method of _class. See https://fb.me/react-warning-keys for more information.
