@@ -1,3 +1,4 @@
 /node_modules
 /coverage
+/.coveralls.yml
 npm-debug.log
