@@ -2,6 +2,7 @@
 
 [![Travis build status](http://img.shields.io/travis/gajus/react-css-modules/master.svg?style=flat)](https://travis-ci.org/gajus/react-css-modules)
 [![NPM version](http://img.shields.io/npm/v/react-css-modules.svg?style=flat)](https://www.npmjs.org/package/react-css-modules)
+[![Coverage Status](https://coveralls.io/repos/gajus/react-css-modules/badge.svg?branch=master&service=github)](https://coveralls.io/github/gajus/react-css-modules?branch=master)
 
 <img src='./README/react-css-modules.png' height='150' />
 
