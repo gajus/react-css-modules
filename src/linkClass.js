@@ -73,7 +73,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
         }
 
         if (configuration.autoBindGlobal === true) {
-            appendClassName += ' ' + element.props.styleName;
+            appendClassName += ` ${element.props.styleName}`;
         }
 
         newProps = {
