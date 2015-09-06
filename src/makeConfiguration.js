@@ -16,7 +16,8 @@ export default (userConfiguration = {}) => {
 
     configuration = {
         allowMultiple: false,
-        errorWhenNotFound: true
+        errorWhenNotFound: true,
+        autoBindGlobal: false
     };
 
     _.forEach(userConfiguration, (value, name) => {
