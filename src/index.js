@@ -14,6 +14,21 @@ let decoratorConstructor,
 functionConstructor = (Component, styles, options) => {
     return class extends Component {
         render () {
+            const customStyles = this.props.styles;
+
+            if (customStyles && typeof customStyles === 'object') {
+                Object.keys(customStyles).forEach((key) => {
+                    if (styles[key]) {
+                        const pattern = new RegExp(`(^|\\s)${customStyles[key]}(\\s|$)`);
+
+                        if (!pattern.test(styles[key])) {
+                            styles[key] = `${styles[key]} ${customStyles[key]}`;
+                        }
+                    } else {
+                        styles[key] = customStyles[key];
+                    }
+                });
+            }
             return linkClass(super.render(), styles, options);
         }
     };

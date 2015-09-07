@@ -42,6 +42,21 @@ functionConstructor = function (Component, styles, options) {
         _createClass(_class, [{
             key: 'render',
             value: function render() {
+                var customStyles = this.props.styles;
+
+                if (customStyles && typeof customStyles === 'object') {
+                    Object.keys(customStyles).forEach(function (key) {
+                        if (styles[key]) {
+                            var pattern = new RegExp('(^|\\s)' + customStyles[key] + '(\\s|$)');
+
+                            if (!pattern.test(styles[key])) {
+                                styles[key] = styles[key] + ' ' + customStyles[key];
+                            }
+                        } else {
+                            styles[key] = customStyles[key];
+                        }
+                    });
+                }
                 return (0, _linkClass2['default'])(_get(Object.getPrototypeOf(_class.prototype), 'render', this).call(this), styles, options);
             }
         }]);
