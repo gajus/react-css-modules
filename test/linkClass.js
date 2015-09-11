@@ -92,8 +92,8 @@ describe('linkClass', () => {
                     bar: 'bar-1'
                 });
 
-                expect(subject.props.children['.0'].props.className).to.equal('foo-1');
-                expect(subject.props.children['.1'].props.className).to.equal('bar-1');
+                expect(subject.props.children[0].props.className).to.equal('foo-1');
+                expect(subject.props.children[1].props.className).to.equal('bar-1');
             });
         });
         context('when ReactElement does not have an existing className', () => {
