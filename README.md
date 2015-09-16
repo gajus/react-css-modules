@@ -35,13 +35,15 @@ In the context of React, CSS Modules look like this:
 
 ```js
 import React from 'react';
-import styles from './car.css';
+import styles from './table.css';
 
-export default class Car extends React.Component {
+export default class Table extends React.Component {
     render () {
-        return <div className={styles.car}>
-            <div className={styles.frontDoor}></div>
-            <div className={styles.backDoor}></div>
+        return <div className={styles.table}>
+            <div className={styles.row}>
+                <div className={styles.cell}>A0</div>
+                <div className={styles.cell}>B0</div>
+            </div>
         </div>;
     }
 }
@@ -50,9 +52,11 @@ export default class Car extends React.Component {
 Rendering the component will produce a markup similar to:
 
 ```js
-<div class="car__car___32osj">
-    <div class="car__front-door___2w27N">front-door</div>
-    <div class="car__back-door___1oVw5">back-door</div>
+<div class="table__table___32osj">
+    <div class="table__row___2w27N">
+        <div class="table__cell___2w27N">A0</div>
+        <div class="table__cell___1oVw5">B0</div>
+    </div>
 </div>
 ```
 
@@ -77,19 +81,21 @@ React CSS Modules component automates loading of CSS Modules using `styleName` p
 
 ```js
 import React from 'react';
-import styles from './car.css';
 import CSSModules from 'react-css-modules';
+import styles from './table.css';
 
-class Car extends React.Component {
+class Table extends React.Component {
     render () {
-        return <div styleName='car'>
-            <div styleName='front-door'></div>
-            <div styleName='back-door'></div>
+        return <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+                <div styleName='cell'>B0</div>
+            </div>
         </div>;
     }
 }
 
-export default CSSModules(Car, styles);
+export default CSSModules(Table, styles);
 ```
 
 Using `react-css-modules`:
@@ -159,7 +165,7 @@ Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
 
 /**
  * @param {Function} Component
- * @param {Object} styles CSS Modules class map.
+ * @param {Object} defaultStyles CSS Modules class map.
  * @param {CSSModules~Options} options
  * @return {Function}
  */
@@ -169,19 +175,21 @@ You need to decorate your component using `react-css-modules`, e.g.
 
 ```js
 import React from 'react';
-import styles from './car.css';
 import CSSModules from 'react-css-modules';
+import styles from './table.css';
 
-class Car extends React.Component {
+class Table extends React.Component {
     render () {
-        return <div styleName='car'>
-            <div styleName='front-door'></div>
-            <div styleName='back-door'></div>
+        return <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+                <div styleName='cell'>B0</div>
+            </div>
         </div>;
     }
 }
 
-export default CSSModules(Car, styles);
+export default CSSModules(Table, styles);
 ```
 
 Thats it!
@@ -190,15 +198,17 @@ As the name implies, `react-css-modules` is compatible with the [ES7 decorators]
 
 ```js
 import React from 'react';
-import styles from './car.css';
 import CSSModules from 'react-css-modules';
+import styles from './table.css';
 
 @CSSModules(styles)
 export default class extends React.Component {
     render () {
-        return <div styleName='car'>
-            <div styleName='front-door'>front-door</div>
-            <div styleName='back-door'>back-door</div>
+        return <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+                <div styleName='cell'>B0</div>
+            </div>
         </div>;
     }
 }
