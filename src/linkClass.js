@@ -1,6 +1,6 @@
 import React from 'react';
 import makeConfiguration from './makeConfiguration';
-import _ from './utils';
+import _ from 'lodash';
 
 let linkClass;
 

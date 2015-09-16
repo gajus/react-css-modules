@@ -1,10 +1,12 @@
 'use strict';
 
+var _lodashLangIsArray2 = require('lodash/lang/isArray');
+
+var _lodashLangIsArray3 = _interopRequireDefault(_lodashLangIsArray2);
+
 Object.defineProperty(exports, '__esModule', {
     value: true
 });
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _react = require('react');
 
@@ -14,9 +16,7 @@ var _makeConfiguration = require('./makeConfiguration');
 
 var _makeConfiguration2 = _interopRequireDefault(_makeConfiguration);
 
-var _utils = require('./utils');
-
-var _utils2 = _interopRequireDefault(_utils);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var linkClass = undefined;
 
@@ -76,7 +76,7 @@ linkClass = function (element, styles, userConfiguration) {
 
     if (_react2['default'].isValidElement(element.props.children)) {
         newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles, configuration);
-    } else if (_utils2['default'].isArray(element.props.children)) {
+    } else if ((0, _lodashLangIsArray3['default'])(element.props.children)) {
         newChildren = _react2['default'].Children.map(element.props.children, function (node) {
             if (_react2['default'].isValidElement(node)) {
                 return linkClass(node, styles, configuration);

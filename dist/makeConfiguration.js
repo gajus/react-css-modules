@@ -1,14 +1,14 @@
 'use strict';
 
+var _lodashCollectionForEach2 = require('lodash/collection/forEach');
+
+var _lodashCollectionForEach3 = _interopRequireDefault(_lodashCollectionForEach2);
+
 Object.defineProperty(exports, '__esModule', {
     value: true
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _utils = require('./utils');
-
-var _utils2 = _interopRequireDefault(_utils);
 
 /**
  * @typedef CSSModules~Options
@@ -32,7 +32,7 @@ exports['default'] = function () {
         errorWhenNotFound: true
     };
 
-    _utils2['default'].forEach(userConfiguration, function (value, name) {
+    (0, _lodashCollectionForEach3['default'])(userConfiguration, function (value, name) {
         if (typeof configuration[name] === 'undefined') {
             throw new Error('Unknown configuration property "' + name + '".');
         }

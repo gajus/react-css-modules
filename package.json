@@ -26,6 +26,7 @@
     "babel": "^5.8.23",
     "babel-eslint": "^4.1.2",
     "babel-istanbul": "^0.3.20",
+    "babel-plugin-lodash": "^0.2.0",
     "chai": "^3.2.0",
     "coveralls": "^2.11.4",
     "eslint": "^1.4.3",
