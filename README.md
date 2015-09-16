@@ -16,6 +16,7 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
     - [Module Bundler](#module-bundler)
         - [webpack](#webpack)
         - [Browserify](#browserify)
+    - [Extending CSS Styles](#extending-css-styles)
     - [Decorator](#decorator)
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
@@ -152,6 +153,70 @@ Refer to [webpack-demo](https://github.com/css-modules/webpack-demo) or [react-c
 #### Browserify
 
 Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
+
+### Extending CSS Styles
+
+Use `styles` property to overwrite the default component styles.
+
+Explanation using `Table` component:
+
+```js
+import React from 'react';
+import CSSModules from 'react-css-modules';
+import styles from './table.css';
+
+class Table extends React.Component {
+    render () {
+        return <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+                <div styleName='cell'>B0</div>
+            </div>
+        </div>;
+    }
+}
+
+export default CSSModules(Table, styles);
+```
+
+In this example, `CSSModules` is used to decorate `Table` component using `./table.css` CSS Modules. When `Table` component is rendered, it will use the properties of the `styles` object to construct `className` values.
+
+Using `styles` property you can overwrite the default component `styles` object, e.g.
+
+```js
+import customStyles from './table-custom-styles.css';
+
+<Table styles={customStyles} />;
+```
+
+[Interoperable CSS](https://github.com/css-modules/icss) can [extend other ICSS](https://github.com/css-modules/css-modules#dependencies). Use this feature to extend default styles, e.g.
+
+```css
+/* table-custom-styles.css */
+.table {
+    composes: table from './table.css';
+}
+
+.row {
+    composes: row from './table.css';
+}
+
+/* .cell {
+    composes: cell from './table.css';
+} */
+
+.table {
+    width: 400px;
+}
+
+.cell {
+    float: left; width: 154px; background: #eee; padding: 10px; margin: 10px 0 10px 10px;
+}
+```
+
+In this example, `table-custom-styles.css` selectively extends `table.css` (the default styles of `Table` component).
+
+Refer to the [`UsingStylesProperty` example](https://github.com/gajus/react-css-modules-examples/tree/master/src/UsingStylesProperty) for an example of a working implementation.
 
 ### Decorator
 
