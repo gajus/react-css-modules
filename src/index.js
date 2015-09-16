@@ -1,3 +1,4 @@
+import React from 'react';
 import linkClass from './linkClass';
 
 let decoratorConstructor,
@@ -14,7 +15,15 @@ let decoratorConstructor,
 functionConstructor = (Component, styles, options) => {
     return class extends Component {
         render () {
-            return linkClass(super.render(), styles, options);
+            let renderResult;
+
+            renderResult = super.render();
+
+            if (renderResult) {
+                return linkClass(renderResult, styles, options);
+            }
+
+            return React.createElement('noscript');
         }
     };
 };
