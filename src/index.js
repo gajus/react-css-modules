@@ -1,4 +1,5 @@
 import linkClass from './linkClass';
+import React from 'react';
 import _ from 'lodash';
 
 let decoratorConstructor,
@@ -15,7 +16,8 @@ let decoratorConstructor,
 functionConstructor = (Component, defaultStyles, options) => {
     return class extends Component {
         render () {
-            let styles;
+            let renderResult,
+                styles;
 
             if (this.props.styles) {
                 styles = this.props.styles;
@@ -25,7 +27,13 @@ functionConstructor = (Component, defaultStyles, options) => {
                 styles = {};
             }
 
-            return linkClass(super.render(), styles, options);
+            renderResult = super.render();
+
+            if (renderResult) {
+                return linkClass(renderResult, styles, options);
+            }
+
+            return React.createElement('noscript');
         }
     };
 };
