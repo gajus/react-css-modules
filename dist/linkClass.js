@@ -30,7 +30,6 @@ linkClass = function (element, styles, userConfiguration) {
     if (styles === undefined) styles = {};
 
     var appendClassName = undefined,
-        childrenCount = undefined,
         clonedElement = undefined,
         configuration = undefined,
         newChildren = undefined,
@@ -67,26 +66,29 @@ linkClass = function (element, styles, userConfiguration) {
         appendClassName = appendClassName.join(' ');
     }
 
-    if (_utils2['default'].isArray(element.props.children) || _react2['default'].isValidElement(element.props.children)) {
-        childrenCount = _react2['default'].Children.count(element.props.children);
+    // element.props.children can be one of the following:
+    // 'text'
+    // ['text']
+    // [ReactElement, 'text']
+    // ReactElement
 
-        // console.log('childrenCount', childrenCount, 'element.props.children', element.props.children);
+    // console.log(`element.props.children`, element.props.children, `React.Children.count(element.props.children)`, React.Children.count(element.props.children));
 
-        if (childrenCount > 1 || _utils2['default'].isArray(element.props.children)) {
-            newChildren = _react2['default'].Children.map(element.props.children, function (node) {
-                if (_react2['default'].isValidElement(node)) {
-                    return linkClass(node, styles, configuration);
-                } else {
-                    return node;
-                }
-            });
-            // https://github.com/facebook/react/issues/4723#issuecomment-135555277
-            // Forcing children into an array produces the following error:
-            // Warning: A ReactFragment is an opaque type. Accessing any of its properties is deprecated. Pass it to one of the React.Children helpers.
-            // newChildren = _.values(newChildren);
-        } else if (childrenCount === 1) {
-                newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles, configuration);
+    if (_react2['default'].isValidElement(element.props.children)) {
+        newChildren = linkClass(_react2['default'].Children.only(element.props.children), styles, configuration);
+    } else if (_utils2['default'].isArray(element.props.children)) {
+        newChildren = _react2['default'].Children.map(element.props.children, function (node) {
+            if (_react2['default'].isValidElement(node)) {
+                return linkClass(node, styles, configuration);
+            } else {
+                return node;
             }
+        });
+
+        // https://github.com/facebook/react/issues/4723#issuecomment-135555277
+        // Forcing children into an array produces the following error:
+        // Warning: A ReactFragment is an opaque type. Accessing any of its properties is deprecated. Pass it to one of the React.Children helpers.
+        // newChildren = _.values(newChildren);
     }
 
     if (appendClassName) {
