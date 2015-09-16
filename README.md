@@ -16,7 +16,7 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
     - [Module Bundler](#module-bundler)
         - [webpack](#webpack)
         - [Browserify](#browserify)
-    - [Extending CSS Styles](#extending-css-styles)
+    - [Extending Component Styles](#extending-component-styles)
     - [Decorator](#decorator)
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
@@ -154,7 +154,7 @@ Refer to [webpack-demo](https://github.com/css-modules/webpack-demo) or [react-c
 
 Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
 
-### Extending CSS Styles
+### Extending Component Styles
 
 Use `styles` property to overwrite the default component styles.
 
