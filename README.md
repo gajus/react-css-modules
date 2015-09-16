@@ -16,6 +16,7 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
     - [Module Bundler](#module-bundler)
         - [webpack](#webpack)
         - [Browserify](#browserify)
+    - [Extending Component Styles](#extending-component-styles)
     - [Decorator](#decorator)
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
@@ -35,13 +36,15 @@ In the context of React, CSS Modules look like this:
 
 ```js
 import React from 'react';
-import styles from './car.css';
+import styles from './table.css';
 
-export default class Car extends React.Component {
+export default class Table extends React.Component {
     render () {
-        return <div className={styles.car}>
-            <div className={styles.frontDoor}></div>
-            <div className={styles.backDoor}></div>
+        return <div className={styles.table}>
+            <div className={styles.row}>
+                <div className={styles.cell}>A0</div>
+                <div className={styles.cell}>B0</div>
+            </div>
         </div>;
     }
 }
@@ -50,9 +53,11 @@ export default class Car extends React.Component {
 Rendering the component will produce a markup similar to:
 
 ```js
-<div class="car__car___32osj">
-    <div class="car__front-door___2w27N">front-door</div>
-    <div class="car__back-door___1oVw5">back-door</div>
+<div class="table__table___32osj">
+    <div class="table__row___2w27N">
+        <div class="table__cell___2w27N">A0</div>
+        <div class="table__cell___1oVw5">B0</div>
+    </div>
 </div>
 ```
 
@@ -77,19 +82,21 @@ React CSS Modules component automates loading of CSS Modules using `styleName` p
 
 ```js
 import React from 'react';
-import styles from './car.css';
 import CSSModules from 'react-css-modules';
+import styles from './table.css';
 
-class Car extends React.Component {
+class Table extends React.Component {
     render () {
-        return <div styleName='car'>
-            <div styleName='front-door'></div>
-            <div styleName='back-door'></div>
+        return <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+                <div styleName='cell'>B0</div>
+            </div>
         </div>;
     }
 }
 
-export default CSSModules(Car, styles);
+export default CSSModules(Table, styles);
 ```
 
 Using `react-css-modules`:
@@ -147,6 +154,70 @@ Refer to [webpack-demo](https://github.com/css-modules/webpack-demo) or [react-c
 
 Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
 
+### Extending Component Styles
+
+Use `styles` property to overwrite the default component styles.
+
+Explanation using `Table` component:
+
+```js
+import React from 'react';
+import CSSModules from 'react-css-modules';
+import styles from './table.css';
+
+class Table extends React.Component {
+    render () {
+        return <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+                <div styleName='cell'>B0</div>
+            </div>
+        </div>;
+    }
+}
+
+export default CSSModules(Table, styles);
+```
+
+In this example, `CSSModules` is used to decorate `Table` component using `./table.css` CSS Modules. When `Table` component is rendered, it will use the properties of the `styles` object to construct `className` values.
+
+Using `styles` property you can overwrite the default component `styles` object, e.g.
+
+```js
+import customStyles from './table-custom-styles.css';
+
+<Table styles={customStyles} />;
+```
+
+[Interoperable CSS](https://github.com/css-modules/icss) can [extend other ICSS](https://github.com/css-modules/css-modules#dependencies). Use this feature to extend default styles, e.g.
+
+```css
+/* table-custom-styles.css */
+.table {
+    composes: table from './table.css';
+}
+
+.row {
+    composes: row from './table.css';
+}
+
+/* .cell {
+    composes: cell from './table.css';
+} */
+
+.table {
+    width: 400px;
+}
+
+.cell {
+    float: left; width: 154px; background: #eee; padding: 10px; margin: 10px 0 10px 10px;
+}
+```
+
+In this example, `table-custom-styles.css` selectively extends `table.css` (the default styles of `Table` component).
+
+Refer to the [`UsingStylesProperty` example](https://github.com/gajus/react-css-modules-examples/tree/master/src/UsingStylesProperty) for an example of a working implementation.
+
 ### Decorator
 
 ```js
@@ -159,7 +230,7 @@ Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
 
 /**
  * @param {Function} Component
- * @param {Object} styles CSS Modules class map.
+ * @param {Object} defaultStyles CSS Modules class map.
  * @param {CSSModules~Options} options
  * @return {Function}
  */
@@ -169,19 +240,21 @@ You need to decorate your component using `react-css-modules`, e.g.
 
 ```js
 import React from 'react';
-import styles from './car.css';
 import CSSModules from 'react-css-modules';
+import styles from './table.css';
 
-class Car extends React.Component {
+class Table extends React.Component {
     render () {
-        return <div styleName='car'>
-            <div styleName='front-door'></div>
-            <div styleName='back-door'></div>
+        return <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+                <div styleName='cell'>B0</div>
+            </div>
         </div>;
     }
 }
 
-export default CSSModules(Car, styles);
+export default CSSModules(Table, styles);
 ```
 
 Thats it!
@@ -190,15 +263,17 @@ As the name implies, `react-css-modules` is compatible with the [ES7 decorators]
 
 ```js
 import React from 'react';
-import styles from './car.css';
 import CSSModules from 'react-css-modules';
+import styles from './table.css';
 
 @CSSModules(styles)
 export default class extends React.Component {
     render () {
-        return <div styleName='car'>
-            <div styleName='front-door'>front-door</div>
-            <div styleName='back-door'>back-door</div>
+        return <div styleName='table'>
+            <div styleName='row'>
+                <div styleName='cell'>A0</div>
+                <div styleName='cell'>B0</div>
+            </div>
         </div>;
     }
 }

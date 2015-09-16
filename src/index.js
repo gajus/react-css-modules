@@ -1,5 +1,6 @@
-import React from 'react';
 import linkClass from './linkClass';
+import React from 'react';
+import _ from 'lodash';
 
 let decoratorConstructor,
     functionConstructor;
@@ -8,14 +9,23 @@ let decoratorConstructor,
  * When used as a function.
  *
  * @param {Function} Component
- * @param {Object} styles CSS Modules class map.
+ * @param {Object} defaultStyles CSS Modules class map.
  * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
  * @return {Function}
  */
-functionConstructor = (Component, styles, options) => {
+functionConstructor = (Component, defaultStyles, options) => {
     return class extends Component {
         render () {
-            let renderResult;
+            let renderResult,
+                styles;
+
+            if (this.props.styles) {
+                styles = this.props.styles;
+            } else if (_.isObject(defaultStyles)) {
+                styles = defaultStyles;
+            } else {
+                styles = {};
+            }
 
             renderResult = super.render();
 
@@ -31,13 +41,13 @@ functionConstructor = (Component, styles, options) => {
 /**
  * When used as a ES7 decorator.
  *
- * @param {Object} styles CSS Modules class map.
+ * @param {Object} defaultStyles CSS Modules class map.
  * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
  * @return {Function}
  */
-decoratorConstructor = (styles, options) => {
+decoratorConstructor = (defaultStyles, options) => {
     return (Component) => {
-        return functionConstructor(Component, styles, options);
+        return functionConstructor(Component, defaultStyles, options);
     };
 };
 
