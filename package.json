@@ -1,7 +1,7 @@
 {
   "name": "react-css-modules",
   "description": "Seamless mapping of class names to CSS modules inside of React components.",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/gajus/react-css-modules"
@@ -23,22 +23,23 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
-    "babel": "^5.8.21",
-    "babel-eslint": "^4.1.0",
-    "babel-istanbul": "^0.3.19",
+    "babel": "^5.8.23",
+    "babel-eslint": "^4.1.2",
+    "babel-istanbul": "^0.3.20",
     "chai": "^3.2.0",
     "coveralls": "^2.11.4",
-    "eslint": "^1.2.1",
-    "eslint-plugin-react": "^3.3.0",
-    "jsdom": "^6.2.0",
-    "mocha": "^2.2.5",
-    "mocha-lcov-reporter": "0.0.2",
-    "react": "^0.14.0-beta3",
-    "react-addons-test-utils": "^0.14.0-beta3"
+    "eslint": "^1.4.3",
+    "eslint-plugin-react": "^3.3.2",
+    "jsdom": "^6.5.0",
+    "mocha": "^2.3.2",
+    "mocha-lcov-reporter": "^0.0.2",
+    "react": "^0.14.0-rc1",
+    "react-addons-test-utils": "^0.14.0-rc1"
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint ./src/ ./test/",
-    "test": "npm run lint && node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha && cat ./coverage/lcov.info | coveralls",
+    "quick-test": "npm run lint && node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha",
+    "test": "npm run quick-test && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "build": "babel ./src/ --out-dir ./dist/",
     "watch": "babel --watch ./src/ --out-dir ./dist/"
   }
