@@ -7,8 +7,8 @@ import TestUtils from 'react-addons-test-utils';
 import reactCssModules from './../src/index';
 
 describe('reactCssModules', () => {
-    context('when a ReactComponent renders properly', () => {
-        it('assigns a generated className', () => {
+    context('when a ReactComponent renders an element with the styleName prop', () => {
+        it('that element should contain the equivalent className', () => {
             let Foo,
                 component,
                 shallowRenderer;
@@ -32,7 +32,7 @@ describe('reactCssModules', () => {
     });
 
     context('when a ReactComponent renders nothing', () => {
-        it('assigns a generated className', () => {
+        it('linkClass should not intervene', () => {
             let Foo,
                 component,
                 shallowRenderer;
