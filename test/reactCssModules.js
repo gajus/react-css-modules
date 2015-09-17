@@ -7,6 +7,19 @@ import TestUtils from 'react-addons-test-utils';
 import reactCssModules from './../src/index';
 
 describe('reactCssModules', () => {
+    context('a ReactComponent is decorated using react-css-modules', () => {
+        it('inherits displayName', () => {
+            let Foo;
+
+            Foo = class extends React.Component {
+                static displayName = 'Foo';
+            };
+
+            Foo = reactCssModules(Foo);
+
+            expect(Foo.displayName).to.equal('Foo');
+        });
+    });
     context('a ReactComponent renders an element with the styleName prop', () => {
         it('that element should contain the equivalent className', () => {
             let Foo,

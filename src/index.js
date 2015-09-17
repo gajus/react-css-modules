@@ -15,6 +15,8 @@ let decoratorConstructor,
  */
 functionConstructor = (Component, defaultStyles, options) => {
     return class extends Component {
+        static displayName = Component.displayName;
+
         render () {
             let renderResult,
                 styles;
