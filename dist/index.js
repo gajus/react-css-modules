@@ -38,7 +38,9 @@ var decoratorConstructor = undefined,
  * @return {Function}
  */
 functionConstructor = function (Component, defaultStyles, options) {
-    return (function (_Component) {
+    var decoratedClass = undefined;
+
+    decoratedClass = (function (_Component) {
         _inherits(_class, _Component);
 
         function _class() {
@@ -73,6 +75,14 @@ functionConstructor = function (Component, defaultStyles, options) {
 
         return _class;
     })(Component);
+
+    if (Component.displayName) {
+        decoratedClass.displayName = Component.displayName;
+    } else {
+        decoratedClass.displayName = Component.name;
+    }
+
+    return decoratedClass;
 };
 
 /**
