@@ -7,7 +7,7 @@ import TestUtils from 'react-addons-test-utils';
 import reactCssModules from './../src/index';
 
 describe('reactCssModules', () => {
-    context('when a ReactComponent renders an element with the styleName prop', () => {
+    context('a ReactComponent renders an element with the styleName prop', () => {
         it('that element should contain the equivalent className', () => {
             let Foo,
                 component,
@@ -15,11 +15,13 @@ describe('reactCssModules', () => {
 
             shallowRenderer = TestUtils.createRenderer();
 
-            Foo = reactCssModules(class extends React.Component {
+            Foo = class extends React.Component {
                 render () {
                     return <div styleName='foo'>Hello</div>;
                 }
-            }, {
+            };
+
+            Foo = reactCssModules(Foo, {
                 foo: 'foo-1'
             });
 
@@ -31,19 +33,21 @@ describe('reactCssModules', () => {
         });
     });
 
-    context('when a ReactComponent renders nothing', () => {
-        it('linkClass should not intervene', () => {
+    context('a ReactComponent renders nothing', () => {
+        it('linkClass must not intervene', () => {
             let Foo,
                 component,
                 shallowRenderer;
 
             shallowRenderer = TestUtils.createRenderer();
 
-            Foo = reactCssModules(class extends React.Component {
+            Foo = class extends React.Component {
                 render () {
                     return null;
                 }
-            }, {
+            };
+
+            Foo = reactCssModules(Foo, {
                 foo: 'foo-1'
             });
 

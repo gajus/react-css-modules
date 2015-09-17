@@ -20,6 +20,10 @@ var _linkClass = require('./linkClass');
 
 var _linkClass2 = _interopRequireDefault(_linkClass);
 
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var decoratorConstructor = undefined,
@@ -46,7 +50,8 @@ functionConstructor = function (Component, defaultStyles, options) {
         _createClass(_class, [{
             key: 'render',
             value: function render() {
-                var styles = undefined;
+                var renderResult = undefined,
+                    styles = undefined;
 
                 if (this.props.styles) {
                     styles = this.props.styles;
@@ -56,7 +61,13 @@ functionConstructor = function (Component, defaultStyles, options) {
                     styles = {};
                 }
 
-                return (0, _linkClass2['default'])(_get(Object.getPrototypeOf(_class.prototype), 'render', this).call(this), styles, options);
+                renderResult = _get(Object.getPrototypeOf(_class.prototype), 'render', this).call(this);
+
+                if (renderResult) {
+                    return (0, _linkClass2['default'])(renderResult, styles, options);
+                }
+
+                return _react2['default'].createElement('noscript');
             }
         }]);
 
