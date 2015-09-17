@@ -14,9 +14,9 @@ let decoratorConstructor,
  * @return {Function}
  */
 functionConstructor = (Component, defaultStyles, options) => {
-    return class extends Component {
-        static displayName = Component.displayName;
+    let decoratedClass;
 
+    decoratedClass = class extends Component {
         render () {
             let renderResult,
                 styles;
@@ -38,6 +38,14 @@ functionConstructor = (Component, defaultStyles, options) => {
             return React.createElement('noscript');
         }
     };
+
+    if (Component.displayName) {
+        decoratedClass.displayName = Component.displayName;
+    } else {
+        decoratedClass.displayName = Component.name;
+    }
+
+    return decoratedClass;
 };
 
 /**

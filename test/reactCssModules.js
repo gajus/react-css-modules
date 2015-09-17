@@ -1,3 +1,5 @@
+/* eslint-disable max-nested-callbacks */
+
 import {
     expect
 } from 'chai';
@@ -12,12 +14,23 @@ describe('reactCssModules', () => {
             let Foo;
 
             Foo = class extends React.Component {
-                static displayName = 'Foo';
+                static displayName = 'Bar';
             };
 
             Foo = reactCssModules(Foo);
 
-            expect(Foo.displayName).to.equal('Foo');
+            expect(Foo.displayName).to.equal('Bar');
+        });
+        context('target component does not name displayName', () => {
+            it('uses name for displayName', () => {
+                let Foo;
+
+                Foo = class Bar extends React.Component {};
+
+                Foo = reactCssModules(Foo);
+
+                expect(Foo.displayName).to.equal('Bar');
+            });
         });
     });
     context('a ReactComponent renders an element with the styleName prop', () => {
