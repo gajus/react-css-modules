@@ -36,6 +36,10 @@ linkClass = function (element, styles, userConfiguration) {
         newProps = undefined,
         styleNames = undefined;
 
+    if (!element) {
+        return element;
+    }
+
     configuration = (0, _makeConfiguration2['default'])(userConfiguration);
 
     styleNames = element.props.styleName;
