@@ -20,7 +20,8 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "object-assign": "^4.0.1"
   },
   "devDependencies": {
     "babel": "^5.8.23",

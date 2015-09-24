@@ -1,6 +1,7 @@
 import linkClass from './linkClass';
 import React from 'react';
 import _ from 'lodash';
+import assign from 'object-assign';
 
 let decoratorConstructor,
     functionConstructor;
@@ -22,7 +23,11 @@ functionConstructor = (Component, defaultStyles, options) => {
                 styles;
 
             if (this.props.styles) {
-                styles = this.props.styles;
+                if (_.isObject(defaultStyles)) {
+                    styles = assign({}, defaultStyles, this.props.styles);
+                } else {
+                    styles = this.props.styles;
+                }
             } else if (_.isObject(defaultStyles)) {
                 styles = defaultStyles;
             } else {

@@ -24,6 +24,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _objectAssign = require('object-assign');
+
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var decoratorConstructor = undefined,
@@ -56,7 +60,11 @@ functionConstructor = function (Component, defaultStyles, options) {
                     styles = undefined;
 
                 if (this.props.styles) {
-                    styles = this.props.styles;
+                    if ((0, _lodashLangIsObject3['default'])(defaultStyles)) {
+                        styles = (0, _objectAssign2['default'])({}, defaultStyles, this.props.styles);
+                    } else {
+                        styles = this.props.styles;
+                    }
                 } else if ((0, _lodashLangIsObject3['default'])(defaultStyles)) {
                     styles = defaultStyles;
                 } else {
