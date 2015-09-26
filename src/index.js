@@ -1,6 +1,5 @@
-import linkClass from './linkClass';
-import React from 'react';
-import _ from 'lodash';
+import extendReactClass from './extendReactClass';
+import wrapStatelessFunction from './wrapStatelessFunction';
 
 let decoratorConstructor,
     functionConstructor;
@@ -16,28 +15,9 @@ let decoratorConstructor,
 functionConstructor = (Component, defaultStyles, options) => {
     let decoratedClass;
 
-    decoratedClass = class extends Component {
-        render () {
-            let renderResult,
-                styles;
-
-            if (this.props.styles) {
-                styles = this.props.styles;
-            } else if (_.isObject(defaultStyles)) {
-                styles = defaultStyles;
-            } else {
-                styles = {};
-            }
-
-            renderResult = super.render();
-
-            if (renderResult) {
-                return linkClass(renderResult, styles, options);
-            }
-
-            return React.createElement('noscript');
-        }
-    };
+    decoratedClass = Component.isReactClass ?
+        extendReactClass(Component, defaultStyles, options) :
+        wrapStatelessFunction(Component, defaultStyles, options);
 
     if (Component.displayName) {
         decoratedClass.displayName = Component.displayName;
