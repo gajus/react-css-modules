@@ -18,6 +18,10 @@ linkClass = (element, styles = {}, userConfiguration) => {
         newProps,
         styleNames;
 
+    if (!element) {
+        return element;
+    }
+
     configuration = makeConfiguration(userConfiguration);
 
     styleNames = element.props.styleName;
