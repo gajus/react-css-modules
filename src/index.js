@@ -2,7 +2,18 @@ import extendReactClass from './extendReactClass';
 import wrapStatelessFunction from './wrapStatelessFunction';
 
 let decoratorConstructor,
-    functionConstructor;
+    functionConstructor,
+    isReactComponent;
+
+/**
+ * Determines if the given object has the signature of a class that inherits React.Component
+ *
+ * @param {*} Component
+ * @return {Boolean}
+ */
+isReactComponent = (Component) => {
+    return 'prototype' in Component && typeof Component.prototype.render === 'function';
+};
 
 /**
  * When used as a function.
@@ -15,7 +26,7 @@ let decoratorConstructor,
 functionConstructor = (Component, defaultStyles, options) => {
     let decoratedClass;
 
-    decoratedClass = Component.isReactClass ?
+    decoratedClass = isReactComponent(Component) ?
         extendReactClass(Component, defaultStyles, options) :
         wrapStatelessFunction(Component, defaultStyles, options);
 
