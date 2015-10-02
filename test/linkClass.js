@@ -64,6 +64,16 @@ describe('linkClass', () => {
         });
     });
 
+    context('called with null instead of ReactElement', () => {
+        it('returns null', () => {
+            let subject;
+
+            subject = linkClass(null);
+
+            expect(subject).to.equal(null);
+        });
+    });
+
     context('styleName matches an existing CSS module', () => {
         context('when a descendant element has styleName', () => {
             it('assigns a generated className', () => {

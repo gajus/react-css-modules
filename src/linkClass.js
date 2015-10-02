@@ -18,6 +18,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
         newProps,
         styleNames;
 
+    // @see https://github.com/gajus/react-css-modules/pull/30
     if (!element) {
         return element;
     }
