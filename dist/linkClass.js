@@ -1,5 +1,9 @@
 'use strict';
 
+var _lodashCollectionFilter2 = require('lodash/collection/filter');
+
+var _lodashCollectionFilter3 = _interopRequireDefault(_lodashCollectionFilter2);
+
 var _lodashLangIsArray2 = require('lodash/lang/isArray');
 
 var _lodashLangIsArray3 = _interopRequireDefault(_lodashLangIsArray2);
@@ -42,6 +46,7 @@ linkClass = function (element, styles, userConfiguration) {
 
     if (styleNames) {
         styleNames = styleNames.split(' ');
+        styleNames = (0, _lodashCollectionFilter3['default'])(styleNames);
 
         if (configuration.allowMultiple === false && styleNames.length > 1) {
             throw new Error('ReactElement styleName property defines multiple module names ("' + element.props.styleName + '").');
