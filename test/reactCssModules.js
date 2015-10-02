@@ -34,54 +34,100 @@ describe('reactCssModules', () => {
         });
     });
     context('a ReactComponent renders an element with the styleName prop', () => {
-        it('that element should contain the equivalent className', () => {
-            let Foo,
-                component,
-                shallowRenderer;
+        context('the component is a class that extends React.Component', () => {
+            it('that element should contain the equivalent className', () => {
+                let Foo,
+                    component,
+                    shallowRenderer;
 
-            shallowRenderer = TestUtils.createRenderer();
+                shallowRenderer = TestUtils.createRenderer();
 
-            Foo = class extends React.Component {
-                render () {
-                    return <div styleName='foo'>Hello</div>;
-                }
-            };
+                Foo = class extends React.Component {
+                    render () {
+                        return <div styleName='foo'>Hello</div>;
+                    }
+                };
 
-            Foo = reactCssModules(Foo, {
-                foo: 'foo-1'
+                Foo = reactCssModules(Foo, {
+                    foo: 'foo-1'
+                });
+
+                shallowRenderer.render(<Foo />);
+
+                component = shallowRenderer.getRenderOutput();
+
+                expect(component.props.className).to.equal('foo-1');
             });
+        });
+        context('the component is a stateless function component', () => {
+            it('that element should contain the equivalent className', () => {
+                let Foo,
+                    component,
+                    shallowRenderer;
 
-            shallowRenderer.render(<Foo />);
+                shallowRenderer = TestUtils.createRenderer();
 
-            component = shallowRenderer.getRenderOutput();
+                Foo = () => <div styleName='foo'>Hello</div>;
 
-            expect(component.props.className).to.equal('foo-1');
+                Foo = reactCssModules(Foo, {
+                    foo: 'foo-1'
+                });
+
+                shallowRenderer.render(<Foo />);
+
+                component = shallowRenderer.getRenderOutput();
+
+                expect(component.props.className).to.equal('foo-1');
+            });
         });
     });
 
     context('a ReactComponent renders nothing', () => {
-        it('linkClass must not intervene', () => {
-            let Foo,
-                component,
-                shallowRenderer;
+        context('the component is a class that extends React.Component', () => {
+            it('linkClass must not intervene', () => {
+                let Foo,
+                    component,
+                    shallowRenderer;
 
-            shallowRenderer = TestUtils.createRenderer();
+                shallowRenderer = TestUtils.createRenderer();
 
-            Foo = class extends React.Component {
-                render () {
-                    return null;
-                }
-            };
+                Foo = class extends React.Component {
+                    render () {
+                        return null;
+                    }
+                };
 
-            Foo = reactCssModules(Foo, {
-                foo: 'foo-1'
+                Foo = reactCssModules(Foo, {
+                    foo: 'foo-1'
+                });
+
+                shallowRenderer.render(<Foo />);
+
+                component = shallowRenderer.getRenderOutput();
+
+                expect(typeof component).to.equal('object');
             });
+        });
+        context('the component is a stateless function component', () => {
+            it('that element should contain the equivalent className', () => {
+                let Foo,
+                    component,
+                    shallowRenderer;
 
-            shallowRenderer.render(<Foo />);
+                shallowRenderer = TestUtils.createRenderer();
 
-            component = shallowRenderer.getRenderOutput();
+                Foo = () => null;
 
-            expect(typeof component).to.equal('object');
+                Foo = reactCssModules(Foo, {
+                    foo: 'foo-1'
+                });
+
+                shallowRenderer.render(<Foo />);
+
+                component = shallowRenderer.getRenderOutput();
+
+                expect(typeof component).to.equal('object');
+            });
         });
     });
 });
