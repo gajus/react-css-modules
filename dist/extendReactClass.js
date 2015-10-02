@@ -4,6 +4,10 @@ var _lodashLangIsObject2 = require('lodash/lang/isObject');
 
 var _lodashLangIsObject3 = _interopRequireDefault(_lodashLangIsObject2);
 
+var _lodashObjectAssign2 = require('lodash/object/assign');
+
+var _lodashObjectAssign3 = _interopRequireDefault(_lodashObjectAssign2);
+
 Object.defineProperty(exports, '__esModule', {
     value: true
 });
@@ -28,6 +32,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var extendReactClass = undefined;
 
+/**
+ * @param {ReactClass} Component
+ * @param {Object} defaultStyles
+ * @param {Object} options
+ * @returns {ReactClass}
+ */
 extendReactClass = function (Component, defaultStyles, options) {
     return (function (_Component) {
         _inherits(_class, _Component);
@@ -47,6 +57,10 @@ extendReactClass = function (Component, defaultStyles, options) {
                 if (this.props.styles) {
                     styles = this.props.styles;
                 } else if ((0, _lodashLangIsObject3['default'])(defaultStyles)) {
+                    this.props = (0, _lodashObjectAssign3['default'])({}, this.props, {
+                        styles: defaultStyles
+                    });
+
                     styles = defaultStyles;
                 } else {
                     styles = {};

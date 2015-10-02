@@ -40,6 +40,7 @@ linkClass = function (element, styles, userConfiguration) {
         newProps = undefined,
         styleNames = undefined;
 
+    // @see https://github.com/gajus/react-css-modules/pull/30
     if (!element) {
         return element;
     }
