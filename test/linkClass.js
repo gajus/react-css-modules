@@ -10,7 +10,7 @@ import jsdom from 'jsdom';
 import linkClass from './../src/linkClass';
 
 describe('linkClass', () => {
-    context('when ReactElement does not define styleName', () => {
+    context('ReactElement does not define styleName', () => {
         it('does not affect element properties', () => {
             expect(linkClass(<div></div>)).to.deep.equal(<div></div>);
         });
@@ -64,7 +64,17 @@ describe('linkClass', () => {
         });
     });
 
-    context('when styleName matches an existing CSS module', () => {
+    context('called with null instead of ReactElement', () => {
+        it('returns null', () => {
+            let subject;
+
+            subject = linkClass(null);
+
+            expect(subject).to.equal(null);
+        });
+    });
+
+    context('styleName matches an existing CSS module', () => {
         context('when a descendant element has styleName', () => {
             it('assigns a generated className', () => {
                 let subject;
@@ -123,6 +133,25 @@ describe('linkClass', () => {
 
                 expect(subject.props.className).to.deep.equal('foo bar-1');
             });
+        });
+    });
+
+    context('styleName includes multiple whitespace characters', () => {
+        it('resolves CSS modules', () => {
+            let subject;
+
+            subject = <div>
+                <p styleName=' foo   bar '></p>
+            </div>;
+
+            subject = linkClass(subject, {
+                foo: 'foo-1',
+                bar: 'bar-1'
+            }, {
+                allowMultiple: true
+            });
+
+            expect(subject.props.children.props.className).to.equal('foo-1 bar-1');
         });
     });
 

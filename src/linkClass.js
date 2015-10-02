@@ -18,12 +18,18 @@ linkClass = (element, styles = {}, userConfiguration) => {
         newProps,
         styleNames;
 
+    // @see https://github.com/gajus/react-css-modules/pull/30
+    if (!element) {
+        return element;
+    }
+
     configuration = makeConfiguration(userConfiguration);
 
     styleNames = element.props.styleName;
 
     if (styleNames) {
         styleNames = styleNames.split(' ');
+        styleNames = _.filter(styleNames);
 
         if (configuration.allowMultiple === false && styleNames.length > 1) {
             throw new Error(`ReactElement styleName property defines multiple module names ("${element.props.styleName}").`);
