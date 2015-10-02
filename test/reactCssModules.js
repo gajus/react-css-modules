@@ -15,6 +15,7 @@ describe('reactCssModules', () => {
 
             Foo = class extends React.Component {
                 static displayName = 'Bar';
+                render () { return null; }
             };
 
             Foo = reactCssModules(Foo);
@@ -25,7 +26,9 @@ describe('reactCssModules', () => {
             it('uses name for displayName', () => {
                 let Foo;
 
-                Foo = class Bar extends React.Component {};
+                Foo = class Bar extends React.Component {
+                    render () { return null; }
+                };
 
                 Foo = reactCssModules(Foo);
 
