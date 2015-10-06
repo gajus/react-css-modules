@@ -15,7 +15,18 @@ var _wrapStatelessFunction = require('./wrapStatelessFunction');
 var _wrapStatelessFunction2 = _interopRequireDefault(_wrapStatelessFunction);
 
 var decoratorConstructor = undefined,
-    functionConstructor = undefined;
+    functionConstructor = undefined,
+    isReactComponent = undefined;
+
+/**
+ * Determines if the given object has the signature of a class that inherits React.Component.
+ *
+ * @param {*} Component
+ * @return {Boolean}
+ */
+isReactComponent = function (Component) {
+    return 'prototype' in Component && typeof Component.prototype.render === 'function';
+};
 
 /**
  * When used as a function.
@@ -28,7 +39,11 @@ var decoratorConstructor = undefined,
 functionConstructor = function (Component, defaultStyles, options) {
     var decoratedClass = undefined;
 
-    decoratedClass = Component.isReactClass ? (0, _extendReactClass2['default'])(Component, defaultStyles, options) : (0, _wrapStatelessFunction2['default'])(Component, defaultStyles, options);
+    if (isReactComponent(Component)) {
+        decoratedClass = (0, _extendReactClass2['default'])(Component, defaultStyles, options);
+    } else {
+        decoratedClass = (0, _wrapStatelessFunction2['default'])(Component, defaultStyles, options);
+    }
 
     if (Component.displayName) {
         decoratedClass.displayName = Component.displayName;
