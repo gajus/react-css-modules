@@ -536,3 +536,9 @@ That said, if you require to use multiple CSS Modules to describe an element, en
 ```
 
 This will map both [Interoperable CSS](https://github.com/css-modules/icss) CSS classes to the target element.
+
+You can also use an array instead of concatenated string (might be useful for conditional styling).
+
+```js
+<div styleName={['button', 'active']} />
+```
