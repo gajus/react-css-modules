@@ -177,6 +177,18 @@ describe('linkClass', () => {
 
                     expect(subject.props.className).to.deep.equal('foo-1 bar-1');
                 });
+                it('allows CSS modules to be specified as an array', () => {
+                    let subject;
+
+                    subject = <div styleName={['foo', 'bar']}></div>;
+
+                    subject = linkClass(subject, {
+                        foo: 'foo-1',
+                        bar: 'bar-1'
+                    }, {allowMultiple: true});
+
+                    expect(subject.props.className).to.deep.equal('foo-1 bar-1');
+                });
             });
         });
     });

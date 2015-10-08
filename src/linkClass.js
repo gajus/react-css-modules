@@ -25,12 +25,15 @@ linkClass = (element, styles = {}, userConfiguration) => {
 
     configuration = makeConfiguration(userConfiguration);
 
-    styleNames = element.props.styleName;
+    styleNames = element.props.styleName || [];
 
-    if (styleNames) {
+    if (!Array.isArray(styleNames)) {
         styleNames = styleNames.split(' ');
-        styleNames = _.filter(styleNames);
+    }
 
+    styleNames = _.filter(styleNames);
+
+    if (styleNames.length > 0) {
         if (configuration.allowMultiple === false && styleNames.length > 1) {
             throw new Error(`ReactElement styleName property defines multiple module names ("${element.props.styleName}").`);
         }
