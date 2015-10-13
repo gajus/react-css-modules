@@ -12,7 +12,9 @@ let wrapStatelessFunction;
  * @returns {function}
  */
 wrapStatelessFunction = (Component, defaultStyles, options) => {
-    return (props = {}, ...args) => {
+    let WrappedComponent;
+
+    WrappedComponent = (props = {}, ...args) => {
         let renderResult,
             styles,
             useProps;
@@ -39,6 +41,10 @@ wrapStatelessFunction = (Component, defaultStyles, options) => {
 
         return React.createElement('noscript');
     };
+
+    _.assign(WrappedComponent, Component);
+
+    return WrappedComponent;
 };
 
 export default wrapStatelessFunction;
