@@ -32,7 +32,9 @@ var wrapStatelessFunction = undefined;
  * @returns {function}
  */
 wrapStatelessFunction = function (Component, defaultStyles, options) {
-    return function () {
+    var WrappedComponent = undefined;
+
+    WrappedComponent = function () {
         for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
             args[_key - 1] = arguments[_key];
         }
@@ -65,6 +67,10 @@ wrapStatelessFunction = function (Component, defaultStyles, options) {
 
         return _react2['default'].createElement('noscript');
     };
+
+    (0, _lodashObjectAssign3['default'])(WrappedComponent, Component);
+
+    return WrappedComponent;
 };
 
 exports['default'] = wrapStatelessFunction;
