@@ -6,10 +6,10 @@ let wrapStatelessFunction;
 
 /**
  * @see https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
- * @param {function} Component
+ * @param {Function} Component
  * @param {Object} defaultStyles
  * @param {Object} options
- * @returns {function}
+ * @returns {Function}
  */
 wrapStatelessFunction = (Component, defaultStyles, options) => {
     let WrappedComponent;

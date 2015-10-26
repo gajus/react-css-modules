@@ -26,10 +26,10 @@ var wrapStatelessFunction = undefined;
 
 /**
  * @see https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
- * @param {function} Component
+ * @param {Function} Component
  * @param {Object} defaultStyles
  * @param {Object} options
- * @returns {function}
+ * @returns {Function}
  */
 wrapStatelessFunction = function (Component, defaultStyles, options) {
     var WrappedComponent = undefined;
@@ -75,3 +75,4 @@ wrapStatelessFunction = function (Component, defaultStyles, options) {
 
 exports['default'] = wrapStatelessFunction;
 module.exports = exports['default'];
+//# sourceMappingURL=wrapStatelessFunction.js.map

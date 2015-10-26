@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-    - 'iojs-v3.0.0'
-    - 'iojs-v2.5.0'
-install:
-    - npm install
+    - '4.1'
+    - '4.0'
 notifications:
     email: false
+sudo: false

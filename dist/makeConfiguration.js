@@ -13,8 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 /**
  * @typedef CSSModules~Options
  * @see {@link https://github.com/gajus/react-css-modules#options}
- * @property {Boolean} allowMultiple
- * @property {Boolean} errorWhenNotFound
+ * @property {boolean} allowMultiple
+ * @property {boolean} errorWhenNotFound
  */
 
 /**
@@ -48,3 +48,4 @@ exports['default'] = function () {
 };
 
 module.exports = exports['default'];
+//# sourceMappingURL=makeConfiguration.js.map

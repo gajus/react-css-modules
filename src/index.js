@@ -9,7 +9,7 @@ let decoratorConstructor,
  * Determines if the given object has the signature of a class that inherits React.Component.
  *
  * @param {*} Component
- * @return {Boolean}
+ * @return {boolean}
  */
 isReactComponent = (Component) => {
     return 'prototype' in Component && typeof Component.prototype.render === 'function';

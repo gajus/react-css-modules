@@ -23,25 +23,17 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
-    "babel-eslint": "^4.1.2",
-    "babel-istanbul": "^0.3.20",
-    "babel-plugin-lodash": "^0.2.0",
-    "chai": "^3.2.0",
+    "chai": "^3.4.0",
     "coveralls": "^2.11.4",
-    "eslint": "^1.4.3",
-    "eslint-plugin-react": "^3.3.2",
-    "jsdom": "^6.5.0",
-    "mocha": "^2.3.2",
-    "mocha-lcov-reporter": "^0.0.2",
-    "react": "^0.14.0-rc1",
-    "react-addons-test-utils": "^0.14.0-rc1"
+    "jsdom": "^7.0.2",
+    "pragmatist": "^1.1.5",
+    "react": "^0.14.0",
+    "react-addons-test-utils": "^0.14.0"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint ./src/ ./test/",
-    "quick-test": "npm run lint && node ./node_modules/.bin/babel-istanbul cover ./node_modules/.bin/_mocha",
-    "test": "npm run quick-test && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "build": "babel ./src/ --out-dir ./dist/",
-    "watch": "babel --watch ./src/ --out-dir ./dist/"
+    "pragmatist": "node ./node_modules/.bin/pragmatist",
+    "lint": "npm run pragmatist lint",
+    "build": "npm run pragmatist build",
+    "test": "npm run pragmatist test && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   }
 }

@@ -22,7 +22,7 @@ var decoratorConstructor = undefined,
  * Determines if the given object has the signature of a class that inherits React.Component.
  *
  * @param {*} Component
- * @return {Boolean}
+ * @return {boolean}
  */
 isReactComponent = function (Component) {
     return 'prototype' in Component && typeof Component.prototype.render === 'function';
@@ -76,3 +76,4 @@ exports['default'] = function () {
 };
 
 module.exports = exports['default'];
+//# sourceMappingURL=index.js.map

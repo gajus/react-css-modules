@@ -64,7 +64,7 @@ describe('wrapStatelessFunction', () => {
                 expect(props.styles).to.equal(styles);
                 done();
             })({
-                styles
+                styles: styles
             });
         });
     });

@@ -122,3 +122,4 @@ linkClass = function (element, styles, userConfiguration) {
 
 exports['default'] = linkClass;
 module.exports = exports['default'];
+//# sourceMappingURL=linkClass.js.map

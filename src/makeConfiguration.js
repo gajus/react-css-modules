@@ -3,8 +3,8 @@ import _ from 'lodash';
 /**
  * @typedef CSSModules~Options
  * @see {@link https://github.com/gajus/react-css-modules#options}
- * @property {Boolean} allowMultiple
- * @property {Boolean} errorWhenNotFound
+ * @property {boolean} allowMultiple
+ * @property {boolean} errorWhenNotFound
  */
 
 /**
