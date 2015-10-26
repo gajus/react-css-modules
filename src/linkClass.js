@@ -1,6 +1,7 @@
 import React from 'react';
 import makeConfiguration from './makeConfiguration';
-import _ from 'lodash';
+import filter from 'lodash/collection/filter';
+import isArray from 'lodash/lang/isArray';
 
 let linkClass;
 
@@ -29,7 +30,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
 
     if (styleNames) {
         styleNames = styleNames.split(' ');
-        styleNames = _.filter(styleNames);
+        styleNames = filter(styleNames);
 
         if (configuration.allowMultiple === false && styleNames.length > 1) {
             throw new Error(`ReactElement styleName property defines multiple module names ("${element.props.styleName}").`);
@@ -64,7 +65,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
 
     if (React.isValidElement(element.props.children)) {
         newChildren = linkClass(React.Children.only(element.props.children), styles, configuration);
-    } else if (_.isArray(element.props.children)) {
+    } else if (isArray(element.props.children)) {
         newChildren = React.Children.map(element.props.children, (node) => {
             if (React.isValidElement(node)) {
                 return linkClass(node, styles, configuration);
