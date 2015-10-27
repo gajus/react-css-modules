@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import forEach from 'lodash/collection/forEach';
 
 /**
  * @typedef CSSModules~Options
@@ -19,7 +19,7 @@ export default (userConfiguration = {}) => {
         errorWhenNotFound: true
     };
 
-    _.forEach(userConfiguration, (value, name) => {
+    forEach(userConfiguration, (value, name) => {
         if (typeof configuration[name] === 'undefined') {
             throw new Error(`Unknown configuration property "${name}".`);
         }

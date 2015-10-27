@@ -1,6 +1,7 @@
 import linkClass from './linkClass';
 import React from 'react';
-import _ from 'lodash';
+import assign from 'lodash/object/assign';
+import isObject from 'lodash/lang/isObject';
 
 let wrapStatelessFunction;
 
@@ -22,8 +23,8 @@ wrapStatelessFunction = (Component, defaultStyles, options) => {
         if (props.styles) {
             useProps = props;
             styles = props.styles;
-        } else if (_.isObject(defaultStyles)) {
-            useProps = _.assign({}, props, {
+        } else if (isObject(defaultStyles)) {
+            useProps = assign({}, props, {
                 styles: defaultStyles
             });
 
@@ -42,7 +43,7 @@ wrapStatelessFunction = (Component, defaultStyles, options) => {
         return React.createElement('noscript');
     };
 
-    _.assign(WrappedComponent, Component);
+    assign(WrappedComponent, Component);
 
     return WrappedComponent;
 };
