@@ -1,5 +1,6 @@
 import React from 'react';
 import makeConfiguration from './makeConfiguration';
+import isIterable from './isIterable';
 import _ from 'lodash';
 
 let linkClass;
@@ -12,6 +13,7 @@ let linkClass;
  */
 linkClass = (element, styles = {}, userConfiguration) => {
     let appendClassName,
+        children,
         clonedElement,
         configuration,
         newChildren,
@@ -62,10 +64,12 @@ linkClass = (element, styles = {}, userConfiguration) => {
 
     // console.log(`element.props.children`, element.props.children, `React.Children.count(element.props.children)`, React.Children.count(element.props.children));
 
-    if (React.isValidElement(element.props.children)) {
-        newChildren = linkClass(React.Children.only(element.props.children), styles, configuration);
-    } else if (_.isArray(element.props.children)) {
-        newChildren = React.Children.map(element.props.children, (node) => {
+    children = element.props.children;
+
+    if (React.isValidElement(children)) {
+        newChildren = linkClass(React.Children.only(children), styles, configuration);
+    } else if (_.isArray(children) || isIterable(children)) {
+        newChildren = React.Children.map(children, (node) => {
             if (React.isValidElement(node)) {
                 return linkClass(node, styles, configuration);
             } else {

@@ -108,6 +108,28 @@ describe('linkClass', () => {
                 expect(subject.props.children[1].props.className).to.equal('bar-1');
             });
         });
+        context('when multiple descendants have styleName and are iterable', () => {
+            it('assigns a generated className', () => {
+                let subject, iterable;
+
+                iterable = {
+                    0: <p key="1" styleName='foo'></p>,
+                    1: <p key="2" styleName='bar'></p>,
+                    length: 2,
+                    [Symbol.iterator]: Array.prototype[Symbol.iterator]
+                };
+
+                subject = <div>{iterable}</div>;
+
+                subject = linkClass(subject, {
+                    foo: 'foo-1',
+                    bar: 'bar-1'
+                });
+
+                expect(subject.props.children[0].props.className).to.equal('foo-1');
+                expect(subject.props.children[1].props.className).to.equal('bar-1');
+            });
+        });
         context('when ReactElement does not have an existing className', () => {
             it('uses the generated class name to set the className property', () => {
                 let subject;
