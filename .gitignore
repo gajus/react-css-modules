@@ -1,4 +1,9 @@
 node_modules
 coverage
-.coveralls.yml
+dist
 *.log
+.*
+!.gitignore
+!.npmignore
+!.babelrc
+!.travis.yml
