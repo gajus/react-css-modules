@@ -110,11 +110,12 @@ describe('linkClass', () => {
         });
         context('when multiple descendants have styleName and are iterable', () => {
             it('assigns a generated className', () => {
-                let subject, iterable;
+                let iterable,
+                    subject;
 
                 iterable = {
-                    0: <p key="1" styleName='foo'></p>,
-                    1: <p key="2" styleName='bar'></p>,
+                    0: <p key='1' styleName='foo'></p>,
+                    1: <p key='2' styleName='bar'></p>,
                     length: 2,
                     [Symbol.iterator]: Array.prototype[Symbol.iterator]
                 };
@@ -231,16 +232,7 @@ describe('linkClass', () => {
             nodeList;
 
         beforeEach(() => {
-            global.document = jsdom.jsdom(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                </head>
-                <body>
-                </body>
-                </html>
-            `);
-
+            global.document = jsdom.jsdom('<!DOCTYPE html><html><head></head><body></body></html>');
             global.window = document.defaultView;
 
             Foo = class extends React.Component {

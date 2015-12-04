@@ -20,12 +20,12 @@ export default (userConfiguration = {}) => {
     };
 
     _.forEach(userConfiguration, (value, name) => {
-        if (typeof configuration[name] === 'undefined') {
-            throw new Error(`Unknown configuration property "${name}".`);
+        if (_.isUndefined(configuration[name])) {
+            throw new Error('Unknown configuration property "' + name + '".');
         }
 
-        if (typeof value !== 'boolean') {
-            throw new Error(`"${name}" property value must be a boolean.`);
+        if (!_.isBoolean(value)) {
+            throw new Error('"' + name + '" property value must be a boolean.');
         }
 
         configuration[name] = value;

@@ -14,7 +14,10 @@ describe('wrapStatelessFunction', () => {
             foo: 'foo-1'
         };
 
-        Component = function InnerComponent () { return null; };
+        Component = function InnerComponent () {
+            return null;
+        };
+
         Component.propTypes = {};
         Component.defaultProps = {};
 
@@ -64,7 +67,7 @@ describe('wrapStatelessFunction', () => {
                 expect(props.styles).to.equal(styles);
                 done();
             })({
-                styles: styles
+                styles
             });
         });
     });

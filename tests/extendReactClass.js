@@ -11,15 +11,7 @@ import extendReactClass from './../src/extendReactClass';
 
 describe('extendReactClass', () => {
     beforeEach(() => {
-        global.document = jsdom.jsdom(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-            </head>
-            <body>
-            </body>
-            </html>
-        `);
+        global.document = jsdom.jsdom('<!DOCTYPE html><html><head></head><body></body></html>');
 
         global.window = document.defaultView;
     });

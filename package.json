@@ -1,7 +1,7 @@
 {
   "name": "react-css-modules",
   "description": "Seamless mapping of class names to CSS modules inside of React components.",
-  "main": "./dist/index.js",
+  "main": "./dist/",
   "repository": {
     "type": "git",
     "url": "https://github.com/gajus/react-css-modules"
@@ -15,7 +15,7 @@
   "version": "3.6.1",
   "author": {
     "name": "Gajus Kuizinas",
-    "email": "gk@anuary.com",
+    "email": "gajus@gajus.com",
     "url": "http://gajus.com"
   },
   "license": "BSD-3-Clause",
@@ -23,17 +23,20 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
-    "chai": "^3.4.0",
-    "coveralls": "^2.11.4",
-    "jsdom": "^7.0.2",
-    "pragmatist": "^1.1.5",
-    "react": "^0.14.0",
-    "react-addons-test-utils": "^0.14.0"
+    "chai": "^3.4.1",
+    "jsdom": "^7.1.1",
+    "pragmatist": "^1.9.4",
+    "react": "^0.14.3",
+    "react-addons-test-utils": "^0.14.3"
   },
   "scripts": {
     "pragmatist": "node ./node_modules/.bin/pragmatist",
     "lint": "npm run pragmatist lint",
+    "test": "npm run pragmatist test",
     "build": "npm run pragmatist build",
-    "test": "npm run pragmatist test && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "watch": "npm run pragmatist watch",
+    "watch-lint": "npm run pragmatist watch-lint",
+    "watch-test": "npm run pragmatist watch-test",
+    "watch-build": "npm run pragmatist watch-build"
   }
 }

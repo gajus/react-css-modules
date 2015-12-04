@@ -1,4 +1,4 @@
-/* eslint-disable max-nested-callbacks */
+/* eslint-disable max-nested-callbacks, react/no-multi-comp */
 
 import {
     expect
@@ -13,9 +13,10 @@ describe('reactCssModules', () => {
         it('inherits displayName', () => {
             let Foo;
 
-            Foo = class extends React.Component {
-                static displayName = 'Bar';
-            };
+            Foo = class extends React.Component {};
+
+            // @todo https://phabricator.babeljs.io/T2779
+            Foo.displayName = 'Bar';
 
             Foo = reactCssModules(Foo);
 
@@ -67,7 +68,9 @@ describe('reactCssModules', () => {
 
                 shallowRenderer = TestUtils.createRenderer();
 
-                Foo = () => <div styleName='foo'>Hello</div>;
+                Foo = () => {
+                    return <div styleName='foo'>Hello</div>;
+                };
 
                 Foo = reactCssModules(Foo, {
                     foo: 'foo-1'
@@ -116,7 +119,9 @@ describe('reactCssModules', () => {
 
                 shallowRenderer = TestUtils.createRenderer();
 
-                Foo = () => null;
+                Foo = () => {
+                    return null;
+                };
 
                 Foo = reactCssModules(Foo, {
                     foo: 'foo-1'

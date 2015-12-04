@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import extendReactClass from './extendReactClass';
 import wrapStatelessFunction from './wrapStatelessFunction';
 
@@ -12,7 +13,7 @@ let decoratorConstructor,
  * @return {boolean}
  */
 isReactComponent = (Component) => {
-    return 'prototype' in Component && typeof Component.prototype.render === 'function';
+    return 'prototype' in Component && _.isFunction(Component.prototype.render);
 };
 
 /**
@@ -55,7 +56,7 @@ decoratorConstructor = (defaultStyles, options) => {
 };
 
 export default (...args) => {
-    if (typeof args[0] === 'function') {
+    if (_.isFunction(args[0])) {
         return functionConstructor(args[0], args[1], args[2]);
     } else {
         return decoratorConstructor(args[0], args[1]);

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import linkClass from './linkClass';
 import React from 'react';
 import _ from 'lodash';
