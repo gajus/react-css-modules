@@ -21,6 +21,7 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
         - [`errorWhenNotFound`](#errorwhennotfound)
+– [React Hot Module Replacement](#react-hot-module-replacement)
 - [Class Composition](#class-composition)
     - [What Problems does Class Composition Solve?](#what-problems-does-class-composition-solve)
     - [Class Composition Using CSS Preprocessors](#class-composition-using-css-preprocessors)
@@ -365,6 +366,16 @@ Throws an error when `styleName` cannot be mapped to an existing CSS Module.
     loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
 }
 ```
+
+## React Hot Module Replacement
+
+Hot module reloading does to reload the CSS (see https://github.com/gajus/react-css-modules/issues/51).
+
+To enable CSS reloading, my advise is to wrap your webpack setup using [BrowserSync](https://www.browsersync.io/). BrowserSync enables CSS reloading when it detects a file change.
+
+[React CSS Modules examples](https://github.com/gajus/react-css-modules-examples) repository includes a configuration example using [BrowserSync](https://github.com/gajus/react-css-modules-examples/blob/master/webpack.config.browsersync.js).
+
+Note that `webpackk-dev-server` program [does not write bundle files to the disk](https://github.com/webpack/webpack-dev-server/issues/62). You need to use a [write-file-webpack-plugin](https://github.com/gajus/write-file-webpack-plugin) plugin to force writing to the disk to enable BrowserSync to detect changes.
 
 ## Class Composition
 
