@@ -122,7 +122,7 @@ Using `react-css-modules`:
 
 Setup consists of:
 
-* Setting up a [module bundler](#modulebundler) to load the [Interoperable CSS](https://github.com/css-modules/icss).
+* Setting up a [module bundler](#module-bundler) to load the [Interoperable CSS](https://github.com/css-modules/icss).
 * [Decorating](#decorator) your component using `react-css-modules`.
 
 ### Module Bundler
