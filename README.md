@@ -369,7 +369,7 @@ Throws an error when `styleName` cannot be mapped to an existing CSS Module.
 
 ## React Hot Module Replacement
 
-[Hot module reloading](https://github.com/gaearon/react-transform-hmr) (HMR) does to reload the CSS document (see https://github.com/gajus/react-css-modules/issues/51). It only reloads the `class` HTML attribute value.
+[Hot module reloading](https://github.com/gaearon/react-transform-hmr) (HMR) does not reload the CSS document (see https://github.com/gajus/react-css-modules/issues/51). It only reloads the `class` HTML attribute value.
 
 To enable CSS reloading, wrap [`webpack-dev-server`](https://webpack.github.io/docs/webpack-dev-server.html) configuration using [BrowserSync](https://www.browsersync.io/). BrowserSync enables CSS reloading when it detects a file change.
 
