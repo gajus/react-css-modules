@@ -21,6 +21,8 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
         - [`errorWhenNotFound`](#errorwhennotfound)
+- [SASS, SCSS, LESS and other CSS Preprocessors](#sass-scss-less-and-other-css-preprocessors)
+    - [Enable Sourcemaps](#enable-sourcemaps)
 - [React Hot Module Replacement](#react-hot-module-replacement)
 - [Class Composition](#class-composition)
     - [What Problems does Class Composition Solve?](#what-problems-does-class-composition-solve)
@@ -364,6 +366,17 @@ Throws an error when `styleName` cannot be mapped to an existing CSS Module.
 {
     test: /\.scss$/,
     loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
+}
+```
+
+### Enable Sourcemaps 
+
+To enable CSS Source maps, you'll need to pass the sourceMap-option to the css-loader:
+    
+```js
+{
+    test: /\.scss$/,
+    loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
 }
 ```
 
