@@ -305,7 +305,7 @@ class CustomList extends React.Component {
             return <li styleName='item-template'>{name}</li>;
         };
 
-        itemTemplate = CSSModules(itemTemplate, styles);
+        itemTemplate = CSSModules(itemTemplate, this.props.styles);
 
         return <List itemTemplate={itemTemplate} />;
     }
