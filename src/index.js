@@ -10,7 +10,7 @@ let decoratorConstructor,
  * Determines if the given object has the signature of a class that inherits React.Component.
  *
  * @param {*} Component
- * @return {boolean}
+ * @returns {boolean}
  */
 isReactComponent = (Component) => {
     return 'prototype' in Component && _.isFunction(Component.prototype.render);
@@ -22,7 +22,7 @@ isReactComponent = (Component) => {
  * @param {Function} Component
  * @param {Object} defaultStyles CSS Modules class map.
  * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
- * @return {Function}
+ * @returns {Function}
  */
 functionConstructor = (Component, defaultStyles, options) => {
     let decoratedClass;
@@ -47,7 +47,7 @@ functionConstructor = (Component, defaultStyles, options) => {
  *
  * @param {Object} defaultStyles CSS Modules class map.
  * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
- * @return {Function}
+ * @returns {Function}
  */
 decoratorConstructor = (defaultStyles, options) => {
     return (Component) => {

@@ -9,7 +9,7 @@ let linkClass;
  * @param {ReactElement} element
  * @param {Object} styles CSS modules class map.
  * @param {CSSModules~Options} userConfiguration
- * @return {ReactElement}
+ * @returns {ReactElement}
  */
 linkClass = (element, styles = {}, userConfiguration) => {
     let appendClassName,

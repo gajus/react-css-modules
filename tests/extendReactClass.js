@@ -72,8 +72,8 @@ describe('extendReactClass', () => {
             };
 
             Component = extendReactClass(Component, {
-                foo: 'foo-0',
-                bar: 'bar-0'
+                bar: 'bar-0',
+                foo: 'foo-0'
             });
 
             TestUtils.renderIntoDocument(<Component styles={styles} />);
@@ -89,7 +89,7 @@ describe('extendReactClass', () => {
 
             Component = class extends React.Component {
                 render () {
-                    null
+                    return null;
                 }
             };
 

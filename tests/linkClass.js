@@ -100,8 +100,8 @@ describe('linkClass', () => {
                 </div>;
 
                 subject = linkClass(subject, {
-                    foo: 'foo-1',
-                    bar: 'bar-1'
+                    bar: 'bar-1',
+                    foo: 'foo-1'
                 });
 
                 expect(subject.props.children[0].props.className).to.equal('foo-1');
@@ -123,8 +123,8 @@ describe('linkClass', () => {
                 subject = <div>{iterable}</div>;
 
                 subject = linkClass(subject, {
-                    foo: 'foo-1',
-                    bar: 'bar-1'
+                    bar: 'bar-1',
+                    foo: 'foo-1'
                 });
 
                 expect(subject.props.children[0].props.className).to.equal('foo-1');
@@ -168,8 +168,8 @@ describe('linkClass', () => {
             </div>;
 
             subject = linkClass(subject, {
-                foo: 'foo-1',
-                bar: 'bar-1'
+                bar: 'bar-1',
+                foo: 'foo-1'
             }, {
                 allowMultiple: true
             });
@@ -194,9 +194,11 @@ describe('linkClass', () => {
                     subject = <div styleName='foo bar'></div>;
 
                     subject = linkClass(subject, {
-                        foo: 'foo-1',
-                        bar: 'bar-1'
-                    }, {allowMultiple: true});
+                        bar: 'bar-1',
+                        foo: 'foo-1'
+                    }, {
+                        allowMultiple: true
+                    });
 
                     expect(subject.props.className).to.deep.equal('foo-1 bar-1');
                 });

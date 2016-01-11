@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 /**
  * @param {CSSModules~Options} userConfiguration
- * @return {CSSModules~Options}
+ * @returns {CSSModules~Options}
  */
 export default (userConfiguration = {}) => {
     let configuration;
