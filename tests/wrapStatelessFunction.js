@@ -3,12 +3,15 @@
 import {
     expect
 } from 'chai';
-
+import React from 'react';
+import TestUtils from 'react-addons-test-utils';
 import wrapStatelessFunction from './../src/wrapStatelessFunction';
 
 describe('wrapStatelessFunction', () => {
     it('hoists static own properties from the input component to the wrapped component', () => {
-        let Component, WrappedComponent, styles;
+        let Component,
+            WrappedComponent,
+            styles;
 
         styles = {
             foo: 'foo-1'
@@ -69,6 +72,25 @@ describe('wrapStatelessFunction', () => {
             })({
                 styles
             });
+        });
+    });
+    context('rendering Component that returns null', () => {
+        it('generates <noscript> element', () => {
+            let Component,
+                component,
+                shallowRenderer;
+
+            shallowRenderer = TestUtils.createRenderer();
+
+            Component = wrapStatelessFunction(() => {
+                return null;
+            });
+
+            shallowRenderer.render(<Component />);
+
+            component = shallowRenderer.getRenderOutput();
+
+            expect(component.type).to.equal('noscript');
         });
     });
 });

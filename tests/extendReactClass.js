@@ -15,9 +15,8 @@ describe('extendReactClass', () => {
 
         global.window = document.defaultView;
     });
-
     context('using default styles', () => {
-        it('exposes styles through styles property', (done) => {
+        it('exposes styles through this.props.styles property', (done) => {
             let Component,
                 styles;
 
@@ -56,9 +55,8 @@ describe('extendReactClass', () => {
             TestUtils.renderIntoDocument(<Component bar='baz' />);
         });
     });
-
-    context('using explicit styles', () => {
-        it('exposes styles through styles property', (done) => {
+    context('overwriting default styles using "styles" property of the extended component', () => {
+        it('overwrites default styles', (done) => {
             let Component,
                 styles;
 
@@ -73,9 +71,35 @@ describe('extendReactClass', () => {
                 foo: 'foo-1'
             };
 
-            Component = extendReactClass(Component);
+            Component = extendReactClass(Component, {
+                foo: 'foo-0',
+                bar: 'bar-0'
+            });
 
             TestUtils.renderIntoDocument(<Component styles={styles} />);
+        });
+    });
+    context('rendering Component that returns null', () => {
+        it('generates <noscript> element', () => {
+            let Component,
+                component,
+                shallowRenderer;
+
+            shallowRenderer = TestUtils.createRenderer();
+
+            Component = class extends React.Component {
+                render () {
+                    null
+                }
+            };
+
+            Component = extendReactClass(Component);
+
+            shallowRenderer.render(<Component />);
+
+            component = shallowRenderer.getRenderOutput();
+
+            expect(component.type).to.equal('noscript');
         });
     });
 });
