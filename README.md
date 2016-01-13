@@ -2,6 +2,7 @@
 
 [![Travis build status](http://img.shields.io/travis/gajus/react-css-modules/master.svg?style=flat-square)](https://travis-ci.org/gajus/react-css-modules)
 [![NPM version](http://img.shields.io/npm/v/react-css-modules.svg?style=flat-square)](https://www.npmjs.org/package/react-css-modules)
+[![js-canonical-style](https://img.shields.io/badge/code%20style-canonical-blue.svg?style=flat-square)](https://github.com/gajus/canonical)
 
 <img src='./.README/react-css-modules.png' height='150' />
 
