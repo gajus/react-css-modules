@@ -27,7 +27,8 @@
     "jsdom": "^7.2.2",
     "pragmatist": "^2.3.71",
     "react": "^0.14.6",
-    "react-addons-test-utils": "^0.14.6"
+    "react-addons-test-utils": "^0.14.6",
+    "react-dom": "^0.14.6"
   },
   "scripts": {
     "pragmatist": "node ./node_modules/.bin/pragmatist --browser",

@@ -5,7 +5,9 @@ import {
 } from 'chai';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
+import jsdom from 'jsdom';
 import reactCssModules from './../src/index';
 
 describe('reactCssModules', () => {
@@ -84,7 +86,6 @@ describe('reactCssModules', () => {
             });
         });
     });
-
     context('a ReactComponent renders nothing', () => {
         context('the component is a class that extends React.Component', () => {
             it('linkClass must not intervene', () => {
@@ -132,6 +133,49 @@ describe('reactCssModules', () => {
                 component = shallowRenderer.getRenderOutput();
 
                 expect(typeof component).to.equal('object');
+            });
+        });
+    });
+    context('rendering element', () => {
+        beforeEach(() => {
+            global.document = jsdom.jsdom('<!DOCTYPE html><html><head></head><body></body></html>');
+
+            global.window = document.defaultView;
+        });
+
+        context('parent component is using react-css-modules and interpolates props.children', () => {
+            // @see https://github.com/gajus/react-css-modules/issues/76
+            it('unsets the styleName property', () => {
+                let Foo,
+                    Bar,
+                    subject;
+
+                Foo = class extends React.Component {
+                    render () {
+                        return <Bar>
+                            <div styleName='test'>foo</div>
+                        </Bar>;
+                    }
+                };
+
+                Foo = reactCssModules(Foo, {
+                    test: 'foo-0'
+                });
+
+                Bar = class extends React.Component {
+                    render () {
+                        return <div>{this.props.children}</div>;
+                    }
+                };
+
+                Bar = reactCssModules(Bar, {
+                    test: 'bar-0'
+                });
+
+                subject = TestUtils.renderIntoDocument(<Foo />);
+                subject = ReactDOM.findDOMNode(subject);
+
+                expect(subject.firstChild.className).to.equal('foo-0');
             });
         });
     });

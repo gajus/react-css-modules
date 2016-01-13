@@ -107,6 +107,22 @@ describe('linkClass', () => {
                 expect(subject.props.children[0].props.className).to.equal('foo-1');
                 expect(subject.props.children[1].props.className).to.equal('bar-1');
             });
+            it('styleName is reset to null', () => {
+                let subject;
+
+                subject = <div>
+                    <p styleName='foo'></p>
+                    <p styleName='bar'></p>
+                </div>;
+
+                subject = linkClass(subject, {
+                    bar: 'bar-1',
+                    foo: 'foo-1'
+                });
+
+                expect(subject.props.children[0].props.styleName).to.equal(null);
+                expect(subject.props.children[1].props.styleName).to.equal(null);
+            });
         });
         context('when multiple descendants have styleName and are iterable', () => {
             it('assigns a generated className', () => {
@@ -251,5 +267,35 @@ describe('linkClass', () => {
         it('does not process ReactComponent nodes', () => {
             expect(nodeList.firstChild.className).to.equal('');
         });
+    });
+
+    it('unsets styleName property of the target element', () => {
+        let subject;
+
+        subject = <div styleName='foo'></div>;
+
+        subject = linkClass(subject, {
+            foo: 'foo-1'
+        });
+
+        expect(subject.props.className).to.deep.equal('foo-1');
+        expect(subject.props.styleName).to.deep.equal(null);
+    });
+
+    it('unsets styleName property of the target element (deep)', () => {
+        let subject;
+
+        subject = <div styleName='foo'>
+            <div styleName='bar'></div>
+            <div styleName='bar'></div>
+        </div>;
+
+        subject = linkClass(subject, {
+            foo: 'foo-1',
+            bar: 'bar-1'
+        });
+
+        expect(subject.props.children[0].props.className).to.deep.equal('bar-1');
+        expect(subject.props.children[0].props.styleName).to.deep.equal(null);
     });
 });

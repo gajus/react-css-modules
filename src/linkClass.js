@@ -87,6 +87,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
         }
 
         newProps = {
+            styleName: null,
             className: appendClassName
         };
     }
