@@ -146,8 +146,8 @@ describe('reactCssModules', () => {
         context('parent component is using react-css-modules and interpolates props.children', () => {
             // @see https://github.com/gajus/react-css-modules/issues/76
             it('unsets the styleName property', () => {
-                let Foo,
-                    Bar,
+                let Bar,
+                    Foo,
                     subject;
 
                 Foo = class extends React.Component {

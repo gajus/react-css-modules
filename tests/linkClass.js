@@ -291,8 +291,8 @@ describe('linkClass', () => {
         </div>;
 
         subject = linkClass(subject, {
-            foo: 'foo-1',
-            bar: 'bar-1'
+            bar: 'bar-1',
+            foo: 'foo-1'
         });
 
         expect(subject.props.children[0].props.className).to.deep.equal('bar-1');

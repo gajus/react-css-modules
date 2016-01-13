@@ -3,7 +3,46 @@ import makeConfiguration from './makeConfiguration';
 import isIterable from './isIterable';
 import _ from 'lodash';
 
-let linkClass;
+let generateAppendClassName,
+    linkClass,
+    parseStyleName;
+
+parseStyleName = (styleNamePropertyValue: string, allowMultiple: boolean): Array<string> => {
+    let styleNames;
+
+    styleNames = styleNamePropertyValue.split(' ');
+    styleNames = _.filter(styleNames);
+
+    if (allowMultiple === false && styleNames.length > 1) {
+        throw new Error('ReactElement styleName property defines multiple module names ("' + styleNamePropertyValue + '").');
+    }
+
+    return styleNames;
+};
+
+generateAppendClassName = (styles, styleNames: Array<string>, errorWhenNotFound: boolean): string => {
+    let appendClassName;
+
+    appendClassName = '';
+
+    appendClassName = _.map(styleNames, (styleName) => {
+        if (styles[styleName]) {
+            return styles[styleName];
+        } else {
+            if (errorWhenNotFound === true) {
+                throw new Error('"' + styleName + '" CSS module is undefined.');
+            }
+
+            return '';
+        }
+    });
+
+    appendClassName = _.filter(appendClassName, 'length');
+
+    appendClassName = appendClassName.join(' ');
+
+    return appendClassName;
+};
 
 /**
  * @param {ReactElement} element
@@ -27,31 +66,10 @@ linkClass = (element, styles = {}, userConfiguration) => {
 
     configuration = makeConfiguration(userConfiguration);
 
-    styleNames = element.props.styleName;
+    styleNames = parseStyleName(element.props.styleName || '', configuration.allowMultiple);
 
-    if (styleNames) {
-        styleNames = styleNames.split(' ');
-        styleNames = _.filter(styleNames);
-
-        if (configuration.allowMultiple === false && styleNames.length > 1) {
-            throw new Error('ReactElement styleName property defines multiple module names ("' + element.props.styleName + '").');
-        }
-
-        appendClassName = _.map(styleNames, (styleName) => {
-            if (styles[styleName]) {
-                return styles[styleName];
-            } else {
-                if (configuration.errorWhenNotFound === true) {
-                    throw new Error('"' + styleName + '" CSS module is undefined.');
-                }
-
-                return '';
-            }
-        });
-
-        appendClassName = _.filter(appendClassName, 'length');
-
-        appendClassName = appendClassName.join(' ');
+    if (styleNames.length) {
+        appendClassName = generateAppendClassName(styles, styleNames, configuration.errorWhenNotFound);
     }
 
     // element.props.children can be one of the following:
@@ -87,8 +105,8 @@ linkClass = (element, styles = {}, userConfiguration) => {
         }
 
         newProps = {
-            styleName: null,
-            className: appendClassName
+            className: appendClassName,
+            styleName: null
         };
     }
 
