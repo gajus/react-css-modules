@@ -60,7 +60,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
         styleNames;
 
     // @see https://github.com/gajus/react-css-modules/pull/30
-    if (!element) {
+    if (!_.isObject(element)) {
         return element;
     }
 

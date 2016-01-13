@@ -142,7 +142,6 @@ describe('reactCssModules', () => {
 
             global.window = document.defaultView;
         });
-
         context('parent component is using react-css-modules and interpolates props.children', () => {
             // @see https://github.com/gajus/react-css-modules/issues/76
             it('unsets the styleName property', () => {
