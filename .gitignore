@@ -3,6 +3,7 @@ coverage
 dist
 *.log
 .*
+!.README
 !.gitignore
 !.npmignore
 !.babelrc
