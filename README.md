@@ -431,7 +431,7 @@ To enable CSS reloading, wrap [`webpack-dev-server`](https://webpack.github.io/d
 
 [React CSS Modules examples](https://github.com/gajus/react-css-modules-examples) repository includes a configuration example using [BrowserSync configuration using webpack-dev-server](https://github.com/gajus/react-css-modules-examples/blob/master/webpack.config.browsersync.js).
 
-Note that `webpackk-dev-server` program [does not write bundle files to the disk](https://github.com/webpack/webpack-dev-server/issues/62). Use [write-file-webpack-plugin](https://github.com/gajus/write-file-webpack-plugin) plugin to force writing to the disk. This will enable BrowserSync to detect changes.
+Note that `webpack-dev-server` program [does not write bundle files to the disk](https://github.com/webpack/webpack-dev-server/issues/62). Use [write-file-webpack-plugin](https://github.com/gajus/write-file-webpack-plugin) plugin to force writing to the disk. This will enable BrowserSync to detect changes.
 
 ## Class Composition
 
