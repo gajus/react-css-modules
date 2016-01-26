@@ -13,7 +13,7 @@ let extendReactClass;
  * @returns {ReactClass}
  */
 extendReactClass = (Component, defaultStyles, options) => {
-    return class extends Component {
+    class CssModule extends Component {
         render () {
             let renderResult,
                 styles;
@@ -38,7 +38,11 @@ extendReactClass = (Component, defaultStyles, options) => {
 
             return React.createElement('noscript');
         }
-    };
+    }
+
+    CssModule.WrappedComponent = Component;
+
+    return CssModule;
 };
 
 export default extendReactClass;

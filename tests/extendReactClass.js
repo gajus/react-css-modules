@@ -102,4 +102,16 @@ describe('extendReactClass', () => {
             expect(component.type).to.equal('noscript');
         });
     });
+    context('exposes properties since `__proto__` is not supported in IE <= 10', () => {
+        it('the wrapped component is exposed through the property `WrappedContent`', () => {
+            let Component = class extends React.Component {
+                render () {
+                    return null;
+                }
+            };
+
+            const ExtendedComponent = extendReactClass(Component);
+            expect(ExtendedComponent.WrappedComponent).to.equal(Component);
+        });
+    });
 });
