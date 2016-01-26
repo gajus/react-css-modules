@@ -45,6 +45,7 @@ wrapStatelessFunction = (Component, defaultStyles, options) => {
     };
 
     _.assign(WrappedComponent, Component);
+    WrappedComponent.WrappedComponent = Component;
 
     return WrappedComponent;
 };

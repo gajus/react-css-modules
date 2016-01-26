@@ -93,4 +93,13 @@ describe('wrapStatelessFunction', () => {
             expect(component.type).to.equal('noscript');
         });
     });
+
+    context('exposes properties since `__proto__` is not supported in IE <= 10', () => {
+        it('the wrapped component is exposed through the property `WrappedContent`', () => {
+            let fn = () => {};
+
+            const ExtendedComponent = wrapStatelessFunction(fn);
+            expect(ExtendedComponent.WrappedComponent).to.equal(fn);
+        });
+    });
 });
