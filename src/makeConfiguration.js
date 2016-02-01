@@ -1,4 +1,9 @@
 import _ from 'lodash';
+import Map from 'es6-map';
+
+let userConfigurationIndex;
+
+userConfigurationIndex = new Map();
 
 /**
  * @typedef CSSModules~Options
@@ -13,6 +18,12 @@ import _ from 'lodash';
  */
 export default (userConfiguration = {}) => {
     let configuration;
+
+    configuration = userConfigurationIndex.get(userConfiguration);
+
+    if (configuration) {
+        return configuration;
+    }
 
     configuration = {
         allowMultiple: false,
@@ -30,6 +41,8 @@ export default (userConfiguration = {}) => {
 
         configuration[name] = value;
     });
+
+    userConfigurationIndex.set(userConfiguration, configuration);
 
     return configuration;
 };
