@@ -9,7 +9,7 @@ let decoratorConstructor,
 /**
  * Determines if the given object has the signature of a class that inherits React.Component.
  *
- * @param {*} Component
+ * @param {*} maybeReactComponent
  * @returns {boolean}
  */
 isReactComponent = (maybeReactComponent) => {

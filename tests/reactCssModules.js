@@ -1,4 +1,4 @@
-/* eslint-disable max-nested-callbacks, react/no-multi-comp */
+/* eslint-disable max-nested-callbacks, react/no-multi-comp, react/prop-types */
 
 import {
     expect

@@ -21,7 +21,7 @@ extendReactClass = (Component, defaultStyles, options) => {
             let renderResult,
                 styles;
 
-            /*if (this.props.styles) {
+            if (this.props.styles) {
                 styles = this.props.styles;
             } else if (_.isObject(defaultStyles)) {
                 this.props = _.assign({}, this.props, {
@@ -32,10 +32,6 @@ extendReactClass = (Component, defaultStyles, options) => {
             } else {
                 styles = {};
             }
-
-            console.log('styles', styles); */
-
-            styles = defaultStyles;
 
             renderResult = super.render();
 

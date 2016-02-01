@@ -46,9 +46,7 @@ linkClass = (element, styles = {}, userConfiguration) => {
     if (React.isValidElement(children)) {
         newChildren = linkClass(React.Children.only(children), styles, configuration);
     } else if (_.isArray(children) || isIterable(children)) {
-        /* eslint-disable lodash3/prefer-lodash-method */
         newChildren = React.Children.map(children, (node) => {
-        /* eslint-enable lodash3/prefer-lodash-method */
             if (React.isValidElement(node)) {
                 return linkClass(node, styles, configuration);
             } else {
