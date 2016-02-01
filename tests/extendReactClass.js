@@ -102,4 +102,23 @@ describe('extendReactClass', () => {
             expect(component.type).to.equal('noscript');
         });
     });
+    context('target component have static properties', () => {
+        it('hoists static properties', () => {
+            let Component,
+                WrappedComponent;
+
+            Component = class extends React.Component {
+                static foo = 'FOO';
+
+                render () {
+                    return null;
+                }
+            };
+
+            WrappedComponent = extendReactClass(Component);
+
+            expect(Component.foo).to.equal('FOO');
+            expect(WrappedComponent.foo).to.equal(Component.foo);
+        });
+    });
 });

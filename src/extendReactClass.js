@@ -3,6 +3,7 @@
 import linkClass from './linkClass';
 import React from 'react';
 import _ from 'lodash';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 
 let extendReactClass;
 
@@ -13,7 +14,9 @@ let extendReactClass;
  * @returns {ReactClass}
  */
 extendReactClass = (Component, defaultStyles, options) => {
-    return class extends Component {
+    let WrappedComponent;
+
+    WrappedComponent = class extends Component {
         render () {
             let renderResult,
                 styles;
@@ -39,6 +42,8 @@ extendReactClass = (Component, defaultStyles, options) => {
             return React.createElement('noscript');
         }
     };
+
+    return hoistNonReactStatics(WrappedComponent, Component);
 };
 
 export default extendReactClass;

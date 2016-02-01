@@ -20,6 +20,7 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
+    "hoist-non-react-statics": "^1.0.3",
     "lodash": "^4.0.0"
   },
   "devDependencies": {
