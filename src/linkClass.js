@@ -5,29 +5,15 @@ import isIterable from './isIterable';
 import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
 
-let linkClass;
+let linkElement;
 
-/**
- * @param {ReactElement} element
- * @param {Object} styles CSS modules class map.
- * @param {CSSModules~Options} userConfiguration
- * @returns {ReactElement}
- */
-linkClass = (element, styles = {}, userConfiguration) => {
+linkElement = (element, styles, configuration) => {
     let appendClassName,
         children,
         clonedElement,
-        configuration,
         newChildren,
         newProps,
         styleNames;
-
-    // @see https://github.com/gajus/react-css-modules/pull/30
-    if (!_.isObject(element)) {
-        return element;
-    }
-
-    configuration = makeConfiguration(userConfiguration);
 
     styleNames = parseStyleName(element.props.styleName || '', configuration.allowMultiple);
 
@@ -44,11 +30,11 @@ linkClass = (element, styles = {}, userConfiguration) => {
     children = element.props.children;
 
     if (React.isValidElement(children)) {
-        newChildren = linkClass(React.Children.only(children), styles, configuration);
+        newChildren = linkElement(React.Children.only(children), styles, configuration);
     } else if (_.isArray(children) || isIterable(children)) {
         newChildren = React.Children.map(children, (node) => {
             if (React.isValidElement(node)) {
-                return linkClass(node, styles, configuration);
+                return linkElement(node, styles, configuration);
             } else {
                 return node;
             }
@@ -80,4 +66,21 @@ linkClass = (element, styles = {}, userConfiguration) => {
     return clonedElement;
 };
 
-export default linkClass;
+/**
+ * @param {ReactElement} element
+ * @param {Object} styles CSS modules class map.
+ * @param {CSSModules~Options} userConfiguration
+ * @returns {ReactElement}
+ */
+export default (element, styles = {}, userConfiguration) => {
+    let configuration;
+
+    // @see https://github.com/gajus/react-css-modules/pull/30
+    if (!_.isObject(element)) {
+        return element;
+    }
+
+    configuration = makeConfiguration(userConfiguration);
+
+    return linkElement(element, styles, configuration);
+};
