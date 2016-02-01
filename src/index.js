@@ -12,8 +12,8 @@ let decoratorConstructor,
  * @param {*} Component
  * @returns {boolean}
  */
-isReactComponent = (Component) => {
-    return 'prototype' in Component && _.isFunction(Component.prototype.render);
+isReactComponent = (maybeReactComponent) => {
+    return 'prototype' in maybeReactComponent && _.isFunction(maybeReactComponent.prototype.render);
 };
 
 /**
