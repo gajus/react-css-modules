@@ -6,6 +6,7 @@ stylesIndex = new Map();
 
 export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): string => {
     let appendClassName,
+        styleName,
         stylesIndexMap;
 
     stylesIndexMap = stylesIndex.get(styles);
@@ -24,8 +25,9 @@ export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): 
 
     appendClassName = '';
 
-    for (let styleName in styleNames) {
+    for (styleName in styleNames) {
         let className;
+
         className = styles[styleNames[styleName]];
 
         if (className) {

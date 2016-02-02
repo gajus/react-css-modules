@@ -31,7 +31,6 @@ export default (Component, defaultStyles, options) => {
                 styles = {};
             }
 
-
             renderResult = super.render();
 
             if (renderResult) {
