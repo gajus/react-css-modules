@@ -41,12 +41,14 @@ linkElement = (element, styles, configuration) => {
     if (styleNames.length) {
         appendClassName = generateAppendClassName(styles, styleNames, configuration.errorWhenNotFound);
 
-        if (elementShallowCopy.props.className) {
-            appendClassName = elementShallowCopy.props.className + ' ' + appendClassName;
-        }
+        if (appendClassName) {
+            if (elementShallowCopy.props.className) {
+                appendClassName = elementShallowCopy.props.className + ' ' + appendClassName;
+            }
 
-        elementShallowCopy.props.className = appendClassName;
-        elementShallowCopy.props.styleName = null;
+            elementShallowCopy.props.className = appendClassName;
+            elementShallowCopy.props.styleName = null;
+        }
     }
 
     if (elementIsFrozen) {
