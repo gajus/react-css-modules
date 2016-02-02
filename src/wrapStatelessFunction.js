@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
 
-import linkClass from './linkClass';
-import React from 'react';
 import _ from 'lodash';
-
-let wrapStatelessFunction;
+import React from 'react';
+import linkClass from './linkClass';
 
 /**
  * @see https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
@@ -13,7 +11,7 @@ let wrapStatelessFunction;
  * @param {Object} options
  * @returns {Function}
  */
-wrapStatelessFunction = (Component, defaultStyles, options) => {
+export default (Component, defaultStyles, options) => {
     let WrappedComponent;
 
     WrappedComponent = (props = {}, ...args) => {
@@ -48,5 +46,3 @@ wrapStatelessFunction = (Component, defaultStyles, options) => {
 
     return WrappedComponent;
 };
-
-export default wrapStatelessFunction;
