@@ -5,21 +5,16 @@ export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): 
 
     appendClassName = '';
 
-    appendClassName = _.map(styleNames, (styleName) => {
-        if (styles[styleName]) {
-            return styles[styleName];
-        } else {
-            if (errorWhenNotFound === true) {
-                throw new Error('"' + styleName + '" CSS module is undefined.');
-            }
+    for (let styleName in styleNames) {
+        let className;
+        className = styles[styleNames[styleName]];
 
-            return '';
+        if (className) {
+            appendClassName += ' ' + className;
+        } else if (errorWhenNotFound === true) {
+            throw new Error('"' + styleNames[styleName] + '" CSS module is undefined.');
         }
-    });
+    }
 
-    appendClassName = _.filter(appendClassName, 'length');
-
-    appendClassName = appendClassName.join(' ');
-
-    return appendClassName;
+    return _.trim(appendClassName);
 };
