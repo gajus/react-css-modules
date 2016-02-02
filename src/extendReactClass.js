@@ -5,15 +5,13 @@ import React from 'react';
 import _ from 'lodash';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
-let extendReactClass;
-
 /**
  * @param {ReactClass} Component
  * @param {Object} defaultStyles
  * @param {Object} options
  * @returns {ReactClass}
  */
-extendReactClass = (Component, defaultStyles, options) => {
+export default (Component, defaultStyles, options) => {
     let WrappedComponent;
 
     WrappedComponent = class extends Component {
@@ -33,6 +31,7 @@ extendReactClass = (Component, defaultStyles, options) => {
                 styles = {};
             }
 
+
             renderResult = super.render();
 
             if (renderResult) {
@@ -45,5 +44,3 @@ extendReactClass = (Component, defaultStyles, options) => {
 
     return hoistNonReactStatics(WrappedComponent, Component);
 };
-
-export default extendReactClass;
