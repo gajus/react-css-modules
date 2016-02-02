@@ -11,25 +11,25 @@ let linkElement;
 linkElement = (element, styles, configuration) => {
     let appendClassName,
         elementIsFrozen,
-        clonedElement,
-        newChildren,
-        newProps,
+        elementShallowCopy,
         styleNames;
 
-    if (Object.isFrozen && Object.isFrozen(element)) {
+    elementShallowCopy = element;
+
+    if (Object.isFrozen && Object.isFrozen(elementShallowCopy)) {
         elementIsFrozen = true;
 
         // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
-        element = objectUnfreeze(element);
-        element.props = objectUnfreeze(element.props);
+        elementShallowCopy = objectUnfreeze(elementShallowCopy);
+        elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
     }
 
-    styleNames = parseStyleName(element.props.styleName || '', configuration.allowMultiple);
+    styleNames = parseStyleName(elementShallowCopy.props.styleName || '', configuration.allowMultiple);
 
-    if (React.isValidElement(element.props.children)) {
-        element.props.children = linkElement(React.Children.only(element.props.children), styles, configuration);
-    } else if (_.isArray(element.props.children) || isIterable(element.props.children)) {
-        element.props.children = React.Children.map(element.props.children, (node) => {
+    if (React.isValidElement(elementShallowCopy.props.children)) {
+        elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
+    } else if (_.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
+        elementShallowCopy.props.children = React.Children.map(elementShallowCopy.props.children, (node) => {
             if (React.isValidElement(node)) {
                 return linkElement(node, styles, configuration);
             } else {
@@ -41,20 +41,20 @@ linkElement = (element, styles, configuration) => {
     if (styleNames.length) {
         appendClassName = generateAppendClassName(styles, styleNames, configuration.errorWhenNotFound);
 
-        if (element.props.className) {
-            appendClassName = element.props.className + ' ' + appendClassName;
+        if (elementShallowCopy.props.className) {
+            appendClassName = elementShallowCopy.props.className + ' ' + appendClassName;
         }
 
-        element.props.className = appendClassName;
-        element.props.styleName = null;
+        elementShallowCopy.props.className = appendClassName;
+        elementShallowCopy.props.styleName = null;
     }
 
     if (elementIsFrozen) {
-        Object.freeze(element);
-        Object.freeze(element.props);
+        Object.freeze(elementShallowCopy.props);
+        Object.freeze(elementShallowCopy);
     }
 
-    return element;
+    return elementShallowCopy;
 };
 
 /**
