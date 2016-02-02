@@ -1,7 +1,26 @@
-import _ from 'lodash';
+import Map from 'es6-map';
+
+let stylesIndex;
+
+stylesIndex = new Map();
 
 export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): string => {
-    let appendClassName;
+    let appendClassName,
+        stylesIndexMap;
+
+    stylesIndexMap = stylesIndex.get(styles);
+
+    if (stylesIndexMap) {
+        let styleNameIndex;
+
+        styleNameIndex = stylesIndexMap.get(styleNames);
+
+        if (styleNameIndex) {
+            return styleNameIndex;
+        }
+    } else {
+        stylesIndexMap = stylesIndex.set(styles, new Map());
+    }
 
     appendClassName = '';
 
@@ -16,5 +35,9 @@ export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): 
         }
     }
 
-    return _.trim(appendClassName);
+    appendClassName = appendClassName.trim();
+
+    stylesIndexMap.set(styleNames, appendClassName);
+
+    return appendClassName;
 };
