@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import _ from 'lodash';
+import { isObject, assign } from 'lodash';
 import React from 'react';
 import linkClass from './linkClass';
 
@@ -22,8 +22,8 @@ export default (Component, defaultStyles, options) => {
         if (props.styles) {
             useProps = props;
             styles = props.styles;
-        } else if (_.isObject(defaultStyles)) {
-            useProps = _.assign({}, props, {
+        } else if (isObject(defaultStyles)) {
+            useProps = assign({}, props, {
                 styles: defaultStyles
             });
 
@@ -42,7 +42,7 @@ export default (Component, defaultStyles, options) => {
         return React.createElement('noscript');
     };
 
-    _.assign(WrappedComponent, Component);
+    assign(WrappedComponent, Component);
 
     return WrappedComponent;
 };

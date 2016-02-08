@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isArray, isObject } from 'lodash';
 import React from 'react';
 import makeConfiguration from './makeConfiguration';
 import isIterable from './isIterable';
@@ -28,7 +28,7 @@ linkElement = (element, styles, configuration) => {
 
     if (React.isValidElement(elementShallowCopy.props.children)) {
         elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
-    } else if (_.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
+    } else if (isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
         elementShallowCopy.props.children = React.Children.map(elementShallowCopy.props.children, (node) => {
             if (React.isValidElement(node)) {
                 return linkElement(node, styles, configuration);
@@ -69,7 +69,7 @@ export default (element, styles = {}, userConfiguration) => {
     let configuration;
 
     // @see https://github.com/gajus/react-css-modules/pull/30
-    if (!_.isObject(element)) {
+    if (!isObject(element)) {
         return element;
     }
 

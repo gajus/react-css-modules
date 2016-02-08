@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { trim, filter } from 'lodash';
 
 let styleNameIndex;
 
@@ -10,8 +10,8 @@ export default (styleNamePropertyValue: string, allowMultiple: boolean): Array<s
     if (styleNameIndex[styleNamePropertyValue]) {
         styleNames = styleNameIndex[styleNamePropertyValue];
     } else {
-        styleNames = _.trim(styleNamePropertyValue).split(' ');
-        styleNames = _.filter(styleNames);
+        styleNames = trim(styleNamePropertyValue).split(' ');
+        styleNames = filter(styleNames);
 
         styleNameIndex[styleNamePropertyValue] = styleNames;
     }
