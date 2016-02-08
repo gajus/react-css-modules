@@ -2,7 +2,7 @@
 
 import linkClass from './linkClass';
 import React from 'react';
-import _ from 'lodash';
+import { isObject, assign } from 'lodash';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
 /**
@@ -21,8 +21,8 @@ export default (Component, defaultStyles, options) => {
 
             if (this.props.styles) {
                 styles = this.props.styles;
-            } else if (_.isObject(defaultStyles)) {
-                this.props = _.assign({}, this.props, {
+            } else if (isObject(defaultStyles)) {
+                this.props = assign({}, this.props, {
                     styles: defaultStyles
                 });
 

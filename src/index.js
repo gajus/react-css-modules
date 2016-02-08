@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isFunction } from 'lodash';
 import extendReactClass from './extendReactClass';
 import wrapStatelessFunction from './wrapStatelessFunction';
 
@@ -13,7 +13,7 @@ let decoratorConstructor,
  * @returns {boolean}
  */
 isReactComponent = (maybeReactComponent) => {
-    return 'prototype' in maybeReactComponent && _.isFunction(maybeReactComponent.prototype.render);
+    return 'prototype' in maybeReactComponent && isFunction(maybeReactComponent.prototype.render);
 };
 
 /**
@@ -56,7 +56,7 @@ decoratorConstructor = (defaultStyles, options) => {
 };
 
 export default (...args) => {
-    if (_.isFunction(args[0])) {
+    if (isFunction(args[0])) {
         return functionConstructor(args[0], args[1], args[2]);
     } else {
         return decoratorConstructor(args[0], args[1]);

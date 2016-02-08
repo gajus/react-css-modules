@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { forEach, isUndefined, isBoolean } from 'lodash';
 import Map from 'es6-map';
 
 let userConfigurationIndex;
@@ -30,12 +30,12 @@ export default (userConfiguration = {}) => {
         errorWhenNotFound: true
     };
 
-    _.forEach(userConfiguration, (value, name) => {
-        if (_.isUndefined(configuration[name])) {
+    forEach(userConfiguration, (value, name) => {
+        if (isUndefined(configuration[name])) {
             throw new Error('Unknown configuration property "' + name + '".');
         }
 
-        if (!_.isBoolean(value)) {
+        if (!isBoolean(value)) {
             throw new Error('"' + name + '" property value must be a boolean.');
         }
 

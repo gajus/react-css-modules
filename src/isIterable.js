@@ -1,9 +1,9 @@
-import _ from 'lodash';
+import { isFunction, isObject } from 'lodash';
 
 let ITERATOR_SYMBOL,
     OLD_ITERATOR_SYMBOL;
 
-ITERATOR_SYMBOL = _.isFunction(Symbol) && Symbol.iterator;
+ITERATOR_SYMBOL = isFunction(Symbol) && Symbol.iterator;
 OLD_ITERATOR_SYMBOL = '@@iterator';
 
 /**
@@ -15,7 +15,7 @@ OLD_ITERATOR_SYMBOL = '@@iterator';
 export default (target) => {
     let iterator;
 
-    if (!_.isObject(target)) {
+    if (!isObject(target)) {
         return false;
     }
 
@@ -25,5 +25,5 @@ export default (target) => {
         iterator = target[OLD_ITERATOR_SYMBOL];
     }
 
-    return _.isFunction(iterator);
+    return isFunction(iterator);
 };
