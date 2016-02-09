@@ -15,6 +15,8 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
 - [Usage](#usage)
     - [Module Bundler](#module-bundler)
         - [webpack](#webpack)
+            - [Development](#development)
+            - [Production](#production)
         - [Browserify](#browserify)
     - [Extending Component Styles](#extending-component-styles)
     - [`styles` Property](#styles-property)
@@ -25,7 +27,6 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
         - [`errorWhenNotFound`](#errorwhennotfound)
 - [SASS, SCSS, LESS and other CSS Preprocessors](#sass-scss-less-and-other-css-preprocessors)
     - [Enable Sourcemaps](#enable-sourcemaps)
-- [React Hot Module Replacement](#react-hot-module-replacement)
 - [Class Composition](#class-composition)
     - [What Problems does Class Composition Solve?](#what-problems-does-class-composition-solve)
     - [Class Composition Using CSS Preprocessors](#class-composition-using-css-preprocessors)
@@ -134,8 +135,49 @@ Setup consists of:
 
 #### webpack
 
-* Install [`style-loader`](https://www.npmjs.com/package/style-loader) and [`css-loader`](https://www.npmjs.com/package/css-loader).
-* You need to use [`extract-text-webpack-plugin`](https://www.npmjs.com/package/extract-text-webpack-plugin) to aggregate the CSS into a single file.
+##### Development
+
+In development environment, you want to [Enable Sourcemaps](#enable-sourcemaps) and webpack [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement.html) (HMR). [`style-loader`](https://github.com/webpack/style-loader) already supports HMR. Therefore, Hot Module Replacement will work out of the box.
+
+* Install [`style-loader`](https://www.npmjs.com/package/style-loader).
+* Install [`css-loader`](https://www.npmjs.com/package/css-loader).
+* Setup `/\.css$/` loader:
+
+```js
+{
+    test: /\.css$/,
+    loaders: [
+        'style?sourceMap',
+        'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+    ]
+}
+```
+
+##### Production
+
+In production environment, you want to extract chunks of CSS into a single stylesheet file.
+
+> Advantages:
+>
+> * Fewer style tags (older IE has a limit)
+> * CSS SourceMap (with `devtool: "source-map"` and `css-loader?sourceMap`)
+> * CSS requested in parallel
+> * CSS cached separate
+> * Faster runtime (less code and DOM operations)
+>
+> Caveats:
+>
+> * Additional HTTP request
+> * Longer compilation time
+> * More complex configuration
+> * No runtime public path modification
+> * No Hot Module Replacement
+
+– [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin)
+
+* Install [`style-loader`](https://www.npmjs.com/package/style-loader).
+* Install [`css-loader`](https://www.npmjs.com/package/css-loader).
+* Use [`extract-text-webpack-plugin`](https://www.npmjs.com/package/extract-text-webpack-plugin) to extract chunks of CSS into a single stylesheet.
 * Setup `/\.css$/` loader:
 
 ```js
@@ -155,7 +197,7 @@ new ExtractTextPlugin('app.css', {
 
 Refer to [webpack-demo](https://github.com/css-modules/webpack-demo) or [react-css-modules-examples](https://github.com/gajus/react-css-modules-examples) for an example of a complete setup.
 
-#### Browserify
+##### Browserify
 
 Refer to [`css-modulesify`](https://github.com/css-modules/css-modulesify).
 
@@ -421,30 +463,30 @@ Throws an error when `styleName` cannot be mapped to an existing CSS Module.
 ```js
 {
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
+    loaders: [
+        'style',
+        'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+        'resolve-url',
+        'sass'
+    ]
 }
 ```
 
-### Enable Sourcemaps 
+### Enable Sourcemaps
 
-To enable CSS Source maps, you'll need to pass the sourceMap-option to the css-loader:
-    
+To enable CSS Source maps, add `sourceMap` parameter to the css-loader and to the `sass-loader`:
+
 ```js
 {
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass')
+    loaders: [
+        'style?sourceMap',
+        'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+        'resolve-url',
+        'sass?sourceMap'
+    ]
 }
 ```
-
-## React Hot Module Replacement
-
-[Hot module reloading](https://github.com/gaearon/react-transform-hmr) (HMR) does not reload the CSS document (see https://github.com/gajus/react-css-modules/issues/51). It only reloads the `class` HTML attribute value.
-
-To enable CSS reloading, wrap [`webpack-dev-server`](https://webpack.github.io/docs/webpack-dev-server.html) configuration using [BrowserSync](https://www.browsersync.io/). BrowserSync enables CSS reloading when it detects a file change.
-
-[React CSS Modules examples](https://github.com/gajus/react-css-modules-examples) repository includes a configuration example using [BrowserSync configuration using webpack-dev-server](https://github.com/gajus/react-css-modules-examples/blob/master/webpack.config.browsersync.js).
-
-Note that `webpack-dev-server` program [does not write bundle files to the disk](https://github.com/webpack/webpack-dev-server/issues/62). Use [write-file-webpack-plugin](https://github.com/gajus/write-file-webpack-plugin) plugin to force writing to the disk. This will enable BrowserSync to detect changes.
 
 ## Class Composition
 
