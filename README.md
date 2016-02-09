@@ -139,6 +139,8 @@ Setup consists of:
 
 In development environment, you want to [Enable Sourcemaps](#enable-sourcemaps) and webpack [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement.html) (HMR). [`style-loader`](https://github.com/webpack/style-loader) already supports HMR. Therefore, Hot Module Replacement will work out of the box.
 
+Setup:
+
 * Install [`style-loader`](https://www.npmjs.com/package/style-loader).
 * Install [`css-loader`](https://www.npmjs.com/package/css-loader).
 * Setup `/\.css$/` loader:
@@ -174,6 +176,8 @@ In production environment, you want to extract chunks of CSS into a single style
 > * No Hot Module Replacement
 
 – [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin)
+
+Setup:
 
 * Install [`style-loader`](https://www.npmjs.com/package/style-loader).
 * Install [`css-loader`](https://www.npmjs.com/package/css-loader).
