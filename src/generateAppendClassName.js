@@ -1,20 +1,15 @@
 import Map from 'es6-map';
 
-let stylesIndex;
-
-stylesIndex = new Map();
+const stylesIndex = new Map();
 
 export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): string => {
     let appendClassName,
-        styleName,
         stylesIndexMap;
 
     stylesIndexMap = stylesIndex.get(styles);
 
     if (stylesIndexMap) {
-        let styleNameIndex;
-
-        styleNameIndex = stylesIndexMap.get(styleNames);
+        const styleNameIndex = stylesIndexMap.get(styleNames);
 
         if (styleNameIndex) {
             return styleNameIndex;
@@ -25,15 +20,15 @@ export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): 
 
     appendClassName = '';
 
-    for (styleName in styleNames) {
-        let className;
+    for (const styleName in styleNames) {
+        if (styleNames.hasOwnProperty(styleName)) {
+            const className = styles[styleNames[styleName]];
 
-        className = styles[styleNames[styleName]];
-
-        if (className) {
-            appendClassName += ' ' + className;
-        } else if (errorWhenNotFound === true) {
-            throw new Error('"' + styleNames[styleName] + '" CSS module is undefined.');
+            if (className) {
+                appendClassName += ' ' + className;
+            } else if (errorWhenNotFound === true) {
+                throw new Error('"' + styleNames[styleName] + '" CSS module is undefined.');
+            }
         }
     }
 

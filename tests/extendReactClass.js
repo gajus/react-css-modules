@@ -17,8 +17,11 @@ describe('extendReactClass', () => {
     });
     context('using default styles', () => {
         it('exposes styles through this.props.styles property', (done) => {
-            let Component,
-                styles;
+            let Component;
+
+            const styles = {
+                foo: 'foo-1'
+            };
 
             Component = class extends React.Component {
                 render () {
@@ -27,17 +30,12 @@ describe('extendReactClass', () => {
                 }
             };
 
-            styles = {
-                foo: 'foo-1'
-            };
-
             Component = extendReactClass(Component, styles);
 
             TestUtils.renderIntoDocument(<Component />);
         });
         it('does not affect the other instance properties', (done) => {
-            let Component,
-                styles;
+            let Component;
 
             Component = class extends React.Component {
                 render () {
@@ -46,7 +44,7 @@ describe('extendReactClass', () => {
                 }
             };
 
-            styles = {
+            const styles = {
                 foo: 'foo-1'
             };
 
@@ -57,18 +55,17 @@ describe('extendReactClass', () => {
     });
     context('overwriting default styles using "styles" property of the extended component', () => {
         it('overwrites default styles', (done) => {
-            let Component,
-                styles;
+            let Component;
+
+            const styles = {
+                foo: 'foo-1'
+            };
 
             Component = class extends React.Component {
                 render () {
                     expect(this.props.styles).to.equal(styles);
                     done();
                 }
-            };
-
-            styles = {
-                foo: 'foo-1'
             };
 
             Component = extendReactClass(Component, {
@@ -81,11 +78,9 @@ describe('extendReactClass', () => {
     });
     context('rendering Component that returns null', () => {
         it('generates <noscript> element', () => {
-            let Component,
-                component,
-                shallowRenderer;
+            let Component;
 
-            shallowRenderer = TestUtils.createRenderer();
+            const shallowRenderer = TestUtils.createRenderer();
 
             Component = class extends React.Component {
                 render () {
@@ -97,17 +92,14 @@ describe('extendReactClass', () => {
 
             shallowRenderer.render(<Component />);
 
-            component = shallowRenderer.getRenderOutput();
+            const component = shallowRenderer.getRenderOutput();
 
             expect(component.type).to.equal('noscript');
         });
     });
     context('target component have static properties', () => {
         it('hoists static properties', () => {
-            let Component,
-                WrappedComponent;
-
-            Component = class extends React.Component {
+            const Component = class extends React.Component {
                 static foo = 'FOO';
 
                 render () {
@@ -115,7 +107,7 @@ describe('extendReactClass', () => {
                 }
             };
 
-            WrappedComponent = extendReactClass(Component);
+            const WrappedComponent = extendReactClass(Component);
 
             expect(Component.foo).to.equal('FOO');
             expect(WrappedComponent.foo).to.equal(Component.foo);

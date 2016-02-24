@@ -28,13 +28,10 @@ describe('linkClass', () => {
         });
 
         xit('does not affect element with a single children when that children is contained in an array', () => {
-            let outcome,
-                subject;
-
-            subject = React.createElement('div', null, [
+            const subject = React.createElement('div', null, [
                 React.createElement('p')
             ]);
-            outcome = React.createElement('div', null, [
+            const outcome = React.createElement('div', null, [
                 React.createElement('p')
             ]);
 
@@ -48,14 +45,11 @@ describe('linkClass', () => {
             // @see https://github.com/facebook/react/issues/4723#issuecomment-135555277
             // expect(linkClass(<div><p></p><p></p></div>)).to.deep.equal(<div><p></p><p></p></div>);
 
-            let outcome,
-                subject;
-
-            subject = React.createElement('div', null, [
+            const subject = React.createElement('div', null, [
                 React.createElement('p'),
                 React.createElement('p')
             ]);
-            outcome = React.createElement('div', null, [
+            const outcome = React.createElement('div', null, [
                 React.createElement('p'),
                 React.createElement('p')
             ]);
@@ -66,9 +60,7 @@ describe('linkClass', () => {
 
     context('called with null instead of ReactElement', () => {
         it('returns null', () => {
-            let subject;
-
-            subject = linkClass(null);
+            const subject = linkClass(null);
 
             expect(subject).to.equal(null);
         });
@@ -126,14 +118,15 @@ describe('linkClass', () => {
         });
         context('when multiple descendants have styleName and are iterable', () => {
             it('assigns a generated className', () => {
-                let iterable,
-                    subject;
+                let subject;
 
-                iterable = {
+                const iterable = {
                     0: <p key='1' styleName='foo'></p>,
                     1: <p key='2' styleName='bar'></p>,
                     length: 2,
+                    /* eslint-disable no-use-extend-native/no-use-extend-native */
                     [Symbol.iterator]: Array.prototype[Symbol.iterator]
+                    /* eslint-enable no-use-extend-native/no-use-extend-native */
                 };
 
                 subject = <div>{iterable}</div>;

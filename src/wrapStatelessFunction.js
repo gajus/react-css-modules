@@ -1,22 +1,13 @@
-/* eslint-disable react/prop-types */
-
 import _ from 'lodash';
 import React from 'react';
 import linkClass from './linkClass';
 
 /**
  * @see https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
- * @param {Function} Component
- * @param {Object} defaultStyles
- * @param {Object} options
- * @returns {Function}
  */
-export default (Component, defaultStyles, options) => {
-    let WrappedComponent;
-
-    WrappedComponent = (props = {}, ...args) => {
-        let renderResult,
-            styles,
+export default (Component: Function, defaultStyles: Object, options: Object): Function => {
+    const WrappedComponent = (props = {}, ...args) => {
+        let styles,
             useProps;
 
         if (props.styles) {
@@ -33,7 +24,7 @@ export default (Component, defaultStyles, options) => {
             styles = {};
         }
 
-        renderResult = Component(useProps, ...args);
+        const renderResult = Component(useProps, ...args);
 
         if (renderResult) {
             return linkClass(renderResult, styles, options);

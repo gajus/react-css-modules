@@ -9,22 +9,18 @@ import wrapStatelessFunction from './../src/wrapStatelessFunction';
 
 describe('wrapStatelessFunction', () => {
     it('hoists static own properties from the input component to the wrapped component', () => {
-        let Component,
-            WrappedComponent,
-            styles;
-
-        styles = {
+        const styles = {
             foo: 'foo-1'
         };
 
-        Component = function InnerComponent () {
+        const Component = function InnerComponent () {
             return null;
         };
 
         Component.propTypes = {};
         Component.defaultProps = {};
 
-        WrappedComponent = wrapStatelessFunction(Component, styles);
+        const WrappedComponent = wrapStatelessFunction(Component, styles);
 
         expect(WrappedComponent.propTypes).to.equal(Component.propTypes);
         expect(WrappedComponent.defaultProps).to.equal(Component.defaultProps);
@@ -32,9 +28,7 @@ describe('wrapStatelessFunction', () => {
     });
     context('using default styles', () => {
         it('exposes styles through styles property', (done) => {
-            let styles;
-
-            styles = {
+            const styles = {
                 foo: 'foo-1'
             };
 
@@ -44,9 +38,7 @@ describe('wrapStatelessFunction', () => {
             }, styles)();
         });
         it('does not affect the other instance properties', (done) => {
-            let styles;
-
-            styles = {
+            const styles = {
                 foo: 'foo-1'
             };
 
@@ -60,9 +52,7 @@ describe('wrapStatelessFunction', () => {
     });
     context('using explicit styles', () => {
         it('exposes styles through styles property', (done) => {
-            let styles;
-
-            styles = {
+            const styles = {
                 foo: 'foo-1'
             };
 
@@ -76,19 +66,15 @@ describe('wrapStatelessFunction', () => {
     });
     context('rendering Component that returns null', () => {
         it('generates <noscript> element', () => {
-            let Component,
-                component,
-                shallowRenderer;
+            const shallowRenderer = TestUtils.createRenderer();
 
-            shallowRenderer = TestUtils.createRenderer();
-
-            Component = wrapStatelessFunction(() => {
+            const Component = wrapStatelessFunction(() => {
                 return null;
             });
 
             shallowRenderer.render(<Component />);
 
-            component = shallowRenderer.getRenderOutput();
+            const component = shallowRenderer.getRenderOutput();
 
             expect(component.type).to.equal('noscript');
         });

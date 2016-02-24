@@ -1,9 +1,7 @@
 import _ from 'lodash';
 import Map from 'es6-map';
 
-let userConfigurationIndex;
-
-userConfigurationIndex = new Map();
+const userConfigurationIndex = new Map();
 
 /**
  * @typedef CSSModules~Options

@@ -2,29 +2,22 @@ import _ from 'lodash';
 import extendReactClass from './extendReactClass';
 import wrapStatelessFunction from './wrapStatelessFunction';
 
-let decoratorConstructor,
-    functionConstructor,
-    isReactComponent;
+/**
+ * @see https://github.com/gajus/react-css-modules#options
+ */
+type OptionsType = {};
 
 /**
  * Determines if the given object has the signature of a class that inherits React.Component.
- *
- * @param {*} maybeReactComponent
- * @returns {boolean}
  */
-isReactComponent = (maybeReactComponent) => {
+const isReactComponent = (maybeReactComponent: any): boolean => {
     return 'prototype' in maybeReactComponent && _.isFunction(maybeReactComponent.prototype.render);
 };
 
 /**
  * When used as a function.
- *
- * @param {Function} Component
- * @param {Object} defaultStyles CSS Modules class map.
- * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
- * @returns {Function}
  */
-functionConstructor = (Component, defaultStyles, options) => {
+const functionConstructor = (Component: Function, defaultStyles: Object, options: OptionsType): Function => {
     let decoratedClass;
 
     if (isReactComponent(Component)) {
@@ -44,13 +37,9 @@ functionConstructor = (Component, defaultStyles, options) => {
 
 /**
  * When used as a ES7 decorator.
- *
- * @param {Object} defaultStyles CSS Modules class map.
- * @param {Object} options {@link https://github.com/gajus/react-css-modules#options}
- * @returns {Function}
  */
-decoratorConstructor = (defaultStyles, options) => {
-    return (Component) => {
+const decoratorConstructor = (defaultStyles: Object, options: OptionsType): Function => {
+    return (Component: Function) => {
         return functionConstructor(Component, defaultStyles, options);
     };
 };

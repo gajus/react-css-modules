@@ -6,13 +6,16 @@ import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
 import objectUnfreeze from 'object-unfreeze';
 
+import {
+    ReactElement
+} from 'react';
+
 let linkElement;
 
 linkElement = (element, styles, configuration) => {
     let appendClassName,
         elementIsFrozen,
-        elementShallowCopy,
-        styleNames;
+        elementShallowCopy;
 
     elementShallowCopy = element;
 
@@ -24,7 +27,7 @@ linkElement = (element, styles, configuration) => {
         elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
     }
 
-    styleNames = parseStyleName(elementShallowCopy.props.styleName || '', configuration.allowMultiple);
+    const styleNames = parseStyleName(elementShallowCopy.props.styleName || '', configuration.allowMultiple);
 
     if (React.isValidElement(elementShallowCopy.props.children)) {
         elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
@@ -66,14 +69,12 @@ linkElement = (element, styles, configuration) => {
  * @returns {ReactElement}
  */
 export default (element, styles = {}, userConfiguration) => {
-    let configuration;
-
     // @see https://github.com/gajus/react-css-modules/pull/30
     if (!_.isObject(element)) {
         return element;
     }
 
-    configuration = makeConfiguration(userConfiguration);
+    const configuration = makeConfiguration(userConfiguration);
 
     return linkElement(element, styles, configuration);
 };

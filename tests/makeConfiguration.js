@@ -34,9 +34,7 @@ describe('makeConfiguration', () => {
         });
     });
     it('does not mutate user configuration', () => {
-        let userConfiguration;
-
-        userConfiguration = {};
+        const userConfiguration = {};
 
         makeConfiguration(userConfiguration);
 

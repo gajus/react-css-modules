@@ -11,13 +11,10 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
  * @param {Object} options
  * @returns {ReactClass}
  */
-export default (Component, defaultStyles, options) => {
-    let WrappedComponent;
-
-    WrappedComponent = class extends Component {
+export default (Component: Object, defaultStyles: Object, options: Object) => {
+    const WrappedComponent = class extends Component {
         render () {
-            let renderResult,
-                styles;
+            let styles;
 
             if (this.props.styles) {
                 styles = this.props.styles;
@@ -31,7 +28,7 @@ export default (Component, defaultStyles, options) => {
                 styles = {};
             }
 
-            renderResult = super.render();
+            const renderResult = super.render();
 
             if (renderResult) {
                 return linkClass(renderResult, styles, options);

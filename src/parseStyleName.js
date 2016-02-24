@@ -1,8 +1,6 @@
 import _ from 'lodash';
 
-let styleNameIndex;
-
-styleNameIndex = {};
+const styleNameIndex = {};
 
 export default (styleNamePropertyValue: string, allowMultiple: boolean): Array<string> => {
     let styleNames;
