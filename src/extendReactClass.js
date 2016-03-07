@@ -15,6 +15,7 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
     const WrappedComponent = class extends Component {
         render () {
             let styles;
+            let propsChanged = false;
 
             if (this.props.styles) {
                 styles = this.props.styles;
@@ -23,12 +24,17 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
                     styles: defaultStyles
                 });
 
+                propsChanged = true;
                 styles = defaultStyles;
             } else {
                 styles = {};
             }
 
             const renderResult = super.render();
+            
+            if(propsChanged) {
+                delete this.props.styles;
+            }
 
             if (renderResult) {
                 return linkClass(renderResult, styles, options);
