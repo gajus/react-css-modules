@@ -15,9 +15,10 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
     const WrappedComponent = class extends Component {
         render () {
             let styles;
+            let stylesOverrideAttribute = options.stylesPropOverride ? 'styles' : 'stylesOverride';
 
-            if (this.props.styles) {
-                styles = this.props.styles;
+            if (this.props[stylesOverrideAttribute]) {
+                styles = this.props[stylesOverrideAttribute];
             } else if (_.isObject(defaultStyles)) {
                 this.props = _.assign({}, this.props, {
                     styles: defaultStyles

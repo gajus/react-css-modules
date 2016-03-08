@@ -25,7 +25,8 @@ export default (userConfiguration = {}) => {
 
     configuration = {
         allowMultiple: false,
-        errorWhenNotFound: true
+        errorWhenNotFound: true,
+        stylesPropOverride: true
     };
 
     _.forEach(userConfiguration, (value, name) => {
