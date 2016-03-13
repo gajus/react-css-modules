@@ -14,8 +14,10 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 export default (Component: Object, defaultStyles: Object, options: Object) => {
     const WrappedComponent = class extends Component {
         render () {
-            let styles;
-            let propsChanged = false;
+            let styles,
+                propsChanged;
+
+            propsChanged = false;
 
             if (this.props.styles) {
                 styles = this.props.styles;
@@ -31,8 +33,8 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
             }
 
             const renderResult = super.render();
-            
-            if(propsChanged) {
+
+            if (propsChanged) {
                 delete this.props.styles;
             }
 
