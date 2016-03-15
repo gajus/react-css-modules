@@ -6,6 +6,7 @@ import {
 
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import shallowCompare from 'react-addons-shallow-compare';
 import jsdom from 'jsdom';
 import extendReactClass from './../src/extendReactClass';
 
@@ -52,6 +53,36 @@ describe('extendReactClass', () => {
 
             TestUtils.renderIntoDocument(<Component bar='baz' />);
         });
+        it('does not affect pure-render logic', (done) => {
+            let Component,
+                instance,
+                rendered = false;
+
+            const styles = {
+                foo: 'foo-1'
+            };
+
+            Component = class extends React.Component {
+                shouldComponentUpdate(newProps) {
+                    if(rendered) {
+                        expect(shallowCompare(this.props, newProps)).to.be.true;
+                        done();
+                    }
+                    return true;
+                }
+
+                render () {
+                    rendered = true;
+                }
+            };
+
+            Component = extendReactClass(Component, styles);
+
+            instance = TestUtils.renderIntoDocument(<Component foo='bar'/>);
+            
+            // trigger shouldComponentUpdate
+            instance.setState({});
+        });        
     });
     context('overwriting default styles using "styles" property of the extended component', () => {
         it('overwrites default styles', (done) => {
