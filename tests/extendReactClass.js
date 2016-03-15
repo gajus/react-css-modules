@@ -55,8 +55,9 @@ describe('extendReactClass', () => {
         });
         it('does not affect pure-render logic', (done) => {
             let Component,
-                instance,
-                rendered = false;
+                rendered;
+
+            rendered = false
 
             const styles = {
                 foo: 'foo-1'
@@ -78,11 +79,11 @@ describe('extendReactClass', () => {
 
             Component = extendReactClass(Component, styles);
 
-            instance = TestUtils.renderIntoDocument(<Component foo='bar'/>);
-            
+            const instance = TestUtils.renderIntoDocument(<Component foo='bar'/>);
+
             // trigger shouldComponentUpdate
             instance.setState({});
-        });        
+        });
     });
     context('overwriting default styles using "styles" property of the extended component', () => {
         it('overwrites default styles', (done) => {
