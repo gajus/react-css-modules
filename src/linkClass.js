@@ -1,18 +1,14 @@
 import _ from 'lodash';
-import React from 'react';
+import React, {
+    ReactElement
+} from 'react';
 import makeConfiguration from './makeConfiguration';
 import isIterable from './isIterable';
 import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
 import objectUnfreeze from 'object-unfreeze';
 
-import {
-    ReactElement
-} from 'react';
-
-let linkElement;
-
-linkElement = (element, styles, configuration) => {
+const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
     let appendClassName,
         elementIsFrozen,
         elementShallowCopy;
@@ -66,9 +62,8 @@ linkElement = (element, styles, configuration) => {
  * @param {ReactElement} element
  * @param {Object} styles CSS modules class map.
  * @param {CSSModules~Options} userConfiguration
- * @returns {ReactElement}
  */
-export default (element, styles = {}, userConfiguration) => {
+export default (element: ReactElement, styles = {}, userConfiguration): ReactElement => {
     // @see https://github.com/gajus/react-css-modules/pull/30
     if (!_.isObject(element)) {
         return element;

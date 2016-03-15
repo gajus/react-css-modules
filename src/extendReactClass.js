@@ -14,8 +14,8 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 export default (Component: Object, defaultStyles: Object, options: Object) => {
     const WrappedComponent = class extends Component {
         render () {
-            let styles,
-                propsChanged;
+            let propsChanged,
+                styles;
 
             propsChanged = false;
 

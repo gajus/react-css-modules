@@ -1,4 +1,4 @@
-/* eslint-disable max-nested-callbacks */
+/* eslint-disable max-nested-callbacks, react/prefer-stateless-function, react/prop-types, react/no-multi-comp */
 
 import {
     expect
@@ -57,18 +57,20 @@ describe('extendReactClass', () => {
             let Component,
                 rendered;
 
-            rendered = false
+            rendered = false;
 
             const styles = {
                 foo: 'foo-1'
             };
 
             Component = class extends React.Component {
-                shouldComponentUpdate(newProps) {
-                    if(rendered) {
-                        expect(shallowCompare(this.props, newProps)).to.be.true;
+                shouldComponentUpdate (newProps) {
+                    if (rendered) {
+                        expect(shallowCompare(this.props, newProps)).to.equal(true);
+
                         done();
                     }
+
                     return true;
                 }
 
@@ -79,7 +81,7 @@ describe('extendReactClass', () => {
 
             Component = extendReactClass(Component, styles);
 
-            const instance = TestUtils.renderIntoDocument(<Component foo='bar'/>);
+            const instance = TestUtils.renderIntoDocument(<Component foo='bar' />);
 
             // trigger shouldComponentUpdate
             instance.setState({});
