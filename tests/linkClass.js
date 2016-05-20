@@ -99,7 +99,7 @@ describe('linkClass', () => {
                 expect(subject.props.children[0].props.className).to.equal('foo-1');
                 expect(subject.props.children[1].props.className).to.equal('bar-1');
             });
-            it('styleName is reset to null', () => {
+            it('styleName is unset', () => {
                 let subject;
 
                 subject = <div>
@@ -112,8 +112,8 @@ describe('linkClass', () => {
                     foo: 'foo-1'
                 });
 
-                expect(subject.props.children[0].props.styleName).to.equal(null);
-                expect(subject.props.children[1].props.styleName).to.equal(null);
+                expect(subject.props.children[0].props.styleName).to.be.an('undefined');
+                expect(subject.props.children[1].props.styleName).to.be.an('undefined');
             });
         });
         context('when multiple descendants have styleName and are iterable', () => {
@@ -272,7 +272,7 @@ describe('linkClass', () => {
         });
 
         expect(subject.props.className).to.deep.equal('foo-1');
-        expect(subject.props.styleName).to.deep.equal(null);
+        expect(subject.props.styleName).to.be.an('undefined');
     });
 
     it('unsets styleName property of the target element (deep)', () => {
@@ -289,6 +289,6 @@ describe('linkClass', () => {
         });
 
         expect(subject.props.children[0].props.className).to.deep.equal('bar-1');
-        expect(subject.props.children[0].props.styleName).to.deep.equal(null);
+        expect(subject.props.children[0].props.styleName).to.be.an('undefined');
     });
 });
