@@ -7,6 +7,11 @@ import wrapStatelessFunction from './wrapStatelessFunction';
  */
 type OptionsType = {};
 
+export const globalOptions = {
+  allowMultiple: false,
+  errorWhenNotFound: true
+};
+
 /**
  * Determines if the given object has the signature of a class that inherits React.Component.
  */
