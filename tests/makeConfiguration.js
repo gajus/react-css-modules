@@ -5,6 +5,7 @@ import {
 } from 'chai';
 
 import makeConfiguration from './../src/makeConfiguration';
+import { globalOptions } from './../src/index';
 
 describe('makeConfiguration', () => {
     describe('when using default configuration', () => {
@@ -31,6 +32,20 @@ describe('makeConfiguration', () => {
                     unknownProperty: true
                 });
             }).to.throw(Error, 'Unknown configuration property "unknownProperty".');
+        });
+    });
+    describe('when globalOptions are modified', () => {
+        let configuration;
+
+        beforeEach(() => {
+            globalOptions.allowMultiple = true;
+            configuration = makeConfiguration();
+        });
+        it('uses the new globalOptions', () => {
+            expect(configuration.allowMultiple).to.equal(true);
+        });
+        afterEach(() => {
+            globalOptions.allowMultiple = false;
         });
     });
     it('does not mutate user configuration', () => {

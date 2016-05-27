@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Map from 'es6-map';
+import { globalOptions } from './index';
 
 const userConfigurationIndex = new Map();
 
@@ -23,10 +24,7 @@ export default (userConfiguration = {}) => {
         return configuration;
     }
 
-    configuration = {
-        allowMultiple: false,
-        errorWhenNotFound: true
-    };
+    configuration = { ...globalOptions };
 
     _.forEach(userConfiguration, (value, name) => {
         if (_.isUndefined(configuration[name])) {
