@@ -1,4 +1,4 @@
-import Map from 'es6-map';
+import Map from './simple-map';
 
 const stylesIndex = new Map();
 
