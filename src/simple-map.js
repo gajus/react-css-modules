@@ -1,20 +1,19 @@
 export default class SimpleMap {
-    constructor() {
+    constructor () {
         this.keys = [];
         this.values = [];
     }
 
-    get(key) {
+    get (key) {
         const index = this.keys.indexOf(key);
-        if (index === -1) {
-            return;
-        }
+
         return this.values[index];
     }
-    
-    set(key, value) {
+
+    set (key, value) {
         this.keys.push(key);
         this.values.push(value);
+
         return value;
     }
 }
