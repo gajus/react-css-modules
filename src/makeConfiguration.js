@@ -25,6 +25,7 @@ export default (userConfiguration = {}) => {
 
     configuration = {
         allowMultiple: false,
+        mergeStyles: false,
         errorWhenNotFound: true
     };
 
