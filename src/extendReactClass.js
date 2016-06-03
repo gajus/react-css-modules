@@ -4,6 +4,7 @@ import linkClass from './linkClass';
 import React from 'react';
 import _ from 'lodash';
 import hoistNonReactStatics from 'hoist-non-react-statics';
+import mergeStyles from './mergeStyles';
 
 /**
  * @param {ReactClass} Component
@@ -39,6 +40,9 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
             }
 
             if (renderResult) {
+                if (options && options.mergeStyles && _.isObject(defaultStyles)) {
+                    styles = mergeStyles(defaultStyles, styles);
+                }
                 return linkClass(renderResult, styles, options);
             }
 
