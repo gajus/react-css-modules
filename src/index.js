@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import extendReactClass from './extendReactClass';
 import wrapStatelessFunction from './wrapStatelessFunction';
+import makeConfiguration from './makeConfiguration';
 
 /**
  * @see https://github.com/gajus/react-css-modules#options
@@ -20,10 +21,12 @@ const isReactComponent = (maybeReactComponent: any): boolean => {
 const functionConstructor = (Component: Function, defaultStyles: Object, options: OptionsType): Function => {
     let decoratedClass;
 
+    const configuration = makeConfiguration(options);
+
     if (isReactComponent(Component)) {
-        decoratedClass = extendReactClass(Component, defaultStyles, options);
+        decoratedClass = extendReactClass(Component, defaultStyles, configuration);
     } else {
-        decoratedClass = wrapStatelessFunction(Component, defaultStyles, options);
+        decoratedClass = wrapStatelessFunction(Component, defaultStyles, configuration);
     }
 
     if (Component.displayName) {

@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React, {
     ReactElement
 } from 'react';
-import makeConfiguration from './makeConfiguration';
 import isIterable from './isIterable';
 import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
@@ -61,15 +60,13 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
 /**
  * @param {ReactElement} element
  * @param {Object} styles CSS modules class map.
- * @param {CSSModules~Options} userConfiguration
+ * @param {CSSModules~Options} configuration
  */
-export default (element: ReactElement, styles = {}, userConfiguration): ReactElement => {
+export default (element: ReactElement, styles = {}, configuration = {}): ReactElement => {
     // @see https://github.com/gajus/react-css-modules/pull/30
     if (!_.isObject(element)) {
         return element;
     }
-
-    const configuration = makeConfiguration(userConfiguration);
 
     return linkElement(element, styles, configuration);
 };
