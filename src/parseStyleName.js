@@ -4,13 +4,13 @@ const styleNameIndex = {};
 
 export default (styleNamePropertyValue: (string|array), allowMultiple: boolean): Array<string> => {
     let styleNames;
-    let isArray = Array.isArray(styleNamePropertyValue)
+    let isArray = _.isArray(styleNamePropertyValue)
 
     if (!isArray && styleNameIndex[styleNamePropertyValue]) {
         styleNames = styleNameIndex[styleNamePropertyValue];
     } else {
         styleNames = isArray
-            ? styleNamePropertyValue.filter(styleNameItem => typeof styleNameItem === 'string')
+            ? _.filter(styleNamePropertyValue, styleNameItem => typeof styleNameItem === 'string')
             : _.trim(styleNamePropertyValue).split(' ');
         styleNames = _.filter(styleNames);
 
