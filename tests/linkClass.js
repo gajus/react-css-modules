@@ -99,7 +99,7 @@ describe('linkClass', () => {
                 expect(subject.props.children[0].props.className).to.equal('foo-1');
                 expect(subject.props.children[1].props.className).to.equal('bar-1');
             });
-            it('styleName is reset to null', () => {
+            it('styleName is deleted from props', () => {
                 let subject;
 
                 subject = <div>
@@ -112,8 +112,8 @@ describe('linkClass', () => {
                     foo: 'foo-1'
                 });
 
-                expect(subject.props.children[0].props.styleName).to.equal(null);
-                expect(subject.props.children[1].props.styleName).to.equal(null);
+                expect(subject.props.children[0].props).not.to.have.property('styleName');
+                expect(subject.props.children[1].props).not.to.have.property('styleName');
             });
         });
         context('when multiple descendants have styleName and are iterable', () => {
@@ -262,7 +262,7 @@ describe('linkClass', () => {
         });
     });
 
-    it('unsets styleName property of the target element', () => {
+    it('deletes styleName property from the target element', () => {
         let subject;
 
         subject = <div styleName='foo'></div>;
@@ -272,10 +272,10 @@ describe('linkClass', () => {
         });
 
         expect(subject.props.className).to.deep.equal('foo-1');
-        expect(subject.props.styleName).to.deep.equal(null);
+        expect(subject.props).not.to.have.property('styleName');
     });
 
-    it('unsets styleName property of the target element (deep)', () => {
+    it('deletes styleName property from the target element (deep)', () => {
         let subject;
 
         subject = <div styleName='foo'>
@@ -289,6 +289,6 @@ describe('linkClass', () => {
         });
 
         expect(subject.props.children[0].props.className).to.deep.equal('bar-1');
-        expect(subject.props.children[0].props.styleName).to.deep.equal(null);
+        expect(subject.props.children[0].props).not.to.have.property('styleName');
     });
 });
