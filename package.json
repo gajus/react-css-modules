@@ -33,6 +33,8 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
+    "eslint": "^3.0.0",
+    "eslint-config-canonical": "^1.7.12",
     "jsdom": "^8.1.0",
     "mocha": "^2.5.3",
     "pragmatist": "^3.0.21",
@@ -43,7 +45,7 @@
   },
   "scripts": {
     "pragmatist": "node ./node_modules/.bin/pragmatist --es5",
-    "lint": "npm run pragmatist lint",
+    "lint": "eslint ./src ./tests",
     "test": "mocha --compilers js:babel-register ./tests/**/*.js",
     "build": "babel ./src --out-dir ./dist",
     "watch": "npm run pragmatist watch",
