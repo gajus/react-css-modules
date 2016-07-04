@@ -9,8 +9,10 @@ import TestUtils from 'react-addons-test-utils';
 import jsdom from 'jsdom';
 import linkClass from './../src/linkClass';
 
+const styleProperty = 'data-style';
+
 describe('linkClass', () => {
-    context('ReactElement does not define styleName', () => {
+    context('ReactElement does not define style property', () => {
         it('does not affect element properties', () => {
             expect(linkClass(<div></div>)).to.deep.equal(<div></div>);
         });
@@ -66,13 +68,13 @@ describe('linkClass', () => {
         });
     });
 
-    context('styleName matches an existing CSS module', () => {
-        context('when a descendant element has styleName', () => {
+    context('style property matches an existing CSS module', () => {
+        context('when a descendant element has style property', () => {
             it('assigns a generated className', () => {
                 let subject;
 
                 subject = <div>
-                    <p styleName='foo'></p>
+                    <p {...{[styleProperty]: 'foo'}}></p>
                 </div>;
 
                 subject = linkClass(subject, {
@@ -82,13 +84,13 @@ describe('linkClass', () => {
                 expect(subject.props.children.props.className).to.equal('foo-1');
             });
         });
-        context('when multiple descendant elements have styleName', () => {
+        context('when multiple descendant elements have style property', () => {
             it('assigns a generated className', () => {
                 let subject;
 
                 subject = <div>
-                    <p styleName='foo'></p>
-                    <p styleName='bar'></p>
+                    <p {...{[styleProperty]: 'foo'}}></p>
+                    <p {...{[styleProperty]: 'bar'}}></p>
                 </div>;
 
                 subject = linkClass(subject, {
@@ -99,12 +101,12 @@ describe('linkClass', () => {
                 expect(subject.props.children[0].props.className).to.equal('foo-1');
                 expect(subject.props.children[1].props.className).to.equal('bar-1');
             });
-            it('styleName is reset to null', () => {
+            it('style property is reset to null', () => {
                 let subject;
 
                 subject = <div>
-                    <p styleName='foo'></p>
-                    <p styleName='bar'></p>
+                    <p {...{[styleProperty]: 'foo'}}></p>
+                    <p {...{[styleProperty]: 'bar'}}></p>
                 </div>;
 
                 subject = linkClass(subject, {
@@ -112,17 +114,17 @@ describe('linkClass', () => {
                     foo: 'foo-1'
                 });
 
-                expect(subject.props.children[0].props.styleName).to.equal(null);
-                expect(subject.props.children[1].props.styleName).to.equal(null);
+                expect(subject.props.children[0].props[styleProperty]).to.equal(null);
+                expect(subject.props.children[1].props[styleProperty]).to.equal(null);
             });
         });
-        context('when multiple descendants have styleName and are iterable', () => {
+        context('when multiple descendants have style property and are iterable', () => {
             it('assigns a generated className', () => {
                 let subject;
 
                 const iterable = {
-                    0: <p key='1' styleName='foo'></p>,
-                    1: <p key='2' styleName='bar'></p>,
+                    0: <p key='1' {...{[styleProperty]: 'foo'}}></p>,
+                    1: <p key='2' {...{[styleProperty]: 'bar'}}></p>,
                     length: 2,
                     /* eslint-disable no-use-extend-native/no-use-extend-native */
                     [Symbol.iterator]: Array.prototype[Symbol.iterator]
@@ -144,7 +146,7 @@ describe('linkClass', () => {
             it('uses the generated class name to set the className property', () => {
                 let subject;
 
-                subject = <div styleName='foo'></div>;
+                subject = <div {...{[styleProperty]: 'foo'}}></div>;
 
                 subject = linkClass(subject, {
                     foo: 'foo-1'
@@ -157,7 +159,7 @@ describe('linkClass', () => {
             it('appends the generated class name to the className property', () => {
                 let subject;
 
-                subject = <div className='foo' styleName='bar'></div>;
+                subject = <div className='foo' {...{[styleProperty]: 'bar'}}></div>;
 
                 subject = linkClass(subject, {
                     bar: 'bar-1'
@@ -168,12 +170,12 @@ describe('linkClass', () => {
         });
     });
 
-    context('styleName includes multiple whitespace characters', () => {
+    context('style property includes multiple whitespace characters', () => {
         it('resolves CSS modules', () => {
             let subject;
 
             subject = <div>
-                <p styleName=' foo   bar '></p>
+                <p {...{[styleProperty]: ' foo   bar '}}></p>
             </div>;
 
             subject = linkClass(subject, {
@@ -192,15 +194,15 @@ describe('linkClass', () => {
             context('when false', () => {
                 it('throws an error', () => {
                     expect(() => {
-                        linkClass(<div styleName='foo bar'></div>, {}, {allowMultiple: false});
-                    }).to.throw(Error, 'ReactElement styleName property defines multiple module names ("foo bar").');
+                        linkClass(<div {...{[styleProperty]: 'foo bar'}}></div>, {}, {allowMultiple: false});
+                    }).to.throw(Error, 'ReactElement style property defines multiple module names ("foo bar").');
                 });
             });
             context('when true', () => {
                 it('appends a generated class name for every referenced CSS module', () => {
                     let subject;
 
-                    subject = <div styleName='foo bar'></div>;
+                    subject = <div {...{[styleProperty]: 'foo bar'}}></div>;
 
                     subject = linkClass(subject, {
                         bar: 'bar-1',
@@ -216,12 +218,12 @@ describe('linkClass', () => {
     });
 
     describe('options.errorWhenNotFound', () => {
-        context('when styleName does not match an existing CSS module', () => {
+        context('when style property does not match an existing CSS module', () => {
             context('when false', () => {
                 it('ignores the missing CSS module', () => {
                     let subject;
 
-                    subject = <div styleName='foo'></div>;
+                    subject = <div {...{[styleProperty]: 'foo'}}></div>;
 
                     subject = linkClass(subject, {}, {errorWhenNotFound: false});
 
@@ -231,7 +233,7 @@ describe('linkClass', () => {
             context('when is true', () => {
                 it('throws an error', () => {
                     expect(() => {
-                        linkClass(<div styleName='foo'></div>, {}, {errorWhenNotFound: true});
+                        linkClass(<div {...{[styleProperty]: 'foo'}}></div>, {}, {errorWhenNotFound: true});
                     }).to.throw(Error, '"foo" CSS module is undefined.');
                 });
             });
@@ -248,11 +250,11 @@ describe('linkClass', () => {
 
             Foo = class extends React.Component {
                 render () {
-                    return <div styleName='foo'>Hello</div>;
+                    return <div {...{[styleProperty]: 'foo'}}>Hello</div>;
                 }
             };
 
-            nodeList = TestUtils.renderIntoDocument(linkClass(<div styleName='foo'><Foo /></div>, {foo: 'foo-1'}));
+            nodeList = TestUtils.renderIntoDocument(linkClass(<div {...{[styleProperty]: 'foo'}}><Foo /></div>, {foo: 'foo-1'}));
         });
         it('processes ReactElement nodes', () => {
             expect(nodeList.className).to.equal('foo-1');
@@ -262,25 +264,25 @@ describe('linkClass', () => {
         });
     });
 
-    it('unsets styleName property of the target element', () => {
+    it('unsets style property of the target element', () => {
         let subject;
 
-        subject = <div styleName='foo'></div>;
+        subject = <div {...{[styleProperty]: 'foo'}}></div>;
 
         subject = linkClass(subject, {
             foo: 'foo-1'
         });
 
         expect(subject.props.className).to.deep.equal('foo-1');
-        expect(subject.props.styleName).to.deep.equal(null);
+        expect(subject.props[styleProperty]).to.deep.equal(null);
     });
 
-    it('unsets styleName property of the target element (deep)', () => {
+    it('unsets style property of the target element (deep)', () => {
         let subject;
 
-        subject = <div styleName='foo'>
-            <div styleName='bar'></div>
-            <div styleName='bar'></div>
+        subject = <div {...{[styleProperty]: 'foo'}}>
+            <div {...{[styleProperty]: 'bar'}}></div>
+            <div {...{[styleProperty]: 'bar'}}></div>
         </div>;
 
         subject = linkClass(subject, {
@@ -289,6 +291,6 @@ describe('linkClass', () => {
         });
 
         expect(subject.props.children[0].props.className).to.deep.equal('bar-1');
-        expect(subject.props.children[0].props.styleName).to.deep.equal(null);
+        expect(subject.props.children[0].props[styleProperty]).to.deep.equal(null);
     });
 });

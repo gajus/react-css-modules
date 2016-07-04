@@ -8,6 +8,8 @@ import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
 import objectUnfreeze from 'object-unfreeze';
 
+const styleProperty = 'data-style';
+
 const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
     let appendClassName,
         elementIsFrozen,
@@ -23,7 +25,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
         elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
     }
 
-    const styleNames = parseStyleName(elementShallowCopy.props.styleName || '', configuration.allowMultiple);
+    const styleNames = parseStyleName(elementShallowCopy.props[styleProperty] || '', configuration.allowMultiple);
 
     if (React.isValidElement(elementShallowCopy.props.children)) {
         elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
@@ -46,7 +48,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
             }
 
             elementShallowCopy.props.className = appendClassName;
-            elementShallowCopy.props.styleName = null;
+            elementShallowCopy.props[styleProperty] = null;
         }
     }
 

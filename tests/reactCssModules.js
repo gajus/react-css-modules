@@ -10,6 +10,8 @@ import TestUtils from 'react-addons-test-utils';
 import jsdom from 'jsdom';
 import reactCssModules from './../src/index';
 
+const styleProperty = 'data-style';
+
 describe('reactCssModules', () => {
     context('a ReactComponent is decorated using react-css-modules', () => {
         it('inherits displayName', () => {
@@ -36,7 +38,7 @@ describe('reactCssModules', () => {
             });
         });
     });
-    context('a ReactComponent renders an element with the styleName prop', () => {
+    context('a ReactComponent renders an element with the style property', () => {
         context('the component is a class that extends React.Component', () => {
             it('that element should contain the equivalent className', () => {
                 let Foo;
@@ -45,7 +47,7 @@ describe('reactCssModules', () => {
 
                 Foo = class extends React.Component {
                     render () {
-                        return <div styleName='foo'>Hello</div>;
+                        return <div {...{[styleProperty]: 'foo'}}>Hello</div>;
                     }
                 };
 
@@ -67,7 +69,7 @@ describe('reactCssModules', () => {
                 const shallowRenderer = TestUtils.createRenderer();
 
                 Foo = () => {
-                    return <div styleName='foo'>Hello</div>;
+                    return <div {...{[styleProperty]: 'foo'}}>Hello</div>;
                 };
 
                 Foo = reactCssModules(Foo, {
@@ -136,7 +138,7 @@ describe('reactCssModules', () => {
         });
         context('parent component is using react-css-modules and interpolates props.children', () => {
             // @see https://github.com/gajus/react-css-modules/issues/76
-            it('unsets the styleName property', () => {
+            it('unsets the style property', () => {
                 let Bar,
                     Foo,
                     subject;
@@ -144,7 +146,7 @@ describe('reactCssModules', () => {
                 Foo = class extends React.Component {
                     render () {
                         return <Bar>
-                            <div styleName='test'>foo</div>
+                            <div {...{[styleProperty]: 'test'}}>foo</div>
                         </Bar>;
                     }
                 };
