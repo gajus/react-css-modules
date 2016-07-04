@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Map from 'es6-map';
+import Map from './simple-map';
 
 const userConfigurationIndex = new Map();
 
