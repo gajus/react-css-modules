@@ -45,9 +45,10 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
             }
 
             elementShallowCopy.props.className = appendClassName;
-            elementShallowCopy.props.styleName = null;
         }
     }
+
+    delete elementShallowCopy.props.styleName;
 
     if (elementIsFrozen) {
         Object.freeze(elementShallowCopy.props);

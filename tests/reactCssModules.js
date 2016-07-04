@@ -37,9 +37,10 @@ describe('reactCssModules', () => {
     });
     context('a ReactComponent renders an element with the styleName prop', () => {
         context('the component is a class that extends React.Component', () => {
-            it('that element should contain the equivalent className', () => {
-                let Foo;
+            let Foo,
+                component;
 
+            beforeEach(() => {
                 const shallowRenderer = TestUtils.createRenderer();
 
                 Foo = class extends React.Component {
@@ -54,15 +55,20 @@ describe('reactCssModules', () => {
 
                 shallowRenderer.render(<Foo />);
 
-                const component = shallowRenderer.getRenderOutput();
-
+                component = shallowRenderer.getRenderOutput();
+            });
+            it('that element should contain the equivalent className', () => {
                 expect(component.props.className).to.equal('foo-1');
+            });
+            it('the styleName prop should be "consumed" in the process', () => {
+                expect(component.props).not.to.have.property('styleName');
             });
         });
         context('the component is a stateless function component', () => {
-            it('that element should contain the equivalent className', () => {
-                let Foo;
+            let Foo,
+                component;
 
+            beforeEach(() => {
                 const shallowRenderer = TestUtils.createRenderer();
 
                 Foo = () => {
@@ -75,9 +81,13 @@ describe('reactCssModules', () => {
 
                 shallowRenderer.render(<Foo />);
 
-                const component = shallowRenderer.getRenderOutput();
-
+                component = shallowRenderer.getRenderOutput();
+            });
+            it('that element should contain the equivalent className', () => {
                 expect(component.props.className).to.equal('foo-1');
+            });
+            it('the styleName prop should be "consumed" in the process', () => {
+                expect(component.props).not.to.have.property('styleName');
             });
         });
     });
