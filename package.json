@@ -37,19 +37,14 @@
     "eslint-config-canonical": "^1.7.12",
     "jsdom": "^8.1.0",
     "mocha": "^2.5.3",
-    "pragmatist": "^3.0.21",
     "react": "^15.0.0-rc.1",
     "react-addons-shallow-compare": "^15.0.0-rc.1",
     "react-addons-test-utils": "^15.0.0-rc.1",
     "react-dom": "^15.0.0-rc.1"
   },
   "scripts": {
-    "pragmatist": "node ./node_modules/.bin/pragmatist --es5",
     "lint": "eslint ./src ./tests",
     "test": "mocha --compilers js:babel-register ./tests/**/*.js",
-    "build": "babel ./src --out-dir ./dist",
-    "watch": "npm run pragmatist watch",
-    "watch-lint": "npm run pragmatist watch-lint",
-    "watch-test": "npm run pragmatist watch-test --type-annotations"
+    "build": "babel ./src --out-dir ./dist"
   }
 }
