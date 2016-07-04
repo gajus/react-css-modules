@@ -6,3 +6,6 @@ node_js:
 notifications:
     email: false
 sudo: false
+script:
+    - npm run test
+    - npm run lint
