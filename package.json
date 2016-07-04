@@ -20,7 +20,6 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
-    "es6-map": "^0.1.3",
     "hoist-non-react-statics": "^1.0.5",
     "lodash": "^4.6.1",
     "object-unfreeze": "^1.0.2"
