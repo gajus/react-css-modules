@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const ITERATOR_SYMBOL = _.isFunction(Symbol) && Symbol.iterator;
+const ITERATOR_SYMBOL = typeof Symbol !== 'undefined' && _.isFunction(Symbol) && Symbol.iterator;
 const OLD_ITERATOR_SYMBOL = '@@iterator';
 
 /**
