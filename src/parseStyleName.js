@@ -2,13 +2,16 @@ import _ from 'lodash';
 
 const styleNameIndex = {};
 
-export default (styleNamePropertyValue: string, allowMultiple: boolean): Array<string> => {
+export default (styleNamePropertyValue: (string|array), allowMultiple: boolean): Array<string> => {
     let styleNames;
+    let isArray = _.isArray(styleNamePropertyValue)
 
-    if (styleNameIndex[styleNamePropertyValue]) {
+    if (!isArray && styleNameIndex[styleNamePropertyValue]) {
         styleNames = styleNameIndex[styleNamePropertyValue];
     } else {
-        styleNames = _.trim(styleNamePropertyValue).split(' ');
+        styleNames = isArray
+            ? _.filter(styleNamePropertyValue, styleNameItem => typeof styleNameItem === 'string')
+            : _.trim(styleNamePropertyValue).split(' ');
         styleNames = _.filter(styleNames);
 
         styleNameIndex[styleNamePropertyValue] = styleNames;
