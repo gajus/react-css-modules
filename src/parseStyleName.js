@@ -15,7 +15,7 @@ export default (styleNamePropertyValue: string, allowMultiple: boolean): Array<s
     }
 
     if (allowMultiple === false && styleNames.length > 1) {
-        throw new Error('ReactElement styleName property defines multiple module names ("' + styleNamePropertyValue + '").');
+        throw new Error('ReactElement style property defines multiple module names ("' + styleNamePropertyValue + '").');
     }
 
     return styleNames;
