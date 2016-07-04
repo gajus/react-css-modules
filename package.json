@@ -26,6 +26,13 @@
     "object-unfreeze": "^1.0.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-syntax-flow": "^6.8.0",
+    "babel-plugin-transform-flow-strip-types": "^6.8.0",
+    "babel-plugin-typecheck": "^3.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "jsdom": "^8.1.0",
     "pragmatist": "^3.0.21",
@@ -38,10 +45,9 @@
     "pragmatist": "node ./node_modules/.bin/pragmatist --es5",
     "lint": "npm run pragmatist lint",
     "test": "npm run pragmatist test --type-annotations",
-    "build": "npm run pragmatist build",
+    "build": "babel ./src --out-dir ./dist",
     "watch": "npm run pragmatist watch",
     "watch-lint": "npm run pragmatist watch-lint",
-    "watch-test": "npm run pragmatist watch-test --type-annotations",
-    "watch-build": "npm run pragmatist watch-build"
+    "watch-test": "npm run pragmatist watch-test --type-annotations"
   }
 }
