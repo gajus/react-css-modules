@@ -244,23 +244,23 @@ describe('linkClass', () => {
     });
 
     it('does not warn for unknown style property', () => {
-      const originalWrite = process.stderr.write;
-      let warning = undefined;
+        const originalWrite = process.stderr.write;
+        let warning;
 
-      process.stderr.write = (function(write) {
-          return function(string, encoding, fd) {
-              write.apply(process.stderr, arguments)
-              if (string.indexOf('Unknown prop') > 0) {
-                warning = string;
-              }
-          }
-      })(process.stderr.write);
+        process.stderr.write = (function (write) {
+            return function (string, ...args) {
+                write.apply(process.stderr, [string, ...args]);
+                if (string.indexOf('Unknown prop') > 0) {
+                    warning = string;
+                }
+            };
+        })(process.stderr.write);
 
-      TestUtils.renderIntoDocument(linkClass(<div  {...{[styleProperty]: 'foo'}}></div>, {foo: 'foo-1'}));
+        TestUtils.renderIntoDocument(linkClass(<div {...{[styleProperty]: 'foo'}}></div>, {foo: 'foo-1'}));
 
-      process.stderr.write = originalWrite;
+        process.stderr.write = originalWrite;
 
-      expect(warning).to.be.undefined;
+        expect(warning).to.be.an('undefined');
     });
 
     context('when ReactElement includes ReactComponent', () => {
