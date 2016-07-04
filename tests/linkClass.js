@@ -11,6 +11,9 @@ import linkClass from './../src/linkClass';
 
 const styleProperty = 'data-style';
 
+global.document = jsdom.jsdom('<body></body>');
+global.window = document.defaultView;
+
 describe('linkClass', () => {
     context('ReactElement does not define style property', () => {
         it('does not affect element properties', () => {
@@ -240,14 +243,31 @@ describe('linkClass', () => {
         });
     });
 
+    it('does not warn for unknown style property', () => {
+      const originalWrite = process.stderr.write;
+      let warning = undefined;
+
+      process.stderr.write = (function(write) {
+          return function(string, encoding, fd) {
+              write.apply(process.stderr, arguments)
+              if (string.indexOf('Unknown prop') > 0) {
+                warning = string;
+              }
+          }
+      })(process.stderr.write);
+
+      TestUtils.renderIntoDocument(linkClass(<div  {...{[styleProperty]: 'foo'}}></div>, {foo: 'foo-1'}));
+
+      process.stderr.write = originalWrite;
+
+      expect(warning).to.be.undefined;
+    });
+
     context('when ReactElement includes ReactComponent', () => {
         let Foo,
             nodeList;
 
         beforeEach(() => {
-            global.document = jsdom.jsdom('<!DOCTYPE html><html><head></head><body></body></html>');
-            global.window = document.defaultView;
-
             Foo = class extends React.Component {
                 render () {
                     return <div {...{[styleProperty]: 'foo'}}>Hello</div>;
