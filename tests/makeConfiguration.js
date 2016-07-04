@@ -3,7 +3,6 @@
 import {
     expect
 } from 'chai';
-
 import makeConfiguration from './../src/makeConfiguration';
 
 describe('makeConfiguration', () => {

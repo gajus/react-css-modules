@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import linkClass from './linkClass';
 import React from 'react';
 import _ from 'lodash';
 import hoistNonReactStatics from 'hoist-non-react-statics';
+import linkClass from './linkClass';
 
 /**
  * @param {ReactClass} Component

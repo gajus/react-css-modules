@@ -5,7 +5,7 @@ import wrapStatelessFunction from './wrapStatelessFunction';
 /**
  * @see https://github.com/gajus/react-css-modules#options
  */
-type OptionsType = {};
+type TypeOptions = {};
 
 /**
  * Determines if the given object has the signature of a class that inherits React.Component.
@@ -17,7 +17,7 @@ const isReactComponent = (maybeReactComponent: any): boolean => {
 /**
  * When used as a function.
  */
-const functionConstructor = (Component: Function, defaultStyles: Object, options: OptionsType): Function => {
+const functionConstructor = (Component: Function, defaultStyles: Object, options: TypeOptions): Function => {
     let decoratedClass;
 
     if (isReactComponent(Component)) {
@@ -38,7 +38,7 @@ const functionConstructor = (Component: Function, defaultStyles: Object, options
 /**
  * When used as a ES7 decorator.
  */
-const decoratorConstructor = (defaultStyles: Object, options: OptionsType): Function => {
+const decoratorConstructor = (defaultStyles: Object, options: TypeOptions): Function => {
     return (Component: Function) => {
         return functionConstructor(Component, defaultStyles, options);
     };

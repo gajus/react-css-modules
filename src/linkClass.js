@@ -2,11 +2,11 @@ import _ from 'lodash';
 import React, {
     ReactElement
 } from 'react';
+import objectUnfreeze from 'object-unfreeze';
 import makeConfiguration from './makeConfiguration';
 import isIterable from './isIterable';
 import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
-import objectUnfreeze from 'object-unfreeze';
 
 const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
     let appendClassName,
