@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import isUndefined from 'lodash/isUndefined';
+import isBoolean from 'lodash/isBoolean';
+import forEach from 'lodash/forEach';
 
 /**
  * @typedef CSSModules~Options
@@ -17,12 +19,12 @@ export default (userConfiguration = {}) => {
         errorWhenNotFound: true
     };
 
-    _.forEach(userConfiguration, (value, name) => {
-        if (_.isUndefined(configuration[name])) {
+    forEach(userConfiguration, (value, name) => {
+        if (isUndefined(configuration[name])) {
             throw new Error('Unknown configuration property "' + name + '".');
         }
 
-        if (!_.isBoolean(value)) {
+        if (!isBoolean(value)) {
             throw new Error('"' + name + '" property value must be a boolean.');
         }
 

@@ -1,6 +1,7 @@
-import _ from 'lodash';
+import isFunction from 'lodash/isFunction';
+import isObject from 'lodash/isObject';
 
-const ITERATOR_SYMBOL = typeof Symbol !== 'undefined' && _.isFunction(Symbol) && Symbol.iterator;
+const ITERATOR_SYMBOL = typeof Symbol !== 'undefined' && isFunction(Symbol) && Symbol.iterator;
 const OLD_ITERATOR_SYMBOL = '@@iterator';
 
 /**
@@ -10,7 +11,7 @@ const OLD_ITERATOR_SYMBOL = '@@iterator';
 export default (maybeIterable: any): boolean => {
     let iterator;
 
-    if (!_.isObject(maybeIterable)) {
+    if (!isObject(maybeIterable)) {
         return false;
     }
 
@@ -20,5 +21,5 @@ export default (maybeIterable: any): boolean => {
         iterator = maybeIterable[OLD_ITERATOR_SYMBOL];
     }
 
-    return _.isFunction(iterator);
+    return isFunction(iterator);
 };
