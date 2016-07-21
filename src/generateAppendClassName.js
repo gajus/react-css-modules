@@ -15,7 +15,7 @@ export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): 
             return styleNameIndex;
         }
     } else {
-        stylesIndex.set(styles, new _simpleMap2.default());
+        stylesIndex.set(styles, new Map());
         stylesIndexMap = new Map(stylesIndex);
     }
 
