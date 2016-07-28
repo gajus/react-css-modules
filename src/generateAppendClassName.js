@@ -4,6 +4,7 @@ const stylesIndex = new Map();
 
 export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): string => {
     let appendClassName,
+        key,
         stylesIndexMap;
 
     stylesIndexMap = stylesIndex.get(styles);
@@ -15,7 +16,14 @@ export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): 
             return styleNameIndex;
         }
     } else {
-        stylesIndexMap = stylesIndex.set(styles, new Map());
+        stylesIndex.set(styles, new Map());
+        stylesIndexMap = new Map();
+
+        for (key in stylesIndex) {
+            if (stylesIndex.hasOwnProperty(key)) {
+                stylesIndexMap.set(key, stylesIndex[key]);
+            }
+        }
     }
 
     appendClassName = '';
