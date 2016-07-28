@@ -6,6 +6,9 @@
     ],
     "plugins": [
         "add-module-exports",
-        "lodash"
+        "lodash",
+	"transform-class-properties",
+	["transform-es2015-classes", { "loose": true }],
+	"transform-proto-to-assign"
     ]
 }
