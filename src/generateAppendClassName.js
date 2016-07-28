@@ -15,7 +15,8 @@ export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): 
             return styleNameIndex;
         }
     } else {
-        stylesIndexMap = stylesIndex.set(styles, new Map());
+        stylesIndex.set(styles, new Map());
+        stylesIndexMap = new Map(stylesIndex);
     }
 
     appendClassName = '';
