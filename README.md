@@ -182,22 +182,48 @@ Setup:
 * Install [`style-loader`](https://www.npmjs.com/package/style-loader).
 * Install [`css-loader`](https://www.npmjs.com/package/css-loader).
 * Use [`extract-text-webpack-plugin`](https://www.npmjs.com/package/extract-text-webpack-plugin) to extract chunks of CSS into a single stylesheet.
+
 * Setup `/\.css$/` loader:
 
-```js
-{
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
-}
-```
+  * ExtractTextPlugin v1x:
+
+    ```js
+    {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+    }
+    ```
+
+  * ExtractTextPlugin v2x:
+
+    ```js
+    {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract({
+          notExtractLoader: 'style-loader',
+          loader: 'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!resolve-url!postcss',
+      }),
+    }
+    ```
 
 * Setup `extract-text-webpack-plugin` plugin:
 
-```js
-new ExtractTextPlugin('app.css', {
-    allChunks: true
-})
-```
+  * ExtractTextPlugin v1x:
+
+    ```js
+    new ExtractTextPlugin('app.css', {
+        allChunks: true
+    })
+    ```
+
+  * ExtractTextPlugin v2x:
+
+    ```js
+    new ExtractTextPlugin({
+      filename: 'app.css',
+      allChunks: true
+    })
+    ```
 
 Refer to [webpack-demo](https://github.com/css-modules/webpack-demo) or [react-css-modules-examples](https://github.com/gajus/react-css-modules-examples) for an example of a complete setup.
 
