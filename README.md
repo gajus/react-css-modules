@@ -61,7 +61,7 @@ Rendering the component will produce a markup similar to:
 ```js
 <div class="table__table___32osj">
     <div class="table__row___2w27N">
-        <div class="table__cell___2w27N">A0</div>
+        <div class="table__cell___1oVw5">A0</div>
         <div class="table__cell___1oVw5">B0</div>
     </div>
 </div>
