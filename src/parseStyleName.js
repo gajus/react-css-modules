@@ -1,4 +1,5 @@
 const styleNameIndex = {};
+import {trim, filterForTruthy} from './utils';
 
 export default (styleNamePropertyValue: string, allowMultiple: boolean): Array<string> => {
     let styleNames;
@@ -6,7 +7,7 @@ export default (styleNamePropertyValue: string, allowMultiple: boolean): Array<s
     if (styleNameIndex[styleNamePropertyValue]) {
         styleNames = styleNameIndex[styleNamePropertyValue];
     } else {
-        styleNames = styleNamePropertyValue.trim().split(' ').filter(e => !!e);
+        styleNames = filterForTruthy(trim(styleNamePropertyValue).split(' '));
 
         styleNameIndex[styleNamePropertyValue] = styleNames;
     }

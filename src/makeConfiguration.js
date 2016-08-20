@@ -15,7 +15,7 @@ export default (userConfiguration = {}) => {
         errorWhenNotFound: true
     };
 
-    Object.keys(userConfiguration).forEach(name => {
+    for(const name in userConfiguration) {
         const value = userConfiguration[name];
 
         if (!(name in configuration)) {
@@ -27,7 +27,7 @@ export default (userConfiguration = {}) => {
         }
 
         configuration[name] = value;
-    });
+    }
 
     return configuration;
 };
