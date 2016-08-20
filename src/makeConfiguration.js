@@ -15,18 +15,20 @@ export default (userConfiguration = {}) => {
         errorWhenNotFound: true
     };
 
-    for(const name in userConfiguration) {
-        const value = userConfiguration[name];
+    for (const name in userConfiguration) {
+        if (userConfiguration.hasOwnProperty(name)) {
+            const value = userConfiguration[name];
 
-        if (!(name in configuration)) {
-            throw new Error('Unknown configuration property "' + name + '".');
+            if (!(name in configuration)) {
+                throw new Error('Unknown configuration property "' + name + '".');
+            }
+
+            if (value !== true && value !== false) {
+                throw new Error('"' + name + '" property value must be a boolean.');
+            }
+
+            configuration[name] = value;
         }
-
-        if (value !== true && value !== false) {
-            throw new Error('"' + name + '" property value must be a boolean.');
-        }
-
-        configuration[name] = value;
     }
 
     return configuration;

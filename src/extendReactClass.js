@@ -14,8 +14,10 @@ import {isObject} from './utils';
 export default (Component: Object, defaultStyles: Object, options: Object) => {
     const WrappedComponent = class extends Component {
         render () {
-            let propsChanged = false,
+            let propsChanged,
                 styles;
+
+            propsChanged = false;
 
             if (this.props.styles) {
                 styles = this.props.styles;
