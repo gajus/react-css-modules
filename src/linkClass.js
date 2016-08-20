@@ -5,7 +5,7 @@ import objectUnfreeze from 'object-unfreeze';
 import isIterable from './isIterable';
 import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
-import {isObject} from './utils';
+import {isObject, isArray} from './utils';
 
 const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
     let appendClassName,
@@ -26,7 +26,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
 
     if (React.isValidElement(elementShallowCopy.props.children)) {
         elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
-    } else if (Array.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
+    } else if (isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
         elementShallowCopy.props.children = React.Children.map(elementShallowCopy.props.children, (node) => {
             if (React.isValidElement(node)) {
                 return linkElement(node, styles, configuration);

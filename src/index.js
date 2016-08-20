@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import extendReactClass from './extendReactClass';
 import wrapStatelessFunction from './wrapStatelessFunction';
 import makeConfiguration from './makeConfiguration';

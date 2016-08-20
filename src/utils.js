@@ -8,3 +8,7 @@ export function isFunction(func) {
             || Object.prototype.toString.call(func) === '[object GeneratorFunction]'
         );
 }
+
+export function isArray(arr) {
+    return Array.isArray ? Array.isArray(arr) : Object.prototype.toString.call(arr) === '[object Array]';
+}

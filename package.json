@@ -26,6 +26,7 @@
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-object-assign": "^1.2.1",
     "babel-plugin-transform-proto-to-assign": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
