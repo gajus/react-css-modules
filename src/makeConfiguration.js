@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 /**
  * @typedef CSSModules~Options
  * @see {@link https://github.com/gajus/react-css-modules#options}
@@ -17,12 +15,14 @@ export default (userConfiguration = {}) => {
         errorWhenNotFound: true
     };
 
-    _.forEach(userConfiguration, (value, name) => {
-        if (_.isUndefined(configuration[name])) {
+    Object.keys(userConfiguration).forEach(name => {
+        const value = userConfiguration[name];
+
+        if (!(name in configuration)) {
             throw new Error('Unknown configuration property "' + name + '".');
         }
 
-        if (!_.isBoolean(value)) {
+        if (value !== true && value !== false) {
             throw new Error('"' + name + '" property value must be a boolean.');
         }
 

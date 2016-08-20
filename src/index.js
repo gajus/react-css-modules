@@ -2,6 +2,7 @@ import _ from 'lodash';
 import extendReactClass from './extendReactClass';
 import wrapStatelessFunction from './wrapStatelessFunction';
 import makeConfiguration from './makeConfiguration';
+import {isFunction} from './utils';
 
 /**
  * @see https://github.com/gajus/react-css-modules#options
@@ -12,7 +13,7 @@ type TypeOptions = {};
  * Determines if the given object has the signature of a class that inherits React.Component.
  */
 const isReactComponent = (maybeReactComponent: any): boolean => {
-    return 'prototype' in maybeReactComponent && _.isFunction(maybeReactComponent.prototype.render);
+    return 'prototype' in maybeReactComponent && isFunction(maybeReactComponent.prototype.render);
 };
 
 /**
@@ -48,7 +49,7 @@ const decoratorConstructor = (defaultStyles: Object, options: TypeOptions): Func
 };
 
 export default (...args) => {
-    if (_.isFunction(args[0])) {
+    if (isFunction(args[0])) {
         return functionConstructor(args[0], args[1], args[2]);
     } else {
         return decoratorConstructor(args[0], args[1]);

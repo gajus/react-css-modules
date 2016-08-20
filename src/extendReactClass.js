@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react';
-import _ from 'lodash';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import linkClass from './linkClass';
+import {isObject} from './utils';
 
 /**
  * @param {ReactClass} Component
@@ -14,15 +14,13 @@ import linkClass from './linkClass';
 export default (Component: Object, defaultStyles: Object, options: Object) => {
     const WrappedComponent = class extends Component {
         render () {
-            let propsChanged,
+            let propsChanged = false,
                 styles;
-
-            propsChanged = false;
 
             if (this.props.styles) {
                 styles = this.props.styles;
-            } else if (_.isObject(defaultStyles)) {
-                this.props = _.assign({}, this.props, {
+            } else if (isObject(defaultStyles)) {
+                this.props = Object.assign({}, this.props, {
                     styles: defaultStyles
                 });
 

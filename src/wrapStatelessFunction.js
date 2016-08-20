@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 
-import _ from 'lodash';
 import React from 'react';
 import linkClass from './linkClass';
+import {isObject} from './utils';
 
 /**
  * @see https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
@@ -15,8 +15,8 @@ export default (Component: Function, defaultStyles: Object, options: Object): Fu
         if (props.styles) {
             useProps = props;
             styles = props.styles;
-        } else if (_.isObject(defaultStyles)) {
-            useProps = _.assign({}, props, {
+        } else if (isObject(defaultStyles)) {
+            useProps = Object.assign({}, props, {
                 styles: defaultStyles
             });
 
@@ -35,7 +35,7 @@ export default (Component: Function, defaultStyles: Object, options: Object): Fu
         return React.createElement('noscript');
     };
 
-    _.assign(WrappedComponent, Component);
+    Object.assign(WrappedComponent, Component);
 
     return WrappedComponent;
 };
