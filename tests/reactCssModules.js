@@ -174,7 +174,7 @@ describe('reactCssModules', () => {
 
                 subject = TestUtils.renderIntoDocument(<Foo />);
 
-                subject = ReactDOM.findDOMNode(subject);
+                subject = ReactDOM.findDOMNode(subject); // eslint-disable-line react/no-find-dom-node
 
                 expect(subject.firstChild.className).to.equal('foo-0');
             });

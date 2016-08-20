@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import {trim, filterForTruthy} from './utils';
 
 const styleNameIndex = {};
 
@@ -8,8 +8,7 @@ export default (styleNamePropertyValue: string, allowMultiple: boolean): Array<s
     if (styleNameIndex[styleNamePropertyValue]) {
         styleNames = styleNameIndex[styleNamePropertyValue];
     } else {
-        styleNames = _.trim(styleNamePropertyValue).split(' ');
-        styleNames = _.filter(styleNames);
+        styleNames = filterForTruthy(trim(styleNamePropertyValue).split(' '));
 
         styleNameIndex[styleNamePropertyValue] = styleNames;
     }
