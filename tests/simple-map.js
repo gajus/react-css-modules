@@ -1,7 +1,7 @@
 import {
     expect
 } from 'chai';
-import {SimpleMap} from './../src/simple-map';
+import {createSimpleMap} from './../src/simple-map';
 
 const getTests = (map) => {
     return () => {
@@ -28,6 +28,8 @@ const getTests = (map) => {
 };
 
 describe('SimpleMap', () => {
+    const SimpleMap = createSimpleMap();
+
     context('simple map with primitive or object as keys', getTests(new SimpleMap()));
     if (typeof Map !== 'undefined') {
         context('sanity - running tests against native Map', getTests(new Map()));
