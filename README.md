@@ -574,7 +574,7 @@ This pattern emerged with the advent of OOCSS. The biggest disadvantage of this 
 
 ### Class Composition Using CSS Preprocessors
 
-This section of the document is included as a learning exercise to broaden the understanding about the origin of Class Composition. CSS Modules support a native method of composting CSS Modules using [`composes`](https://github.com/css-modules/css-modules#composition) keyword. CSS Preprocessor is not required.
+This section of the document is included as a learning exercise to broaden the understanding about the origin of Class Composition. CSS Modules support a native method of composing CSS Modules using [`composes`](https://github.com/css-modules/css-modules#composition) keyword. CSS Preprocessor is not required.
 
 You can write compositions in SCSS using [`@extend`](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#extend) keyword and using [Mixin Directives](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins), e.g.
 
