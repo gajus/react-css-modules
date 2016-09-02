@@ -1,11 +1,8 @@
-export class SimpleMap {
+export const createSimpleMap = () => class SimpleMap {
     constructor () {
+        this.size = 0;
         this.keys = [];
         this.values = [];
-    }
-
-    get size () {
-        return this.keys.length;
     }
 
     get (key) {
@@ -17,11 +14,12 @@ export class SimpleMap {
     set (key, value) {
         this.keys.push(key);
         this.values.push(value);
+        this.size = this.keys.length;
 
         return value;
     }
-}
+};
 
-const exportedMap = typeof Map === 'undefined' ? SimpleMap : Map;
+const exportedMap = typeof Map === 'undefined' ? createSimpleMap() : Map;
 
 export default exportedMap;
