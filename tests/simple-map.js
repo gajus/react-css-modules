@@ -1,7 +1,9 @@
 import {
     expect
 } from 'chai';
-import {SimpleMap} from './../src/simple-map';
+import {
+		SimpleMap
+} from './../src/simple-map';
 
 const getTests = (map) => {
     return () => {
