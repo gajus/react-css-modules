@@ -12,22 +12,22 @@ import _ from 'lodash';
  * @returns {CSSModules~Options}
  */
 export default (userConfiguration = {}) => {
-    const configuration = {
-        allowMultiple: false,
-        errorWhenNotFound: true
-    };
+  const configuration = {
+    allowMultiple: false,
+    errorWhenNotFound: true
+  };
 
-    _.forEach(userConfiguration, (value, name) => {
-        if (_.isUndefined(configuration[name])) {
-            throw new Error('Unknown configuration property "' + name + '".');
-        }
+  _.forEach(userConfiguration, (value, name) => {
+    if (_.isUndefined(configuration[name])) {
+      throw new Error('Unknown configuration property "' + name + '".');
+    }
 
-        if (!_.isBoolean(value)) {
-            throw new Error('"' + name + '" property value must be a boolean.');
-        }
+    if (!_.isBoolean(value)) {
+      throw new Error('"' + name + '" property value must be a boolean.');
+    }
 
-        configuration[name] = value;
-    });
+    configuration[name] = value;
+  });
 
-    return configuration;
+  return configuration;
 };

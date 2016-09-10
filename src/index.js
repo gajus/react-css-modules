@@ -12,45 +12,45 @@ type TypeOptions = {};
  * Determines if the given object has the signature of a class that inherits React.Component.
  */
 const isReactComponent = (maybeReactComponent: any): boolean => {
-    return 'prototype' in maybeReactComponent && _.isFunction(maybeReactComponent.prototype.render);
+  return 'prototype' in maybeReactComponent && _.isFunction(maybeReactComponent.prototype.render);
 };
 
 /**
  * When used as a function.
  */
 const functionConstructor = (Component: Function, defaultStyles: Object, options: TypeOptions): Function => {
-    let decoratedClass;
+  let decoratedClass;
 
-    const configuration = makeConfiguration(options);
+  const configuration = makeConfiguration(options);
 
-    if (isReactComponent(Component)) {
-        decoratedClass = extendReactClass(Component, defaultStyles, configuration);
-    } else {
-        decoratedClass = wrapStatelessFunction(Component, defaultStyles, configuration);
-    }
+  if (isReactComponent(Component)) {
+    decoratedClass = extendReactClass(Component, defaultStyles, configuration);
+  } else {
+    decoratedClass = wrapStatelessFunction(Component, defaultStyles, configuration);
+  }
 
-    if (Component.displayName) {
-        decoratedClass.displayName = Component.displayName;
-    } else {
-        decoratedClass.displayName = Component.name;
-    }
+  if (Component.displayName) {
+    decoratedClass.displayName = Component.displayName;
+  } else {
+    decoratedClass.displayName = Component.name;
+  }
 
-    return decoratedClass;
+  return decoratedClass;
 };
 
 /**
  * When used as a ES7 decorator.
  */
 const decoratorConstructor = (defaultStyles: Object, options: TypeOptions): Function => {
-    return (Component: Function) => {
-        return functionConstructor(Component, defaultStyles, options);
-    };
+  return (Component: Function) => {
+    return functionConstructor(Component, defaultStyles, options);
+  };
 };
 
 export default (...args) => {
-    if (_.isFunction(args[0])) {
-        return functionConstructor(args[0], args[1], args[2]);
-    } else {
-        return decoratorConstructor(args[0], args[1]);
-    }
+  if (_.isFunction(args[0])) {
+    return functionConstructor(args[0], args[1], args[2]);
+  } else {
+    return decoratorConstructor(args[0], args[1]);
+  }
 };

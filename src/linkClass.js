@@ -8,54 +8,54 @@ import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
 
 const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
-    let appendClassName,
-        elementIsFrozen,
-        elementShallowCopy;
+  let appendClassName,
+    elementIsFrozen,
+    elementShallowCopy;
 
-    elementShallowCopy = element;
+  elementShallowCopy = element;
 
-    if (Object.isFrozen && Object.isFrozen(elementShallowCopy)) {
-        elementIsFrozen = true;
+  if (Object.isFrozen && Object.isFrozen(elementShallowCopy)) {
+    elementIsFrozen = true;
 
         // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
-        elementShallowCopy = objectUnfreeze(elementShallowCopy);
-        elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
+    elementShallowCopy = objectUnfreeze(elementShallowCopy);
+    elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
+  }
+
+  const styleNames = parseStyleName(elementShallowCopy.props.styleName || '', configuration.allowMultiple);
+
+  if (React.isValidElement(elementShallowCopy.props.children)) {
+    elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
+  } else if (_.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
+    elementShallowCopy.props.children = React.Children.map(elementShallowCopy.props.children, (node) => {
+      if (React.isValidElement(node)) {
+        return linkElement(node, styles, configuration);
+      } else {
+        return node;
+      }
+    });
+  }
+
+  if (styleNames.length) {
+    appendClassName = generateAppendClassName(styles, styleNames, configuration.errorWhenNotFound);
+
+    if (appendClassName) {
+      if (elementShallowCopy.props.className) {
+        appendClassName = elementShallowCopy.props.className + ' ' + appendClassName;
+      }
+
+      elementShallowCopy.props.className = appendClassName;
     }
+  }
 
-    const styleNames = parseStyleName(elementShallowCopy.props.styleName || '', configuration.allowMultiple);
+  delete elementShallowCopy.props.styleName;
 
-    if (React.isValidElement(elementShallowCopy.props.children)) {
-        elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
-    } else if (_.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
-        elementShallowCopy.props.children = React.Children.map(elementShallowCopy.props.children, (node) => {
-            if (React.isValidElement(node)) {
-                return linkElement(node, styles, configuration);
-            } else {
-                return node;
-            }
-        });
-    }
+  if (elementIsFrozen) {
+    Object.freeze(elementShallowCopy.props);
+    Object.freeze(elementShallowCopy);
+  }
 
-    if (styleNames.length) {
-        appendClassName = generateAppendClassName(styles, styleNames, configuration.errorWhenNotFound);
-
-        if (appendClassName) {
-            if (elementShallowCopy.props.className) {
-                appendClassName = elementShallowCopy.props.className + ' ' + appendClassName;
-            }
-
-            elementShallowCopy.props.className = appendClassName;
-        }
-    }
-
-    delete elementShallowCopy.props.styleName;
-
-    if (elementIsFrozen) {
-        Object.freeze(elementShallowCopy.props);
-        Object.freeze(elementShallowCopy);
-    }
-
-    return elementShallowCopy;
+  return elementShallowCopy;
 };
 
 /**
@@ -65,9 +65,9 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
  */
 export default (element: ReactElement, styles = {}, configuration = {}): ReactElement => {
     // @see https://github.com/gajus/react-css-modules/pull/30
-    if (!_.isObject(element)) {
-        return element;
-    }
+  if (!_.isObject(element)) {
+    return element;
+  }
 
-    return linkElement(element, styles, configuration);
+  return linkElement(element, styles, configuration);
 };

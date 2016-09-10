@@ -1,4 +1,4 @@
-/* eslint-disable max-nested-callbacks, react/prefer-stateless-function, react/prop-types, react/no-multi-comp */
+/* eslint-disable max-nested-callbacks, react/prefer-stateless-function, react/prop-types, react/no-multi-comp, class-methods-use-this */
 
 import {
     expect
@@ -10,140 +10,140 @@ import jsdom from 'jsdom';
 import extendReactClass from './../src/extendReactClass';
 
 describe('extendReactClass', () => {
-    beforeEach(() => {
-        global.document = jsdom.jsdom('<!DOCTYPE html><html><head></head><body></body></html>');
+  beforeEach(() => {
+    global.document = jsdom.jsdom('<!DOCTYPE html><html><head></head><body></body></html>');
 
-        global.window = document.defaultView;
+    global.window = document.defaultView;
+  });
+  context('using default styles', () => {
+    it('exposes styles through this.props.styles property', (done) => {
+      let Component;
+
+      const styles = {
+        foo: 'foo-1'
+      };
+
+      Component = class extends React.Component {
+        render () {
+          expect(this.props.styles).to.equal(styles);
+          done();
+        }
+      };
+
+      Component = extendReactClass(Component, styles);
+
+      TestUtils.renderIntoDocument(<Component />);
     });
-    context('using default styles', () => {
-        it('exposes styles through this.props.styles property', (done) => {
-            let Component;
+    it('does not affect the other instance properties', (done) => {
+      let Component;
 
-            const styles = {
-                foo: 'foo-1'
-            };
+      Component = class extends React.Component {
+        render () {
+          expect(this.props.bar).to.equal('baz');
+          done();
+        }
+      };
 
-            Component = class extends React.Component {
-                render () {
-                    expect(this.props.styles).to.equal(styles);
-                    done();
-                }
-            };
+      const styles = {
+        foo: 'foo-1'
+      };
 
-            Component = extendReactClass(Component, styles);
+      Component = extendReactClass(Component, styles);
 
-            TestUtils.renderIntoDocument(<Component />);
-        });
-        it('does not affect the other instance properties', (done) => {
-            let Component;
-
-            Component = class extends React.Component {
-                render () {
-                    expect(this.props.bar).to.equal('baz');
-                    done();
-                }
-            };
-
-            const styles = {
-                foo: 'foo-1'
-            };
-
-            Component = extendReactClass(Component, styles);
-
-            TestUtils.renderIntoDocument(<Component bar='baz' />);
-        });
-        it('does not affect pure-render logic', (done) => {
-            let Component,
-                rendered;
-
-            rendered = false;
-
-            const styles = {
-                foo: 'foo-1'
-            };
-
-            Component = class extends React.Component {
-                shouldComponentUpdate (newProps) {
-                    if (rendered) {
-                        expect(shallowCompare(this.props, newProps)).to.equal(true);
-
-                        done();
-                    }
-
-                    return true;
-                }
-
-                render () {
-                    rendered = true;
-                }
-            };
-
-            Component = extendReactClass(Component, styles);
-
-            const instance = TestUtils.renderIntoDocument(<Component foo='bar' />);
-
-            // trigger shouldComponentUpdate
-            instance.setState({});
-        });
+      TestUtils.renderIntoDocument(<Component bar='baz' />);
     });
-    context('overwriting default styles using "styles" property of the extended component', () => {
-        it('overwrites default styles', (done) => {
-            let Component;
+    it('does not affect pure-render logic', (done) => {
+      let Component,
+        rendered;
 
-            const styles = {
-                foo: 'foo-1'
-            };
+      rendered = false;
 
-            Component = class extends React.Component {
-                render () {
-                    expect(this.props.styles).to.equal(styles);
-                    done();
-                }
-            };
+      const styles = {
+        foo: 'foo-1'
+      };
 
-            Component = extendReactClass(Component, {
-                bar: 'bar-0',
-                foo: 'foo-0'
-            });
+      Component = class extends React.Component {
+        shouldComponentUpdate (newProps) {
+          if (rendered) {
+            expect(shallowCompare(this.props, newProps)).to.equal(true);
 
-            TestUtils.renderIntoDocument(<Component styles={styles} />);
-        });
+            done();
+          }
+
+          return true;
+        }
+
+        render () {
+          rendered = true;
+        }
+      };
+
+      Component = extendReactClass(Component, styles);
+
+      const instance = TestUtils.renderIntoDocument(<Component foo='bar' />);
+
+      // trigger shouldComponentUpdate
+      instance.setState({});
     });
-    context('rendering Component that returns null', () => {
-        it('generates <noscript> element', () => {
-            let Component;
+  });
+  context('overwriting default styles using "styles" property of the extended component', () => {
+    it('overwrites default styles', (done) => {
+      let Component;
 
-            const shallowRenderer = TestUtils.createRenderer();
+      const styles = {
+        foo: 'foo-1'
+      };
 
-            Component = class extends React.Component {
-                render () {
-                    return null;
-                }
-            };
+      Component = class extends React.Component {
+        render () {
+          expect(this.props.styles).to.equal(styles);
+          done();
+        }
+      };
 
-            Component = extendReactClass(Component);
+      Component = extendReactClass(Component, {
+        bar: 'bar-0',
+        foo: 'foo-0'
+      });
 
-            shallowRenderer.render(<Component />);
-
-            const component = shallowRenderer.getRenderOutput();
-
-            expect(component.type).to.equal('noscript');
-        });
+      TestUtils.renderIntoDocument(<Component styles={styles} />);
     });
-    context('target component have static properties', () => {
-        it('hoists static properties', () => {
-            const Component = class extends React.Component {
-                static foo = 'FOO';
+  });
+  context('rendering Component that returns null', () => {
+    it('generates <noscript> element', () => {
+      let Component;
 
-                render () {
-                    return null;
-                }
-            };
+      const shallowRenderer = TestUtils.createRenderer();
 
-            const WrappedComponent = extendReactClass(Component);
+      Component = class extends React.Component {
+        render () {
+          return null;
+        }
+      };
 
-            expect(Component.foo).to.equal('FOO');
-            expect(WrappedComponent.foo).to.equal(Component.foo);
-        });
+      Component = extendReactClass(Component);
+
+      shallowRenderer.render(<Component />);
+
+      const component = shallowRenderer.getRenderOutput();
+
+      expect(component.type).to.equal('noscript');
     });
+  });
+  context('target component have static properties', () => {
+    it('hoists static properties', () => {
+      const Component = class extends React.Component {
+        static foo = 'FOO';
+
+        render () {
+          return null;
+        }
+      };
+
+      const WrappedComponent = extendReactClass(Component);
+
+      expect(Component.foo).to.equal('FOO');
+      expect(WrappedComponent.foo).to.equal(Component.foo);
+    });
+  });
 });

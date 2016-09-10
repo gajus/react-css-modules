@@ -3,39 +3,39 @@ import Map from './simple-map';
 const stylesIndex = new Map();
 
 export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): string => {
-    let appendClassName,
-        stylesIndexMap;
+  let appendClassName,
+    stylesIndexMap;
 
-    stylesIndexMap = stylesIndex.get(styles);
+  stylesIndexMap = stylesIndex.get(styles);
 
-    if (stylesIndexMap) {
-        const styleNameIndex = stylesIndexMap.get(styleNames);
+  if (stylesIndexMap) {
+    const styleNameIndex = stylesIndexMap.get(styleNames);
 
-        if (styleNameIndex) {
-            return styleNameIndex;
-        }
-    } else {
-        stylesIndexMap = new Map();
-        stylesIndex.set(styles, new Map());
+    if (styleNameIndex) {
+      return styleNameIndex;
     }
+  } else {
+    stylesIndexMap = new Map();
+    stylesIndex.set(styles, new Map());
+  }
 
-    appendClassName = '';
+  appendClassName = '';
 
-    for (const styleName in styleNames) {
-        if (styleNames.hasOwnProperty(styleName)) {
-            const className = styles[styleNames[styleName]];
+  for (const styleName in styleNames) {
+    if (styleNames.hasOwnProperty(styleName)) {
+      const className = styles[styleNames[styleName]];
 
-            if (className) {
-                appendClassName += ' ' + className;
-            } else if (errorWhenNotFound === true) {
-                throw new Error('"' + styleNames[styleName] + '" CSS module is undefined.');
-            }
-        }
+      if (className) {
+        appendClassName += ' ' + className;
+      } else if (errorWhenNotFound === true) {
+        throw new Error('"' + styleNames[styleName] + '" CSS module is undefined.');
+      }
     }
+  }
 
-    appendClassName = appendClassName.trim();
+  appendClassName = appendClassName.trim();
 
-    stylesIndexMap.set(styleNames, appendClassName);
+  stylesIndexMap.set(styleNames, appendClassName);
 
-    return appendClassName;
+  return appendClassName;
 };

@@ -8,17 +8,17 @@ const OLD_ITERATOR_SYMBOL = '@@iterator';
  * @see https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Iteration_protocols
  */
 export default (maybeIterable: any): boolean => {
-    let iterator;
+  let iterator;
 
-    if (!_.isObject(maybeIterable)) {
-        return false;
-    }
+  if (!_.isObject(maybeIterable)) {
+    return false;
+  }
 
-    if (ITERATOR_SYMBOL) {
-        iterator = maybeIterable[ITERATOR_SYMBOL];
-    } else {
-        iterator = maybeIterable[OLD_ITERATOR_SYMBOL];
-    }
+  if (ITERATOR_SYMBOL) {
+    iterator = maybeIterable[ITERATOR_SYMBOL];
+  } else {
+    iterator = maybeIterable[OLD_ITERATOR_SYMBOL];
+  }
 
-    return _.isFunction(iterator);
+  return _.isFunction(iterator);
 };

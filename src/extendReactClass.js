@@ -12,39 +12,39 @@ import linkClass from './linkClass';
  * @returns {ReactClass}
  */
 export default (Component: Object, defaultStyles: Object, options: Object) => {
-    const WrappedComponent = class extends Component {
-        render () {
-            let propsChanged,
-                styles;
+  const WrappedComponent = class extends Component {
+    render () {
+      let propsChanged,
+        styles;
 
-            propsChanged = false;
+      propsChanged = false;
 
-            if (this.props.styles) {
-                styles = this.props.styles;
-            } else if (_.isObject(defaultStyles)) {
-                this.props = _.assign({}, this.props, {
-                    styles: defaultStyles
-                });
+      if (this.props.styles) {
+        styles = this.props.styles;
+      } else if (_.isObject(defaultStyles)) {
+        this.props = _.assign({}, this.props, {
+          styles: defaultStyles
+        });
 
-                propsChanged = true;
-                styles = defaultStyles;
-            } else {
-                styles = {};
-            }
+        propsChanged = true;
+        styles = defaultStyles;
+      } else {
+        styles = {};
+      }
 
-            const renderResult = super.render();
+      const renderResult = super.render();
 
-            if (propsChanged) {
-                delete this.props.styles;
-            }
+      if (propsChanged) {
+        delete this.props.styles;
+      }
 
-            if (renderResult) {
-                return linkClass(renderResult, styles, options);
-            }
+      if (renderResult) {
+        return linkClass(renderResult, styles, options);
+      }
 
-            return React.createElement('noscript');
-        }
+      return React.createElement('noscript');
+    }
     };
 
-    return hoistNonReactStatics(WrappedComponent, Component);
+  return hoistNonReactStatics(WrappedComponent, Component);
 };
