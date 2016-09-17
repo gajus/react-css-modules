@@ -20,6 +20,13 @@ export default (Component: Function, defaultStyles: Object, options: Object): Fu
         styles: defaultStyles
       });
 
+      Object.defineProperty(useProps, 'styles', {
+        configurable: true,
+        enumerable: false,
+        value: defaultStyles,
+        writable: false
+      });
+
       styles = defaultStyles;
     } else {
       useProps = props;

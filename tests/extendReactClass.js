@@ -34,6 +34,24 @@ describe('extendReactClass', () => {
 
       TestUtils.renderIntoDocument(<Component />);
     });
+    it('exposes non-enumerable styles property', (done) => {
+      let Component;
+
+      const styles = {
+        foo: 'foo-1'
+      };
+
+      Component = class extends React.Component {
+        render () {
+          expect(this.props.propertyIsEnumerable('styles')).to.equal(false);
+          done();
+        }
+      };
+
+      Component = extendReactClass(Component, styles);
+
+      TestUtils.renderIntoDocument(<Component />);
+    });
     it('does not affect the other instance properties', (done) => {
       let Component;
 

@@ -37,6 +37,16 @@ describe('wrapStatelessFunction', () => {
         done();
       }, styles)();
     });
+    it('exposes non-enumerable styles property', (done) => {
+      const styles = {
+        foo: 'foo-1'
+      };
+
+      wrapStatelessFunction((props) => {
+        expect(props.propertyIsEnumerable('styles')).to.equal(false);
+        done();
+      }, styles)();
+    });
     it('does not affect the other instance properties', (done) => {
       const styles = {
         foo: 'foo-1'

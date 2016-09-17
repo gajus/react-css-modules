@@ -22,9 +22,16 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
       if (this.props.styles) {
         styles = this.props.styles;
       } else if (_.isObject(defaultStyles)) {
-        this.props = _.assign({}, this.props, {
-          styles: defaultStyles
+        const props = Object.assign({}, this.props);
+
+        Object.defineProperty(props, 'styles', {
+          configurable: true,
+          enumerable: false,
+          value: defaultStyles,
+          writable: false
         });
+
+        this.props = props;
 
         propsChanged = true;
         styles = defaultStyles;
