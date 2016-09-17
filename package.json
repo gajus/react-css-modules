@@ -36,6 +36,7 @@
     "chai": "^3.5.0",
     "eslint": "^3.0.0",
     "eslint-config-canonical": "^1.7.12",
+    "husky": "^0.11.7",
     "jsdom": "^9.5.0",
     "mocha": "^3.0.2",
     "react": "^15.0.0-rc.1",
@@ -46,6 +47,7 @@
   "scripts": {
     "lint": "eslint ./src ./tests",
     "test": "mocha --compilers js:babel-register ./tests/**/*.js",
-    "build": "babel ./src --out-dir ./dist"
+    "build": "babel ./src --out-dir ./dist",
+    "precommit": "npm run lint && npm run test"
   }
 }
