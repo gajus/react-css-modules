@@ -43,7 +43,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
     }
   }
 
-  elementShallowCopy = React.cloneElement(elementShallowCopy, { children, className, styleName: undefined });
+  elementShallowCopy = React.cloneElement(elementShallowCopy, { children, className, styleName: null });
 
   return elementShallowCopy;
 };
