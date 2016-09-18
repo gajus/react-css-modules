@@ -14,20 +14,15 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
 
   elementShallowCopy = element;
 
-  if (Object.isFrozen && Object.isFrozen(elementShallowCopy)) {
-    elementIsFrozen = true;
-
-        // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
-    elementShallowCopy = objectUnfreeze(elementShallowCopy);
-    elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
-  }
+  let children = elementShallowCopy.props.children;
+  let className = elementShallowCopy.props.className;
 
   const styleNames = parseStyleName(elementShallowCopy.props.styleName || '', configuration.allowMultiple);
 
   if (React.isValidElement(elementShallowCopy.props.children)) {
-    elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
-  } else if (_.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
-    elementShallowCopy.props.children = React.Children.map(elementShallowCopy.props.children, (node) => {
+    children = linkElement(React.Children.only(children), styles, configuration);
+  } else if (_.isArray(children) || isIterable(children)) {
+    children = React.Children.map(children, (node) => {
       if (React.isValidElement(node)) {
         return linkElement(node, styles, configuration);
       } else {
@@ -40,20 +35,15 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
     appendClassName = generateAppendClassName(styles, styleNames, configuration.errorWhenNotFound);
 
     if (appendClassName) {
-      if (elementShallowCopy.props.className) {
-        appendClassName = elementShallowCopy.props.className + ' ' + appendClassName;
+      if (className) {
+        appendClassName = className + ' ' + appendClassName;
       }
 
-      elementShallowCopy.props.className = appendClassName;
+      className = appendClassName;
     }
   }
 
-  delete elementShallowCopy.props.styleName;
-
-  if (elementIsFrozen) {
-    Object.freeze(elementShallowCopy.props);
-    Object.freeze(elementShallowCopy);
-  }
+  elementShallowCopy = React.cloneElement(elementShallowCopy, { children, className, styleName: undefined });
 
   return elementShallowCopy;
 };
