@@ -36,7 +36,7 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
 
 ## CSS Modules
 
-[CSS Modules](https://github.com/css-modules/css-modules) are awesome. If you are not familiar with CSS Modules, it is a concept of using a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. CSS module loader will generate a unique name for a each CSS class at the time of loading the CSS document ([Interoperable CSS](https://github.com/css-modules/icss) to be precise). To see CSS Modules in practice, [webpack-demo](https://css-modules.github.io/webpack-demo/).
+[CSS Modules](https://github.com/css-modules/css-modules) are awesome. If you are not familiar with CSS Modules, it is a concept of using a module bundler such as [webpack](http://webpack.github.io/docs/) to load CSS scoped to a particular document. CSS module loader will generate a unique name for each CSS class at the time of loading the CSS document ([Interoperable CSS](https://github.com/css-modules/icss) to be precise). To see CSS Modules in practice, [webpack-demo](https://css-modules.github.io/webpack-demo/).
 
 In the context of React, CSS Modules look like this:
 
@@ -73,7 +73,7 @@ Awesome!
 
 ### webpack `css-loader`
 
-[CSS Modules](https://github.com/css-modules/css-modules) is a specification that can be implemented in multiple ways. `react-css-modules` leverages as existing CSS Modules implementation webpack [css-loader](https://github.com/webpack/css-loader#css-modules).
+[CSS Modules](https://github.com/css-modules/css-modules) is a specification that can be implemented in multiple ways. `react-css-modules` leverages the existing CSS Modules implementation webpack [css-loader](https://github.com/webpack/css-loader#css-modules).
 
 ## What's the Problem?
 
