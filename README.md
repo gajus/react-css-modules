@@ -30,7 +30,6 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
 - [Class Composition](#class-composition)
     - [What Problems does Class Composition Solve?](#what-problems-does-class-composition-solve)
     - [Class Composition Using CSS Preprocessors](#class-composition-using-css-preprocessors)
-- [SASS, SCSS, LESS and other CSS Preprocessors](#sass-scss-less-and-other-css-preprocessors)
 - [Global CSS](#global-css)
 - [Multiple CSS Modules](#multiple-css-modules)
 
