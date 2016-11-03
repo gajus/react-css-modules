@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import _ from 'lodash';
 import React from 'react';
+import {isObject, assign} from './util';
 import linkClass from './linkClass';
 
 /**
@@ -15,10 +15,11 @@ export default (Component: Function, defaultStyles: Object, options: Object): Fu
     if (props.styles) {
       useProps = props;
       styles = props.styles;
-    } else if (_.isObject(defaultStyles)) {
-      useProps = _.assign({}, props, {
+    } else if (isObject(defaultStyles)) {
+      useProps = {
+        ...props,
         styles: defaultStyles
-      });
+      };
 
       Object.defineProperty(useProps, 'styles', {
         configurable: true,
@@ -42,7 +43,7 @@ export default (Component: Function, defaultStyles: Object, options: Object): Fu
     return React.createElement('noscript');
   };
 
-  _.assign(WrappedComponent, Component);
+  assign(WrappedComponent, Component);
 
   return WrappedComponent;
 };

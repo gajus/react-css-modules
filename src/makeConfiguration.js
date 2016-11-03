@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import {isObject, isBoolean} from './util';
 
 /**
  * @typedef CSSModules~Options
@@ -17,17 +17,21 @@ export default (userConfiguration = {}) => {
     errorWhenNotFound: true
   };
 
-  _.forEach(userConfiguration, (value, name) => {
-    if (_.isUndefined(configuration[name])) {
-      throw new Error('Unknown configuration property "' + name + '".');
-    }
+  if (isObject(userConfiguration)) {
+    Object.keys(userConfiguration).forEach((name) => {
+      const value = userConfiguration[name];
 
-    if (!_.isBoolean(value)) {
-      throw new Error('"' + name + '" property value must be a boolean.');
-    }
+      if (configuration[name] === undefined) { // eslint-disable-line no-undefined
+        throw new Error('Unknown configuration property "' + name + '".');
+      }
 
-    configuration[name] = value;
-  });
+      if (!isBoolean(value)) {
+        throw new Error('"' + name + '" property value must be a boolean.');
+      }
+
+      configuration[name] = value;
+    });
+  }
 
   return configuration;
 };

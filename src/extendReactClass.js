@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react';
-import _ from 'lodash';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import linkClass from './linkClass';
+import {isObject} from './util';
 
 /**
  * @param {ReactClass} Component
@@ -21,7 +21,7 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
 
       if (this.props.styles) {
         styles = this.props.styles;
-      } else if (_.isObject(defaultStyles)) {
+      } else if (isObject(defaultStyles)) {
         const props = Object.assign({}, this.props);
 
         Object.defineProperty(props, 'styles', {

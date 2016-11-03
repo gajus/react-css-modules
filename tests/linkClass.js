@@ -123,6 +123,7 @@ describe('linkClass', () => {
           0: <p key='1' styleName='foo' />,
           1: <p key='2' styleName='bar' />,
           length: 2,
+
           // eslint-disable-next-line no-use-extend-native/no-use-extend-native
           [Symbol.iterator]: Array.prototype[Symbol.iterator]
         };

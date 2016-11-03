@@ -13,7 +13,7 @@ describe('wrapStatelessFunction', () => {
       foo: 'foo-1'
     };
 
-    const Component = function InnerComponent () {
+    const Component = function () {
       return null;
     };
 

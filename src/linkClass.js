@@ -1,8 +1,8 @@
-import _ from 'lodash';
 import React, {
     ReactElement
 } from 'react';
 import objectUnfreeze from 'object-unfreeze';
+import {isArray, isObject} from './util';
 import isIterable from './isIterable';
 import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
@@ -26,7 +26,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
 
   if (React.isValidElement(elementShallowCopy.props.children)) {
     elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
-  } else if (_.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
+  } else if (isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
     elementShallowCopy.props.children = React.Children.map(elementShallowCopy.props.children, (node) => {
       if (React.isValidElement(node)) {
         return linkElement(node, styles, configuration);
@@ -65,7 +65,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
  */
 export default (element: ReactElement, styles = {}, configuration = {}): ReactElement => {
     // @see https://github.com/gajus/react-css-modules/pull/30
-  if (!_.isObject(element)) {
+  if (!isObject(element)) {
     return element;
   }
 
