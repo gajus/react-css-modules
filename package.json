@@ -12,7 +12,7 @@
     "css",
     "modules"
   ],
-  "version": "4.0.0",
+  "version": "4.0.1",
   "author": {
     "name": "Gajus Kuizinas",
     "email": "gajus@gajus.com",
@@ -20,29 +20,29 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
-    "hoist-non-react-statics": "^1.0.5",
-    "lodash": "^4.6.1",
-    "object-unfreeze": "^1.0.2"
+    "hoist-non-react-statics": "^1.2.0",
+    "lodash": "^4.16.6",
+    "object-unfreeze": "^1.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
+    "babel-cli": "^6.18.0",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-lodash": "^3.2.5",
+    "babel-plugin-lodash": "^3.2.9",
     "babel-plugin-transform-proto-to-assign": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-register": "^6.9.0",
-    "chai": "^3.5.0",
-    "eslint": "^3.0.0",
-    "eslint-config-canonical": "^1.7.12",
-    "husky": "^0.11.7",
-    "jsdom": "^9.5.0",
-    "mocha": "^3.0.2",
-    "react": "^15.0.0-rc.1",
-    "react-addons-shallow-compare": "^15.0.0-rc.1",
-    "react-addons-test-utils": "^15.0.0-rc.1",
-    "react-dom": "^15.0.0-rc.1"
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "chai": "^4.0.0-canary.1",
+    "eslint": "^3.10.0",
+    "eslint-config-canonical": "^5.5.0",
+    "husky": "^0.11.9",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.1.2",
+    "react": "^15.4.0-rc.4",
+    "react-addons-shallow-compare": "^15.4.0-rc.4",
+    "react-addons-test-utils": "^15.4.0-rc.4",
+    "react-dom": "^15.4.0-rc.4"
   },
   "scripts": {
     "lint": "eslint ./src ./tests",

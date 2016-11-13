@@ -13,18 +13,18 @@ describe('wrapStatelessFunction', () => {
       foo: 'foo-1'
     };
 
-    const Component = function InnerComponent () {
+    const InnerComponent = () => {
       return null;
     };
 
-    Component.propTypes = {};
-    Component.defaultProps = {};
+    InnerComponent.propTypes = {};
+    InnerComponent.defaultProps = {};
 
-    const WrappedComponent = wrapStatelessFunction(Component, styles);
+    const WrappedComponent = wrapStatelessFunction(InnerComponent, styles);
 
-    expect(WrappedComponent.propTypes).to.equal(Component.propTypes);
-    expect(WrappedComponent.defaultProps).to.equal(Component.defaultProps);
-    expect(WrappedComponent.name).not.to.equal(Component.name);
+    expect(WrappedComponent.propTypes).to.equal(InnerComponent.propTypes);
+    expect(WrappedComponent.defaultProps).to.equal(InnerComponent.defaultProps);
+    expect(WrappedComponent.name).not.to.equal(InnerComponent.name);
   });
   context('using default styles', () => {
     it('exposes styles through styles property', (done) => {
