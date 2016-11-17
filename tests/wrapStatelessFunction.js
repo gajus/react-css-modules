@@ -75,7 +75,7 @@ describe('wrapStatelessFunction', () => {
     });
   });
   context('rendering Component that returns null', () => {
-    it('generates <noscript> element', () => {
+    it('generates null', () => {
       const shallowRenderer = TestUtils.createRenderer();
 
       const Component = wrapStatelessFunction(() => {
@@ -86,7 +86,7 @@ describe('wrapStatelessFunction', () => {
 
       const component = shallowRenderer.getRenderOutput();
 
-      expect(component.type).to.equal('noscript');
+      expect(component).to.equal(null);
     });
   });
 });

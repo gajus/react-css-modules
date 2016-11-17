@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 
-import React from 'react';
 import _ from 'lodash';
+import React from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import linkClass from './linkClass';
+import renderNothing from './renderNothing';
 
 /**
  * @param {ReactClass} Component
@@ -49,9 +50,9 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
         return linkClass(renderResult, styles, options);
       }
 
-      return React.createElement('noscript');
+      return renderNothing(React.version);
     }
-    };
+  };
 
   return hoistNonReactStatics(WrappedComponent, Component);
 };
