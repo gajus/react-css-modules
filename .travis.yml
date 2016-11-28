@@ -11,3 +11,5 @@ sudo: false
 script:
   - npm run test
   - npm run lint
+after_success:
+  - semantic-release pre && npm publish && semantic-release post
