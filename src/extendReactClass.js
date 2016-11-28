@@ -15,8 +15,8 @@ import renderNothing from './renderNothing';
 export default (Component: Object, defaultStyles: Object, options: Object) => {
   const WrappedComponent = class extends Component {
     render () {
-      let propsChanged,
-        styles;
+      let propsChanged;
+      let styles;
 
       propsChanged = false;
 

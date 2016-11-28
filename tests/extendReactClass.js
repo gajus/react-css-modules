@@ -71,8 +71,8 @@ describe('extendReactClass', () => {
       TestUtils.renderIntoDocument(<Component bar='baz' />);
     });
     it('does not affect pure-render logic', (done) => {
-      let Component,
-        rendered;
+      let Component;
+      let rendered;
 
       rendered = false;
 

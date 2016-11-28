@@ -238,8 +238,8 @@ describe('linkClass', () => {
   });
 
   context('when ReactElement includes ReactComponent', () => {
-    let Foo,
-      nodeList;
+    let Foo;
+    let nodeList;
 
     beforeEach(() => {
       global.document = jsdom.jsdom('<!DOCTYPE html><html><head></head><body></body></html>');

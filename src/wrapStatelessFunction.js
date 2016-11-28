@@ -10,8 +10,8 @@ import renderNothing from './renderNothing';
  */
 export default (Component: Function, defaultStyles: Object, options: Object): Function => {
   const WrappedComponent = (props = {}, ...args) => {
-    let styles,
-      useProps;
+    let styles;
+    let useProps;
 
     if (props.styles) {
       useProps = props;

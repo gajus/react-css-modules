@@ -1,10 +1,12 @@
-import Map from './simple-map';
+import SimpleMap from './SimpleMap';
 
-const stylesIndex = new Map();
+const CustomMap = typeof Map === 'undefined' ? SimpleMap : Map;
+
+const stylesIndex = new CustomMap();
 
 export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): string => {
-  let appendClassName,
-    stylesIndexMap;
+  let appendClassName;
+  let stylesIndexMap;
 
   stylesIndexMap = stylesIndex.get(styles);
 
@@ -15,8 +17,8 @@ export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): 
       return styleNameIndex;
     }
   } else {
-    stylesIndexMap = new Map();
-    stylesIndex.set(styles, new Map());
+    stylesIndexMap = new CustomMap();
+    stylesIndex.set(styles, new CustomMap());
   }
 
   appendClassName = '';

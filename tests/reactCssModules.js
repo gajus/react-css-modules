@@ -37,8 +37,8 @@ describe('reactCssModules', () => {
   });
   context('a ReactComponent renders an element with the styleName prop', () => {
     context('the component is a class that extends React.Component', () => {
-      let Foo,
-        component;
+      let Foo;
+      let component;
 
       beforeEach(() => {
         const shallowRenderer = TestUtils.createRenderer();
@@ -65,8 +65,8 @@ describe('reactCssModules', () => {
       });
     });
     context('the component is a stateless function component', () => {
-      let Foo,
-        component;
+      let Foo;
+      let component;
 
       beforeEach(() => {
         const shallowRenderer = TestUtils.createRenderer();
@@ -146,9 +146,9 @@ describe('reactCssModules', () => {
     context('parent component is using react-css-modules and interpolates props.children', () => {
       // @see https://github.com/gajus/react-css-modules/issues/76
       it('unsets the styleName property', () => {
-        let Bar,
-          Foo,
-          subject;
+        let Bar;
+        let Foo;
+        let subject;
 
         Foo = class extends React.Component {
           render () {

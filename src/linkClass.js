@@ -8,9 +8,9 @@ import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
 
 const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
-  let appendClassName,
-    elementIsFrozen,
-    elementShallowCopy;
+  let appendClassName;
+  let elementIsFrozen;
+  let elementShallowCopy;
 
   elementShallowCopy = element;
 
