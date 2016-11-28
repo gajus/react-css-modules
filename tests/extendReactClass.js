@@ -128,7 +128,7 @@ describe('extendReactClass', () => {
     });
   });
   context('rendering Component that returns null', () => {
-    it('generates <noscript> element', () => {
+    it('generates null', () => {
       let Component;
 
       const shallowRenderer = TestUtils.createRenderer();
@@ -145,7 +145,7 @@ describe('extendReactClass', () => {
 
       const component = shallowRenderer.getRenderOutput();
 
-      expect(component.type).to.equal('noscript');
+      expect(component).to.equal(null);
     });
   });
   context('target component have static properties', () => {

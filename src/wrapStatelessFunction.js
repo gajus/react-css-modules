@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import React from 'react';
 import linkClass from './linkClass';
+import renderNothing from './renderNothing';
 
 /**
  * @see https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
@@ -39,7 +40,7 @@ export default (Component: Function, defaultStyles: Object, options: Object): Fu
       return linkClass(renderResult, styles, options);
     }
 
-    return React.createElement('noscript');
+    return renderNothing(React.version);
   };
 
   _.assign(WrappedComponent, Component);
