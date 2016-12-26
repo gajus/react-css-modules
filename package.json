@@ -23,7 +23,8 @@
     "hoist-non-react-statics": "^1.2.0",
     "lodash": "^4.16.6",
     "object-unfreeze": "^1.1.0",
-    "immutable": "*"
+    "immutable": "*",
+    "babel-cli": "^6.18.0"    
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
