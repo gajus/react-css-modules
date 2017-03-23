@@ -50,8 +50,6 @@
   "scripts": {
     "lint": "eslint ./src ./tests",
     "test": "NODE_ENV=development mocha --compilers js:babel-register ./tests/**/*.js && npm run lint && npm run build",
-    "build": "NODE_ENV=production babel ./src --out-dir ./dist",
-    "precommit": "npm run test",
-    "install": "npm run build"
+    "build": "NODE_ENV=production babel ./src --out-dir ./dist"
   }
 }
