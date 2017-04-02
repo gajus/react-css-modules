@@ -8,7 +8,7 @@ export default (styleNamePropertyValue: string, allowMultiple: boolean): Array<s
   if (styleNameIndex[styleNamePropertyValue]) {
     styleNames = styleNameIndex[styleNamePropertyValue];
   } else {
-    styleNames = _.trim(styleNamePropertyValue).split(' ');
+    styleNames = _.trim(styleNamePropertyValue).split(/\s+/);
     styleNames = _.filter(styleNames);
 
     styleNameIndex[styleNamePropertyValue] = styleNames;
