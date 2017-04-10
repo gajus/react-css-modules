@@ -14,7 +14,14 @@ import renderNothing from './renderNothing';
  */
 export default (Component: Object, defaultStyles: Object, options: Object) => {
   const WrappedComponent = class extends Component {
-    render () {
+    constructor () {
+      super();
+
+      this.componentRender = this.render.bind(this);
+      this.render = this.wrappedRender;
+    }
+
+    wrappedRender () {
       let propsChanged;
       let styles;
 
@@ -40,7 +47,7 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
         styles = {};
       }
 
-      const renderResult = super.render();
+      const renderResult = this.componentRender();
 
       if (propsChanged) {
         delete this.props.styles;

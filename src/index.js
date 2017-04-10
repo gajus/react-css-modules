@@ -9,10 +9,17 @@ import makeConfiguration from './makeConfiguration';
 type TypeOptions = {};
 
 /**
+ * Determinse if the first argument is Object.
+ */
+const isObject = (maybeObject: any): boolean => {
+  return Object.prototype.toString.call(maybeObject) === '[object Object]';
+};
+
+/**
  * Determines if the given object has the signature of a class that inherits React.Component.
  */
 const isReactComponent = (maybeReactComponent: any): boolean => {
-  return 'prototype' in maybeReactComponent && _.isFunction(maybeReactComponent.prototype.render);
+  return 'prototype' in maybeReactComponent && isObject(maybeReactComponent.prototype.isReactComponent);
 };
 
 /**

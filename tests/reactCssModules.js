@@ -64,6 +64,34 @@ describe('reactCssModules', () => {
         expect(component.props).not.to.have.property('styleName');
       });
     });
+    context('the component is a class that extends React.Component with "render" as a property', () => {
+      let Foo;
+      let component;
+
+      beforeEach(() => {
+        const shallowRenderer = TestUtils.createRenderer();
+
+        Foo = class extends React.Component {
+          render = () => {
+            return <div styleName='foo'>Hello</div>;
+          }
+        };
+
+        Foo = reactCssModules(Foo, {
+          foo: 'foo-1'
+        });
+
+        shallowRenderer.render(<Foo />);
+
+        component = shallowRenderer.getRenderOutput();
+      });
+      it('that element should contain the equivalent className', () => {
+        expect(component.props.className).to.equal('foo-1');
+      });
+      it('the styleName prop should be "consumed" in the process', () => {
+        expect(component.props).not.to.have.property('styleName');
+      });
+    });
     context('the component is a stateless function component', () => {
       let Foo;
       let component;
