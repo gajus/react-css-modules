@@ -89,7 +89,6 @@ Awesome!
 
 webpack [css-loader](https://github.com/webpack/css-loader#css-modules) itself has several disadvantages:
 
-* You have to use `camelCase` CSS class names.
 * You have to use `styles` object whenever constructing a `className`.
 * Mixing CSS Modules and global CSS classes is cumbersome.
 * Reference to an undefined CSS Module resolves to `undefined` without a warning.
@@ -117,7 +116,6 @@ export default CSSModules(Table, styles);
 
 Using `react-css-modules`:
 
-* You are not forced to use the `camelCase` naming convention.
 * You do not need to refer to the `styles` object every time you use a CSS Module.
 * There is clear distinction between global CSS and CSS Modules, e.g.
 
