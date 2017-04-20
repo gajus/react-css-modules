@@ -15,36 +15,33 @@ import renderNothing from './renderNothing';
 export default (Component: Object, defaultStyles: Object, options: Object) => {
   const WrappedComponent = class extends Component {
     render () {
-      let propsChanged;
       let styles;
 
-      propsChanged = false;
+      const hasDefaultstyles = _.isObject(defaultStyles);
 
-      if (this.props.styles) {
-        styles = this.props.styles;
-      } else if (_.isObject(defaultStyles)) {
+      if (this.props.styles || hasDefaultstyles) {
         const props = Object.assign({}, this.props);
+
+        if (this.props.styles) {
+          styles = this.props.styles;
+        } else if (hasDefaultstyles) {
+          styles = defaultStyles;
+          delete this.props.styles;
+        }
 
         Object.defineProperty(props, 'styles', {
           configurable: true,
           enumerable: false,
-          value: defaultStyles,
+          value: styles,
           writable: false
         });
 
         this.props = props;
-
-        propsChanged = true;
-        styles = defaultStyles;
       } else {
         styles = {};
       }
 
       const renderResult = super.render();
-
-      if (propsChanged) {
-        delete this.props.styles;
-      }
 
       if (renderResult) {
         return linkClass(renderResult, styles, options);
