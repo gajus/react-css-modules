@@ -209,9 +209,9 @@ Setup:
     ```js
     {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract({
+      use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!resolve-url!postcss',
+          use: 'css-loader?modules,localIdentName="[name]-[local]-[hash:base64:6]"'
       }),
     }
     ```
