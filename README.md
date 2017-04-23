@@ -8,6 +8,8 @@
 
 React CSS Modules implement automatic mapping of CSS modules. Every CSS class is assigned a local-scoped identifier with a global unique name. CSS Modules enable a modular and reusable CSS!
 
+> ⚠️⚠️⚠️
+>
 > Note:
 >
 > If you are considering to use `react-css-modules`, evaluate if [`babel-plugin-react-css-modules`](https://github.com/gajus/babel-plugin-react-css-modules) covers your use case.
