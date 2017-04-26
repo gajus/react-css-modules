@@ -157,15 +157,37 @@ Setup:
 * Install [`css-loader`](https://www.npmjs.com/package/css-loader).
 * Setup `/\.css$/` loader:
 
-```js
-{
-    test: /\.css$/,
-    loaders: [
-        'style?sourceMap',
-        'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
-    ]
-}
-```
+  * webpack v1x:
+
+    ```js
+    {
+        test: /\.css$/,
+        loaders: [
+            'style',
+            'css?sourceMap&modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+        ]
+    }
+    ```
+
+  * webpack v2x:
+
+    ```js
+    {
+        test: /\.css$/,
+        use: [        
+            'style-loader',
+            {
+                loader: 'css-loader',
+                options: {
+                    sourceMap: true,
+                    modules: true,
+                    importLoaders: 1,
+                    localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+                }
+            }
+        ]         
+    }
+    ```    
 
 ##### Production
 
@@ -213,10 +235,28 @@ Setup:
       test: /\.css$/,
       use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader?modules,localIdentName="[name]-[local]-[hash:base64:6]"'
+          use: 'css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]'
       }),
     }
     ```
+
+  * webpack v2x + ExtractTextPlugin v2x:
+
+    ```js
+    {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [{
+              loader: 'css-loader',
+              options: {
+                  modules: true,
+                  localIdentName: '[name]__[local]___[hash:base64:5]'
+              }
+          }]
+      }),
+    }
+    ```    
 
 * Setup `extract-text-webpack-plugin` plugin:
 
@@ -502,33 +542,84 @@ Throws an error when `styleName` cannot be mapped to an existing CSS Module.
 
 [Interoperable CSS](https://github.com/css-modules/icss) is compatible with the CSS preprocessors. To use a preprocessor, all you need to do is add the preprocessor to the chain of loaders, e.g. in the case of webpack it is as simple as installing `sass-loader` and adding `!sass` to the end of the `style-loader` loader query (loaders are processed from right to left):
 
-```js
-{
-    test: /\.scss$/,
-    loaders: [
-        'style',
-        'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-        'resolve-url',
-        'sass'
-    ]
-}
-```
+  * webpack v1x:
+    ```js
+    {
+        test: /\.scss$/,
+        loaders: [
+            'style',
+            'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+            'resolve-url',
+            'sass'
+        ]
+    }
+    ```
+
+  * webpack v2x:
+
+    ```js
+    {
+        test: /\.scss$/,
+        use: [        
+            'style-loader',
+            {
+                loader: 'css-loader',
+                options: {
+                    modules: true,
+                    importLoaders: 1,
+                    localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+                }
+            },
+            'resolve-url-loader',
+            'sass-loader'            
+        ]         
+    }
+    ```    
 
 ### Enable Sourcemaps
 
-To enable CSS Source maps, add `sourceMap` parameter to the css-loader and to the `sass-loader`:
+To enable CSS Source maps, add `sourceMap` parameter to the `css-loader` and to the `sass-loader`:
 
-```js
-{
-    test: /\.scss$/,
-    loaders: [
-        'style?sourceMap',
-        'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-        'resolve-url',
-        'sass?sourceMap'
-    ]
-}
-```
+  * webpack v1x:
+
+    ```js
+    {
+        test: /\.scss$/,
+        loaders: [
+            'style',
+            'css?sourceMap&modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+            'resolve-url',
+            'sass?sourceMap'
+        ]
+    }
+    ```
+
+  * webpack v2x:
+
+    ```js
+    {
+        test: /\.scss$/,
+        use: [        
+            'style-loader',
+            {
+                loader: 'css-loader',
+                options: {
+                    sourceMap: true,
+                    modules: true,
+                    importLoaders: 1,
+                    localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+                }
+            },
+            'resolve-url-loader',
+            {
+                loader: 'sass-loader',
+                options: {
+                    sourceMap: true
+                }
+            }  
+        ]         
+    }
+    ```   
 
 ## Class Composition
 
