@@ -12,23 +12,23 @@ export default (Component: Function, defaultStyles: Object, options: Object): Fu
   const WrappedComponent = (props = {}, ...args) => {
     let styles;
     let useProps;
+    const hasDefaultstyles = _.isObject(defaultStyles);
 
-    if (props.styles) {
-      useProps = props;
-      styles = props.styles;
-    } else if (_.isObject(defaultStyles)) {
-      useProps = _.assign({}, props, {
-        styles: defaultStyles
-      });
+    if (props.styles || hasDefaultstyles) {
+      useProps = Object.assign({}, props);
+
+      if (props.styles) {
+        styles = props.styles;
+      } else {
+        styles = defaultStyles;
+      }
 
       Object.defineProperty(useProps, 'styles', {
         configurable: true,
         enumerable: false,
-        value: defaultStyles,
+        value: styles,
         writable: false
       });
-
-      styles = defaultStyles;
     } else {
       useProps = props;
       styles = {};
