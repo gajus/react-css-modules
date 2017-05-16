@@ -498,6 +498,10 @@ Default: `true`.
 
 Throws an error when `styleName` cannot be mapped to an existing CSS Module.
 
+#### Override default options. 
+
+If you want to use different options on all of your component, you could consider wrapping React-CSS-Modules to override the defaults. See [https://github.com/gajus/react-css-modules/pull/132](https://github.com/gajus/react-css-modules/pull/132#issuecomment-230324713) for an example.
+
 ## SASS, SCSS, LESS and other CSS Preprocessors
 
 [Interoperable CSS](https://github.com/css-modules/icss) is compatible with the CSS preprocessors. To use a preprocessor, all you need to do is add the preprocessor to the chain of loaders, e.g. in the case of webpack it is as simple as installing `sass-loader` and adding `!sass` to the end of the `style-loader` loader query (loaders are processed from right to left):
