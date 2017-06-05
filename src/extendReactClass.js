@@ -44,7 +44,7 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
       const renderResult = super.render();
 
       if (renderResult) {
-        return linkClass(renderResult, styles, options);
+        return linkClass(renderResult, styles, this.props.themes, options);
       }
 
       return renderNothing(React.version);

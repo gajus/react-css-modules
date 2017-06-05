@@ -7,7 +7,7 @@ import isIterable from './isIterable';
 import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
 
-const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
+const linkElement = (element: ReactElement, styles: Object, themes: Object, configuration: Object): ReactElement => {
   let appendClassName;
   let elementIsFrozen;
   let elementShallowCopy;
@@ -25,11 +25,11 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   const styleNames = parseStyleName(elementShallowCopy.props.styleName || '', configuration.allowMultiple);
 
   if (React.isValidElement(elementShallowCopy.props.children)) {
-    elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
+    elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, themes, configuration);
   } else if (_.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
     elementShallowCopy.props.children = React.Children.map(elementShallowCopy.props.children, (node) => {
       if (React.isValidElement(node)) {
-        return linkElement(node, styles, configuration);
+        return linkElement(node, styles, themes, configuration);
       } else {
         return node;
       }
@@ -37,7 +37,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   }
 
   if (styleNames.length) {
-    appendClassName = generateAppendClassName(styles, styleNames, configuration.errorWhenNotFound);
+    appendClassName = generateAppendClassName(styles, themes, styleNames, configuration.errorWhenNotFound);
 
     if (appendClassName) {
       if (elementShallowCopy.props.className) {
@@ -63,11 +63,11 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
  * @param {Object} styles CSS modules class map.
  * @param {CSSModules~Options} configuration
  */
-export default (element: ReactElement, styles = {}, configuration = {}): ReactElement => {
+export default (element: ReactElement, styles = {}, themes = {}, configuration = {}): ReactElement => {
     // @see https://github.com/gajus/react-css-modules/pull/30
   if (!_.isObject(element)) {
     return element;
   }
 
-  return linkElement(element, styles, configuration);
+  return linkElement(element, styles, themes, configuration);
 };

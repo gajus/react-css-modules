@@ -22,7 +22,9 @@
   "dependencies": {
     "hoist-non-react-statics": "^1.2.0",
     "lodash": "^4.16.6",
-    "object-unfreeze": "^1.1.0"
+    "object-unfreeze": "^1.1.0",
+    "immutable": "*",
+    "babel-cli": "^6.18.0"    
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -48,7 +50,6 @@
   "scripts": {
     "lint": "eslint ./src ./tests",
     "test": "NODE_ENV=development mocha --compilers js:babel-register ./tests/**/*.js && npm run lint && npm run build",
-    "build": "NODE_ENV=production babel ./src --out-dir ./dist",
-    "precommit": "npm run test"
+    "build": "NODE_ENV=production babel ./src --out-dir ./dist"
   }
 }
