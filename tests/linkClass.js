@@ -290,4 +290,18 @@ describe('linkClass', () => {
     expect(subject.props.children[0].props.className).to.deep.equal('bar-1');
     expect(subject.props.children[0].props).not.to.have.property('styleName');
   });
+
+  it('does not change defined keys of children if there are multiple children', () => {
+    let subject;
+
+    subject = <div>
+      <span key='foo' />
+      <span key='bar' />
+    </div>;
+
+    subject = linkClass(subject);
+
+    expect(subject.props.children[0].key).to.equal('foo');
+    expect(subject.props.children[1].key).to.equal('bar');
+  });
 });

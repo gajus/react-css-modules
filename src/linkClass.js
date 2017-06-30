@@ -7,6 +7,20 @@ import isIterable from './isIterable';
 import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
 
+const mapChildrenWithoutKeyPrefix = (children: ReactElement, mapper: Function, context: Object) => {
+  if (typeof children === 'undefined' || children === null) {
+    return children;
+  }
+
+  const result = [];
+
+  React.Children.forEach(children, (child, index) => {
+    result.push(mapper.call(context, child, index));
+  });
+
+  return result;
+};
+
 const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
   let appendClassName;
   let elementIsFrozen;
@@ -27,7 +41,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   if (React.isValidElement(elementShallowCopy.props.children)) {
     elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
   } else if (_.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
-    elementShallowCopy.props.children = React.Children.map(elementShallowCopy.props.children, (node) => {
+    elementShallowCopy.props.children = mapChildrenWithoutKeyPrefix(elementShallowCopy.props.children, (node) => {
       if (React.isValidElement(node)) {
         return linkElement(node, styles, configuration);
       } else {
