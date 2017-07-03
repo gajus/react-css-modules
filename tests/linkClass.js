@@ -18,6 +18,10 @@ describe('linkClass', () => {
       expect(linkClass(<div><p /></div>)).to.deep.equal(<div><p /></div>);
     });
 
+    it('does not affect element properties with a single element child in non-`children` prop', () => {
+      expect(linkClass(<div el={<p />} />)).to.deep.equal(<div el={<p />} />);
+    });
+
     it('does not affect element properties with a single text child', () => {
       expect(linkClass(<div>test</div>)).to.deep.equal(<div>test</div>);
     });
@@ -81,6 +85,26 @@ describe('linkClass', () => {
         expect(subject.props.children.props.className).to.equal('foo-1');
       });
     });
+    context('when a descendant element in non-`children` prop has styleName', () => {
+      it('assigns a generated className', () => {
+        let subject;
+
+        subject = <div
+          el={<p styleName='foo' />}
+          els={[<p key='bar' styleName='bar' />, [<p key='baz' styleName='baz' />]]}
+        />;
+
+        subject = linkClass(subject, {
+          bar: 'bar-1',
+          baz: 'baz-1',
+          foo: 'foo-1'
+        });
+
+        expect(subject.props.el.props.className).to.equal('foo-1');
+        expect(subject.props.els[0].props.className).to.equal('bar-1');
+        expect(subject.props.els[1][0].props.className).to.equal('baz-1');
+      });
+    });
     context('when multiple descendant elements have styleName', () => {
       it('assigns a generated className', () => {
         let subject;
@@ -137,6 +161,32 @@ describe('linkClass', () => {
 
         expect(subject.props.children[0].props.className).to.equal('foo-1');
         expect(subject.props.children[1].props.className).to.equal('bar-1');
+      });
+    });
+    context('when non-`children` prop is an iterable', () => {
+      it('it is left untouched', () => {
+        let subject;
+
+        const iterable = {
+          0: <p key='1' styleName='foo' />,
+          1: <p key='2' styleName='bar' />,
+          length: 2,
+
+          // eslint-disable-next-line no-use-extend-native/no-use-extend-native
+          [Symbol.iterator]: Array.prototype[Symbol.iterator]
+        };
+
+        subject = <div els={iterable} />;
+
+        subject = linkClass(subject, {
+          bar: 'bar-1',
+          foo: 'foo-1'
+        });
+
+        expect(subject.props.els[0].props.styleName).to.equal('foo');
+        expect(subject.props.els[1].props.styleName).to.equal('bar');
+        expect(subject.props.els[0].props).not.to.have.property('className');
+        expect(subject.props.els[1].props).not.to.have.property('className');
       });
     });
     context('when ReactElement does not have an existing className', () => {
@@ -277,24 +327,35 @@ describe('linkClass', () => {
   it('deletes styleName property from the target element (deep)', () => {
     let subject;
 
-    subject = <div styleName='foo'>
+    subject = <div
+      el={<span styleName='baz' />}
+      els={[<span key='foo' styleName='foo' />, [<span key='bar' styleName='bar' />]]}
+      styleName='foo'
+    >
       <div styleName='bar' />
       <div styleName='bar' />
     </div>;
 
     subject = linkClass(subject, {
       bar: 'bar-1',
+      baz: 'baz-1',
       foo: 'foo-1'
     });
 
     expect(subject.props.children[0].props.className).to.deep.equal('bar-1');
     expect(subject.props.children[0].props).not.to.have.property('styleName');
+    expect(subject.props.el.props.className).to.deep.equal('baz-1');
+    expect(subject.props.el.props).not.to.have.property('styleName');
+    expect(subject.props.els[0].props.className).to.deep.equal('foo-1');
+    expect(subject.props.els[0].props).not.to.have.property('styleName');
+    expect(subject.props.els[1][0].props.className).to.deep.equal('bar-1');
+    expect(subject.props.els[1][0].props).not.to.have.property('styleName');
   });
 
   it('does not change defined keys of children if there are multiple children', () => {
     let subject;
 
-    subject = <div>
+    subject = <div els={[<span key='foo' />, <span key='bar' />]}>
       <span key='foo' />
       <span key='bar' />
     </div>;
@@ -303,5 +364,7 @@ describe('linkClass', () => {
 
     expect(subject.props.children[0].key).to.equal('foo');
     expect(subject.props.children[1].key).to.equal('bar');
+    expect(subject.props.els[0].key).to.equal('foo');
+    expect(subject.props.els[1].key).to.equal('bar');
   });
 });
