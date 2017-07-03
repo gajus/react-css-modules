@@ -21,6 +21,19 @@ const mapChildrenWithoutKeyPrefix = (children: ReactElement, mapper: Function, c
   return result;
 };
 
+const linkArray = (array: Array, styles: Object, configuration: Object) => {
+  return _.map(array, (value) => {
+    if (React.isValidElement(value)) {
+      // eslint-disable-next-line no-use-before-define
+      return linkElement(React.Children.only(value), styles, configuration);
+    } else if (_.isArray(value)) {
+      return linkArray(value, styles, configuration);
+    }
+
+    return value;
+  });
+};
+
 const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
   let appendClassName;
   let elementIsFrozen;
@@ -37,18 +50,36 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   }
 
   const styleNames = parseStyleName(elementShallowCopy.props.styleName || '', configuration.allowMultiple);
+  const {children, ...restProps} = elementShallowCopy.props;
 
-  if (React.isValidElement(elementShallowCopy.props.children)) {
-    elementShallowCopy.props.children = linkElement(React.Children.only(elementShallowCopy.props.children), styles, configuration);
-  } else if (_.isArray(elementShallowCopy.props.children) || isIterable(elementShallowCopy.props.children)) {
-    elementShallowCopy.props.children = mapChildrenWithoutKeyPrefix(elementShallowCopy.props.children, (node) => {
+  if (React.isValidElement(children)) {
+    elementShallowCopy.props.children = linkElement(React.Children.only(children), styles, configuration);
+  } else if (_.isArray(children) || isIterable(children)) {
+    elementShallowCopy.props.children = mapChildrenWithoutKeyPrefix(children, (node) => {
       if (React.isValidElement(node)) {
-        return linkElement(node, styles, configuration);
+        // eslint-disable-next-line no-use-before-define
+        return linkElement(React.Children.only(node), styles, configuration);
       } else {
         return node;
       }
     });
   }
+
+  _.forEach(restProps, (propValue, propName) => {
+    if (React.isValidElement(propValue)) {
+      elementShallowCopy.props[propName] = linkElement(React.Children.only(propValue), styles, configuration);
+    } else if (_.isArray(propValue)) {
+      elementShallowCopy.props[propName] = _.map(propValue, (node) => {
+        if (React.isValidElement(node)) {
+          return linkElement(React.Children.only(node), styles, configuration);
+        } else if (_.isArray(node)) {
+          return linkArray(node, styles, configuration);
+        }
+
+        return node;
+      });
+    }
+  });
 
   if (styleNames.length) {
     appendClassName = generateAppendClassName(styles, styleNames, configuration.errorWhenNotFound);
