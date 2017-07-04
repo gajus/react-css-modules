@@ -22,16 +22,16 @@ const mapChildrenWithoutKeyPrefix = (children: ReactElement, mapper: Function, c
 };
 
 const linkArray = (array: Array, styles: Object, configuration: Object) => {
-  return _.map(array, (value) => {
+  _.forEach(array, (value, index) => {
     if (React.isValidElement(value)) {
       // eslint-disable-next-line no-use-before-define
-      return linkElement(React.Children.only(value), styles, configuration);
+      array[index] = linkElement(React.Children.only(value), styles, configuration);
     } else if (_.isArray(value)) {
-      return linkArray(value, styles, configuration);
+      array[index] = linkArray(value, styles, configuration);
     }
-
-    return value;
   });
+
+  return array;
 };
 
 const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
