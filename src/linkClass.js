@@ -7,20 +7,6 @@ import isIterable from './isIterable';
 import parseStyleName from './parseStyleName';
 import generateAppendClassName from './generateAppendClassName';
 
-const mapChildrenWithoutKeyPrefix = (children: ReactElement, mapper: Function, context: Object) => {
-  if (typeof children === 'undefined' || children === null) {
-    return children;
-  }
-
-  const result = [];
-
-  React.Children.forEach(children, (child, index) => {
-    result.push(mapper.call(context, child, index));
-  });
-
-  return result;
-};
-
 const linkArray = (array: Array, styles: Object, configuration: Object) => {
   _.forEach(array, (value, index) => {
     if (React.isValidElement(value)) {
@@ -55,7 +41,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   if (React.isValidElement(children)) {
     elementShallowCopy.props.children = linkElement(React.Children.only(children), styles, configuration);
   } else if (_.isArray(children) || isIterable(children)) {
-    elementShallowCopy.props.children = mapChildrenWithoutKeyPrefix(children, (node) => {
+    elementShallowCopy.props.children = React.Children.map(children, (node) => {
       if (React.isValidElement(node)) {
         // eslint-disable-next-line no-use-before-define
         return linkElement(React.Children.only(node), styles, configuration);
