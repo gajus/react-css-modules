@@ -1,12 +1,15 @@
-/* eslint-disable max-nested-callbacks, react/prefer-stateless-function, class-methods-use-this */
+/* eslint-disable max-nested-callbacks, react/prefer-stateless-function, class-methods-use-this, no-console */
 
-import {
+import chai, {
     expect
 } from 'chai';
+import spies from 'chai-spies';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import jsdom from 'jsdom';
 import linkClass from './../src/linkClass';
+
+chai.use(spies);
 
 describe('linkClass', () => {
   context('ReactElement does not define styleName', () => {
@@ -282,6 +285,32 @@ describe('linkClass', () => {
           expect(() => {
             linkClass(<div styleName='foo' />, {}, {errorWhenNotFound: true});
           }).to.throw(Error, '"foo" CSS module is undefined.');
+        });
+      });
+    });
+  });
+
+  describe('options.warningWhenNotFound', () => {
+    context('when styleName does not match an existing CSS module', () => {
+      const warnSpy = chai.spy(() => {});
+
+      console.warn = warnSpy;
+      context('when false', () => {
+        it('does not throw a warning when there\'s a missing CSS module', () => {
+          let subject;
+
+          subject = <div styleName='foo' />;
+
+          subject = linkClass(subject, {}, {warningWhenNotFound: false});
+
+          expect(subject.props.className).to.be.an('undefined');
+          expect(warnSpy).to.not.have.been.called();
+        });
+      });
+      context('when is true', () => {
+        it('throws a warning', () => {
+          linkClass(<div styleName='foo' />, {}, {warningWhenNotFound: true});
+          expect(warnSpy).to.have.been.called();
         });
       });
     });

@@ -5,6 +5,7 @@ import _ from 'lodash';
  * @see {@link https://github.com/gajus/react-css-modules#options}
  * @property {boolean} allowMultiple
  * @property {boolean} errorWhenNotFound
+ * @property {boolean} warningWhenNotFound
  */
 
 /**
@@ -14,7 +15,8 @@ import _ from 'lodash';
 export default (userConfiguration = {}) => {
   const configuration = {
     allowMultiple: false,
-    errorWhenNotFound: true
+    errorWhenNotFound: true,
+    warningWhenNotFound: false
   };
 
   _.forEach(userConfiguration, (value, name) => {
