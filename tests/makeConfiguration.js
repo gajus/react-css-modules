@@ -22,6 +22,11 @@ describe('makeConfiguration', () => {
         expect(configuration.errorWhenNotFound).to.equal(true);
       });
     });
+    describe('warningWhenNotFound property', () => {
+      it('defaults to false', () => {
+        expect(configuration.warningWhenNotFound).to.equal(false);
+      });
+    });
   });
   describe('when unknown property is provided', () => {
     it('throws an error', () => {

@@ -38,6 +38,7 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
         - [`errorWhenNotFound`](#errorwhennotfound)
+        - [`warningWhenNotFound`](#warningwhennotfound)
 - [SASS, SCSS, LESS and other CSS Preprocessors](#sass-scss-less-and-other-css-preprocessors)
     - [Enable Sourcemaps](#enable-sourcemaps)
 - [Class Composition](#class-composition)
@@ -409,6 +410,7 @@ export default CSSModules(CustomList, styles);
  * @see {@link https://github.com/gajus/react-css-modules#options}
  * @property {Boolean} allowMultiple
  * @property {Boolean} errorWhenNotFound
+ * @property {Boolean} warningWhenNotFound
  */
 
 /**
@@ -497,6 +499,12 @@ When `false`, the following will cause an error:
 Default: `true`.
 
 Throws an error when `styleName` cannot be mapped to an existing CSS Module.
+
+#### `warningWhenNotFound`
+
+Default: `false`.
+
+Outputs a warning when `styleName` cannot be mapped to an existing CSS Module.
 
 ## SASS, SCSS, LESS and other CSS Preprocessors
 
