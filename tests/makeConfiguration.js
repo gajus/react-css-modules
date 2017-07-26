@@ -17,9 +17,9 @@ describe('makeConfiguration', () => {
         expect(configuration.allowMultiple).to.equal(false);
       });
     });
-    describe('errorWhenNotFound property', () => {
-      it('defaults to true', () => {
-        expect(configuration.errorWhenNotFound).to.equal(true);
+    describe('handleNotFoundStyleName property', () => {
+      it('defaults to "throw"', () => {
+        expect(configuration.handleNotFoundStyleName).to.equal('throw');
       });
     });
   });

@@ -68,7 +68,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   });
 
   if (styleNames.length) {
-    appendClassName = generateAppendClassName(styles, styleNames, configuration.errorWhenNotFound);
+    appendClassName = generateAppendClassName(styles, styleNames, configuration.handleNotFoundStyleName);
 
     if (appendClassName) {
       if (elementShallowCopy.props.className) {
