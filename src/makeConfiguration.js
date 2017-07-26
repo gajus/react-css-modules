@@ -4,7 +4,7 @@ import _ from 'lodash';
  * @typedef CSSModules~Options
  * @see {@link https://github.com/gajus/react-css-modules#options}
  * @property {boolean} allowMultiple
- * @property {boolean} errorWhenNotFound
+ * @property {string} handleNotFoundStyleName
  */
 
 /**
@@ -14,7 +14,7 @@ import _ from 'lodash';
 export default (userConfiguration = {}) => {
   const configuration = {
     allowMultiple: false,
-    errorWhenNotFound: true
+    handleNotFoundStyleName: 'throw'
   };
 
   _.forEach(userConfiguration, (value, name) => {
@@ -22,8 +22,12 @@ export default (userConfiguration = {}) => {
       throw new Error('Unknown configuration property "' + name + '".');
     }
 
-    if (!_.isBoolean(value)) {
-      throw new Error('"' + name + '" property value must be a boolean.');
+    if (name === 'allowMultiple' && !_.isBoolean(value)) {
+      throw new Error('"allowMultiple" property value must be a boolean.');
+    }
+
+    if (name === 'handleNotFoundStyleName' && !['throw', 'log', 'ignore'].includes(value)) {
+      throw new Error('"handleNotFoundStyleName" property value must be "throw", "log" or "ignore".');
     }
 
     configuration[name] = value;

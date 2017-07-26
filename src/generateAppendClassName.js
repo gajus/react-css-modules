@@ -4,7 +4,7 @@ const CustomMap = typeof Map === 'undefined' ? SimpleMap : Map;
 
 const stylesIndex = new CustomMap();
 
-export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): string => {
+export default (styles, styleNames: Array<string>, handleNotFoundStyleName: "throw" | "log" | "ignore"): string => {
   let appendClassName;
   let stylesIndexMap;
 
@@ -29,8 +29,14 @@ export default (styles, styleNames: Array<string>, errorWhenNotFound: boolean): 
 
       if (className) {
         appendClassName += ' ' + className;
-      } else if (errorWhenNotFound === true) {
-        throw new Error('"' + styleNames[styleName] + '" CSS module is undefined.');
+      } else {
+        if (handleNotFoundStyleName === 'throw') {
+          throw new Error('"' + styleNames[styleName] + '" CSS module is undefined.');
+        }
+        if (handleNotFoundStyleName === 'log') {
+          //eslint-disable-next-line
+          console.warn('"' + styleNames[styleName] + '" CSS module is undefined.');
+        }
       }
     }
   }

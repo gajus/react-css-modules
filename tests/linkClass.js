@@ -1,12 +1,15 @@
-/* eslint-disable max-nested-callbacks, react/prefer-stateless-function, class-methods-use-this */
+/* eslint-disable max-nested-callbacks, react/prefer-stateless-function, class-methods-use-this, no-console */
 
-import {
+import chai, {
     expect
 } from 'chai';
+import spies from 'chai-spies';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import jsdom from 'jsdom';
 import linkClass from './../src/linkClass';
+
+chai.use(spies);
 
 describe('linkClass', () => {
   context('ReactElement does not define styleName', () => {
@@ -264,24 +267,37 @@ describe('linkClass', () => {
     });
   });
 
-  describe('options.errorWhenNotFound', () => {
+  describe('options.handleNotFoundStyleName', () => {
     context('when styleName does not match an existing CSS module', () => {
-      context('when false', () => {
-        it('ignores the missing CSS module', () => {
-          let subject;
-
-          subject = <div styleName='foo' />;
-
-          subject = linkClass(subject, {}, {errorWhenNotFound: false});
-
-          expect(subject.props.className).to.be.an('undefined');
-        });
-      });
-      context('when is true', () => {
+      context('when throw', () => {
         it('throws an error', () => {
           expect(() => {
-            linkClass(<div styleName='foo' />, {}, {errorWhenNotFound: true});
+            linkClass(<div styleName='foo' />, {}, {handleNotFoundStyleName: 'throw'});
           }).to.throw(Error, '"foo" CSS module is undefined.');
+        });
+      });
+      context('when log', () => {
+        it('logs a warning to the console', () => {
+          const warnSpy = chai.spy(() => {});
+
+          console.warn = warnSpy;
+          linkClass(<div styleName='foo' />, {}, {handleNotFoundStyleName: 'log'});
+          expect(warnSpy).to.have.been.called();
+        });
+      });
+      context('when ignore', () => {
+        it('does not log a warning', () => {
+          const warnSpy = chai.spy(() => {});
+
+          console.warn = warnSpy;
+          linkClass(<div styleName='foo' />, {}, {handleNotFoundStyleName: 'ignore'});
+          expect(warnSpy).to.not.have.been.called();
+        });
+
+        it('does not throw an error', () => {
+          expect(() => {
+            linkClass(<div styleName='foo' />, {}, {handleNotFoundStyleName: 'ignore'});
+          }).to.not.throw(Error, '"foo" CSS module is undefined.');
         });
       });
     });

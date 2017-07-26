@@ -37,7 +37,7 @@ React CSS Modules implement automatic mapping of CSS modules. Every CSS class is
     - [Decorator](#decorator)
     - [Options](#options)
         - [`allowMultiple`](#allowmultiple)
-        - [`errorWhenNotFound`](#errorwhennotfound)
+        - [`handleNotFoundStyleName`](#handlenotfoundstylename)
 - [SASS, SCSS, LESS and other CSS Preprocessors](#sass-scss-less-and-other-css-preprocessors)
     - [Enable Sourcemaps](#enable-sourcemaps)
 - [Class Composition](#class-composition)
@@ -127,7 +127,7 @@ Using `react-css-modules`:
 <div className='global-css' styleName='local-module'></div>
 ```
 
-* You are warned when `styleName` refers to an undefined CSS Module ([`errorWhenNotFound`](#errorwhennotfound) option).
+* You are warned when `styleName` refers to an undefined CSS Module ([`handleNotFoundStyleName`](#handlenotfoundstylename) option).
 * You can enforce use of a single CSS module per `ReactElement` ([`allowMultiple`](#allowmultiple) option).
 
 ## The Implementation
@@ -408,7 +408,7 @@ export default CSSModules(CustomList, styles);
  * @typedef CSSModules~Options
  * @see {@link https://github.com/gajus/react-css-modules#options}
  * @property {Boolean} allowMultiple
- * @property {Boolean} errorWhenNotFound
+ * @property {String} handleNotFoundStyleName
  */
 
 /**
@@ -492,11 +492,17 @@ When `false`, the following will cause an error:
 <div styleName='foo bar' />
 ```
 
-#### `errorWhenNotFound`
+#### `handleNotFoundStyleName`
 
-Default: `true`.
+Default: `'throw'`.
 
-Throws an error when `styleName` cannot be mapped to an existing CSS Module.
+Define the desired action when `styleName` cannot be mapped to an existing CSS Module.
+
+Available options
+
+- `'throw'` will throw an error
+- `'log'` will log a warning to the console
+- `'ignore'` will silently ignore it
 
 ## SASS, SCSS, LESS and other CSS Preprocessors
 
