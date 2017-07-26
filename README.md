@@ -494,15 +494,15 @@ When `false`, the following will cause an error:
 
 #### `handleNotFoundStyleName`
 
-Default: `'throw'`.
+Default: `throw`.
 
-Define the desired action when `styleName` cannot be mapped to an existing CSS Module.
+Defines the desired action when `styleName` cannot be mapped to an existing CSS Module.
 
-Available options
+Available options:
 
-- `'throw'` will throw an error
-- `'log'` will log a warning to the console
-- `'ignore'` will silently ignore it
+* `throw` throws an error
+* `log` logs a warning using `console.warn`
+* `ignore` silently ignores the missing style name
 
 ## SASS, SCSS, LESS and other CSS Preprocessors
 
