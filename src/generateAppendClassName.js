@@ -34,7 +34,7 @@ export default (styles, styleNames: Array<string>, handleNotFoundStyleName: "thr
           throw new Error('"' + styleNames[styleName] + '" CSS module is undefined.');
         }
         if (handleNotFoundStyleName === 'log') {
-          //eslint-disable-next-line
+          // eslint-disable-next-line no-console
           console.warn('"' + styleNames[styleName] + '" CSS module is undefined.');
         }
       }
