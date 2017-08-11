@@ -55,15 +55,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
     if (React.isValidElement(propValue)) {
       elementShallowCopy.props[propName] = linkElement(React.Children.only(propValue), styles, configuration);
     } else if (_.isArray(propValue)) {
-      elementShallowCopy.props[propName] = _.map(propValue, (node) => {
-        if (React.isValidElement(node)) {
-          return linkElement(React.Children.only(node), styles, configuration);
-        } else if (_.isArray(node)) {
-          return linkArray(node, styles, configuration);
-        }
-
-        return node;
-      });
+      elementShallowCopy.props[propName] = linkArray(propValue, styles, configuration);
     }
   });
 
