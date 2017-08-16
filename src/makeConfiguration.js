@@ -26,7 +26,7 @@ export default (userConfiguration = {}) => {
       throw new Error('"allowMultiple" property value must be a boolean.');
     }
 
-    if (name === 'handleNotFoundStyleName' && !['throw', 'log', 'ignore'].includes(value)) {
+    if (name === 'handleNotFoundStyleName' && !_.includes(['throw', 'log', 'ignore'], value)) {
       throw new Error('"handleNotFoundStyleName" property value must be "throw", "log" or "ignore".');
     }
 
