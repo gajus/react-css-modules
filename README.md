@@ -590,8 +590,8 @@ simple as installing `sass-loader` and adding `!sass` to the end of the
     loaders: [
         'style-loader',
         'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
-        'resolve-url',
-        'sass'
+        'resolve-url-loader',
+        'sass-loader'
     ]
 }
 ```
