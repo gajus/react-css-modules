@@ -23,15 +23,19 @@ const linkArray = (array: Array, styles: Object, configuration: Object) => {
 const linkElement = (element: ReactElement, styles: Object, configuration: Object): ReactElement => {
   let appendClassName;
   let elementIsFrozen;
+  let elementPropsIsFrozen;
   let elementShallowCopy;
 
   elementShallowCopy = element;
 
+  // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
   if (Object.isFrozen && Object.isFrozen(elementShallowCopy)) {
     elementIsFrozen = true;
-
-        // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
     elementShallowCopy = objectUnfreeze(elementShallowCopy);
+  }
+
+  if (Object.isFrozen && Object.isFrozen(elementShallowCopy.props)) {
+    elementPropsIsFrozen = true;
     elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
   }
 
@@ -74,8 +78,11 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   delete elementShallowCopy.props.styleName;
 
   if (elementIsFrozen) {
-    Object.freeze(elementShallowCopy.props);
     Object.freeze(elementShallowCopy);
+  }
+
+  if (elementPropsIsFrozen) {
+    Object.freeze(elementShallowCopy.props);
   }
 
   return elementShallowCopy;
