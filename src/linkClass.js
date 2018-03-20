@@ -26,6 +26,12 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
 
   elementShallowCopy = element;
 
+  if (Array.isArray(elementShallowCopy)) {
+    return elementShallowCopy.map((arrayElement) => {
+      return linkElement(arrayElement, styles, configuration);
+    });
+  }
+
   const elementIsFrozen = Object.isFrozen && Object.isFrozen(elementShallowCopy);
   const propsFrozen = Object.isFrozen && Object.isFrozen(elementShallowCopy.props);
   const propsNotExtensible = Object.isExtensible && !Object.isExtensible(elementShallowCopy.props);
