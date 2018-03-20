@@ -26,11 +26,16 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   let elementShallowCopy;
 
   elementShallowCopy = element;
+  elementIsFrozen = Object.isFrozen && (
+    Object.isFrozen(elementShallowCopy) ||
+    Object.isFrozen(elementShallowCopy.props)
+  ) || Object.isExtensible && (
+    !Object.isExtensible(elementShallowCopy) ||
+    !Object.isExtensible(elementShallowCopy.props)
+  );
 
-  if (Object.isFrozen && Object.isFrozen(elementShallowCopy)) {
-    elementIsFrozen = true;
-
-        // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
+  if (elementIsFrozen) {
+    // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
     elementShallowCopy = objectUnfreeze(elementShallowCopy);
     elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
   }
