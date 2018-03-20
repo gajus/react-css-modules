@@ -27,13 +27,14 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   elementShallowCopy = element;
 
   const elementIsFrozen = Object.isFrozen && Object.isFrozen(elementShallowCopy);
+  const propsFrozen = Object.isFrozen && Object.isFrozen(elementShallowCopy.props);
   const propsNotExtensible = Object.isExtensible && !Object.isExtensible(elementShallowCopy.props);
 
   if (elementIsFrozen) {
     // https://github.com/facebook/react/blob/v0.13.3/src/classic/element/ReactElement.js#L131
     elementShallowCopy = objectUnfreeze(elementShallowCopy);
     elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
-  } else if (propsNotExtensible) {
+  } else if (propsFrozen || propsNotExtensible) {
     elementShallowCopy.props = objectUnfreeze(elementShallowCopy.props);
   }
 
@@ -78,6 +79,8 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   if (elementIsFrozen) {
     Object.freeze(elementShallowCopy.props);
     Object.freeze(elementShallowCopy);
+  } else if (propsFrozen) {
+    Object.freeze(elementShallowCopy.props);
   }
 
   if (propsNotExtensible) {
