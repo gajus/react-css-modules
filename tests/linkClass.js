@@ -1,4 +1,4 @@
-/* eslint-disable max-nested-callbacks, react/prefer-stateless-function, class-methods-use-this, no-console */
+/* eslint-disable max-nested-callbacks, react/prefer-stateless-function, class-methods-use-this, no-console, no-unused-expressions */
 
 import chai, {
     expect
@@ -236,6 +236,76 @@ describe('linkClass', () => {
       });
 
       expect(subject.props.children.props.className).to.equal('foo-1 bar-1');
+    });
+  });
+
+  context('can\'t write to properties', () => {
+    context('when the element is frozen', () => {
+      it('adds className but is still frozen', () => {
+        let subject;
+
+        subject = <div styleName='foo' />;
+
+        Object.freeze(subject);
+        subject = linkClass(subject, {
+          foo: 'foo-1'
+        });
+
+        expect(subject).to.be.frozen;
+        expect(subject.props.className).to.equal('foo-1');
+      });
+    });
+    context('when the element\'s props are frozen', () => {
+      it('adds className and only props are still frozen', () => {
+        let subject;
+
+        subject = <div styleName='foo' />;
+
+        Object.freeze(subject.props);
+        subject = linkClass(subject, {
+          foo: 'foo-1'
+        });
+
+        expect(subject.props).to.be.frozen;
+        expect(subject.props.className).to.equal('foo-1');
+      });
+    });
+    context('when the element\'s props are not extensible', () => {
+      it('adds className and props are still not extensible', () => {
+        let subject;
+
+        subject = <div styleName='foo' />;
+
+        Object.preventExtensions(subject.props);
+        subject = linkClass(subject, {
+          foo: 'foo-1'
+        });
+
+        expect(subject.props).to.not.be.extensible;
+        expect(subject.props.className).to.equal('foo-1');
+      });
+    });
+  });
+
+  context('when element is an array', () => {
+    it('handles each element individually', () => {
+      let subject;
+
+      subject = [
+        <div key={1} styleName='foo' />,
+        <div key={2}>
+          <p styleName='bar' />
+        </div>
+      ];
+
+      subject = linkClass(subject, {
+        bar: 'bar-1',
+        foo: 'foo-1'
+      });
+
+      expect(subject).to.be.an('array');
+      expect(subject[0].props.className).to.equal('foo-1');
+      expect(subject[1].props.children.props.className).to.equal('bar-1');
     });
   });
 
