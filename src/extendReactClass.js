@@ -22,11 +22,11 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
       if (this.props.styles || hasDefaultstyles) {
         const props = Object.assign({}, this.props);
 
-        if (this.props.styles) {
-          styles = this.props.styles;
+        if (props.styles) {
+          styles = props.styles;
         } else if (hasDefaultstyles) {
           styles = defaultStyles;
-          delete this.props.styles;
+          delete props.styles;
         }
 
         Object.defineProperty(props, 'styles', {
