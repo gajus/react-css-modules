@@ -141,6 +141,22 @@ describe('linkClass', () => {
         expect(subject.props.children[0].props).not.to.have.property('styleName');
         expect(subject.props.children[1].props).not.to.have.property('styleName');
       });
+      it('preserves original keys', () => {
+        let subject;
+
+        subject = <div>
+          <p key='1' styleName='foo' />
+          <p key='2' styleName='bar' />
+        </div>;
+
+        subject = linkClass(subject, {
+          bar: 'bar-1',
+          foo: 'foo-1'
+        });
+
+        expect(subject.props.children[0].key).to.equal('1');
+        expect(subject.props.children[1].key).to.equal('2');
+      });
     });
     context('when multiple descendants have styleName and are iterable', () => {
       it('assigns a generated className', () => {
