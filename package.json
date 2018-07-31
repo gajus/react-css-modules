@@ -20,7 +20,7 @@
   },
   "license": "BSD-3-Clause",
   "dependencies": {
-    "hoist-non-react-statics": "^1.2.0",
+    "hoist-non-react-statics": "^2.5.5",
     "lodash": "^4.16.6",
     "object-unfreeze": "^1.1.0"
   },
