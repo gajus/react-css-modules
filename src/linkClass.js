@@ -50,7 +50,7 @@ const linkElement = (element: ReactElement, styles: Object, configuration: Objec
   if (React.isValidElement(children)) {
     elementShallowCopy.props.children = linkElement(React.Children.only(children), styles, configuration);
   } else if (_.isArray(children) || isIterable(children)) {
-    elementShallowCopy.props.children = React.Children.map(children, (node) => {
+    elementShallowCopy.props.children = _.map(children, (node) => {
       if (React.isValidElement(node)) {
         // eslint-disable-next-line no-use-before-define
         return linkElement(React.Children.only(node), styles, configuration);
