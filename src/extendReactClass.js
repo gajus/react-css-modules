@@ -18,7 +18,9 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
       let styles;
 
       const hasDefaultstyles = _.isObject(defaultStyles);
-
+      
+      let renderResult;
+      
       if (this.props.styles || hasDefaultstyles) {
         const props = Object.assign({}, this.props);
 
@@ -35,13 +37,30 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
           value: styles,
           writable: false
         });
+        
+        const originalProps = this.props;
+        
+        let renderIsSuccessful = false;
 
-        this.props = props;
+        try {
+          this.props = props;
+          
+          renderResult = super.render();
+          
+          renderIsSuccessful = true;
+        } finally {
+          this.props = originalProps;
+        }
+        
+        // @see https://github.com/facebook/react/issues/14224
+        if (!renderIsSuccessful) {
+          renderResult = super.render();
+        }
       } else {
         styles = {};
+        
+        renderResult = super.render();
       }
-
-      const renderResult = super.render();
 
       if (renderResult) {
         return linkClass(renderResult, styles, options);
