@@ -13,7 +13,9 @@ const linkArray = (array: Array, styles: Object, configuration: Object) => {
       // eslint-disable-next-line no-use-before-define
       array[index] = linkElement(React.Children.only(value), styles, configuration);
     } else if (_.isArray(value)) {
-      array[index] = linkArray(value, styles, configuration);
+      const unfreezedValue = Object.isFrozen(value) ? objectUnfreeze(value) : value;
+
+      array[index] = linkArray(unfreezedValue, styles, configuration);
     }
   });
 
