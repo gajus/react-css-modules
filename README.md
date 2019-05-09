@@ -1,6 +1,6 @@
 # React CSS Modules
 
-![[GitSpo Mentions](https://gitspo.com/mentions/gajus/react-css-modules)](https://gitspo.com/badges/gajus/react-css-modules?style=flat-square)
+[![GitSpo Mentions](https://gitspo.com/badges/gajus/react-css-modules?style=flat-square)](https://gitspo.com/mentions/gajus/react-css-modules)
 [![Travis build status](http://img.shields.io/travis/gajus/react-css-modules/master.svg?style=flat-square)](https://travis-ci.org/gajus/react-css-modules)
 [![NPM version](http://img.shields.io/npm/v/react-css-modules.svg?style=flat-square)](https://www.npmjs.org/package/react-css-modules)
 [![js-canonical-style](https://img.shields.io/badge/code%20style-canonical-blue.svg?style=flat-square)](https://github.com/gajus/canonical)
