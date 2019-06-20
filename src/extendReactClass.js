@@ -28,6 +28,7 @@ export default (Component: Object, defaultStyles: Object, options: Object) => {
           styles = props.styles;
         } else if (hasDefaultstyles) {
           styles = defaultStyles;
+          props.styles = null;
           delete props.styles;
         }
 
